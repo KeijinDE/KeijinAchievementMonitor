@@ -1,0 +1,57 @@
+## Interface: 11200
+## Title: KeijinAchievementMonitor
+## Notes: Custom achievement system for Turtle WoW, fully KI Generated
+## Author: Keijin
+## Version: v0.3.0
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData
+
+# Core
+data\core.lua
+storage\storage_mode.lua
+data\trigger.lua
+storage\storage.lua
+ui\updateui.lua
+debug\debug_namedquests.lua
+ui\minimap.lua
+
+# Events
+events\events.lua
+events\events_char.lua
+events\events_kill.lua
+events\events_quest.lua
+events\events_skill.lua
+events\events_zone.lua
+events\events_reputation.lua
+events\events_meta.lua
+events\events_misc.lua
+
+# UI
+ui\ui_main.lua
+ui\ui_scrolllogic.lua
+ui\ui_notify.lua
+ui\ui_summary.lua
+ui\ui_config.lua
+ui\clickhandlers.lua
+
+# Achievements by Category
+achievements\achievements_char.lua
+achievements\achievements_reputation.lua
+achievements\achievements_skills.lua
+achievements\achievements_misc.lua
+achievements\achievements_meta.lua
+achievements\achievements_legacy.lua
+achievements\quests\achievements_quests_generic.lua
+achievements\quests\achievements_quests_named.lua
+achievements\kills\achievements_killgroup.lua
+achievements\kills\achievements_killnamed.lua
+achievements\kills\achievements_kills.lua
+achievements\exploration\achievements_exploration_capitals.lua
+achievements\exploration\achievements_exploration_startingzones.lua
+achievements\exploration\achievements_exploration_kalimdor.lua
+achievements\exploration\achievements_exploration_easternkingdoms.lua
+achievements\exploration\achievements_exploration_metas.lua
+
+# Misc
+ui\tooltip.lua
