@@ -29,3 +29,14 @@ table.insert(KAMN.achievements, {
   category = "Misc",
   points = 5 , requiredFor = {}
 })
+
+-- Alpha
+table.insert(KAMN.achievements, {
+  id = "LEG_001",
+  name = "KAM Alpha Hero",
+  description = "Awarded to players who participated during the KAM Alpha Phase in July 2025.",
+  type = "legacy",
+  category = "Legacy",
+  active = false,
+  points = 0
+})
