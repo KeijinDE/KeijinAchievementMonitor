@@ -47,7 +47,7 @@ SlashCmdList["KAM"] = function(msg)
 
   -- 📘 Befehlsübersicht
   if msg == "" then
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAchievements]|r Available commands:")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAchievementMonitor]|r Available commands:")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam toggle|r – Toggle UI on/off")
     --DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam config|r – Open settings window")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam debug|r – Toggle debug mode")
