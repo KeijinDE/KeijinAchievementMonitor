@@ -2,7 +2,7 @@
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
 -- 📦 Version (zentral definiert)
-KAMN_VERSION = "0.3.0"
+KAMN_VERSION = "0.3.1"
 
 
 -- ✅ Check for global corruption (classic safeguard)
@@ -202,4 +202,22 @@ function KAMN_IsAchievementComplete(id)
   return data and data.complete == true
 end
 
+-- Notfall Debug um richtigen Chat zu bestimmen
+-- local repDebugFrame = CreateFrame("Frame")
+-- local repEvents = {
+  -- "CHAT_MSG_SYSTEM",
+  -- "CHAT_MSG_COMBAT_FACTION_CHANGE",
+  -- "UI_INFO_MESSAGE",
+  -- "COMBAT_TEXT_UPDATE",
+  -- "CHAT_MSG_TEXT_EMOTE",
+  -- "CHAT_MSG_LOOT",
+  -- "CHAT_MSG_SKILL",
+-- }
 
+-- for i = 1, table.getn(repEvents) do
+  -- repDebugFrame:RegisterEvent(repEvents[i])
+-- end
+
+-- repDebugFrame:SetScript("OnEvent", function()
+  -- DEFAULT_CHAT_FRAME:AddMessage("|cff99ccff[KAM Debug]|r Event: " .. event .. " | arg1: " .. tostring(arg1))
+-- end)
