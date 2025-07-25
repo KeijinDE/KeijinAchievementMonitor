@@ -38,5 +38,5 @@ table.insert(KAMN.achievements, {
   type = "misc",
   category = "Misc",
   active = false,
-  points = 0
+  points = 5
 })
