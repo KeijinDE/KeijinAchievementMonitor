@@ -21,6 +21,16 @@ It features:
 
 ---
 
+## How it works
+Keijin Achievement Monitor (KAM) is a fully client-side achievement system for Turtle WoW (1.12).
+It relies on classic Lua events and chat output, tracks your progress locally (per character or account), and displays everything in a custom, minimalist UI.
+
+Limitations:
+No retroactive tracking of previously completed content
+No online sync or server integration
+No modern Lua features – 100% Classic-compatible
+---
+
 ## 🧰 Installation
 1. Download the release ZIP
 2. Extract into your `Interface/AddOns` folder  
@@ -74,7 +84,15 @@ Es bietet:
 - Kompatibel mit allen Turtle WoW-Inhalten – auch Legacy-Zonen
 
 ---
+## Funktionsweise
+Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für Turtle WoW (1.12).
+Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortschritt lokal (Charakter / Account) und zeigt alles in einem eigenen, minimalistischen UI.
 
+*Einschränkungen*:
+Kein rückwirkendes Tracking bereits erledigter Inhalte
+Kein Online-Sync oder Serverabgleich
+Keine modernen Lua-Funktionen – 100 % Classic-kompatibel
+---
 ## 🧰 Installation
 1. ZIP-Datei herunterladen
 2. Entpacken in dein `Interface/AddOns` Verzeichnis  
