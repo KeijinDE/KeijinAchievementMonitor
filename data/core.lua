@@ -56,7 +56,7 @@ SlashCmdList["KAM"] = function(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export legacy|r – Export only legacy")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export meta|r – Export only meta")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export all|r – Export all completed")
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
+    --DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
     return
 
   -- 🖼 UI ein-/ausblenden
