@@ -80,7 +80,8 @@ end
     zone = "explore",
     discover = "explore",
     bosskill = "bosskill",
-	meta = "explore"
+	meta = "explore",
+	misc = "misc"
   }
 
   local groups = {}
@@ -98,6 +99,7 @@ end
     Quests = {"quests", "namedquests"},
     Exploration = {"explore"},
     Character = {"stat"},
+	Misc = {"misc"}
   }
 
   -- 🔁 Spezielle Sortierreihenfolge für "ALL"
@@ -110,7 +112,7 @@ end
       "quests", "namedquests",  -- Quests
       "reputation", -- Reputation
       "skill", "weapon",  -- Skills
-      "_other",     -- Misc
+      "misc",     -- Misc
       "meta",       -- Meta
       "legacy",     -- Legacy
     }
@@ -145,7 +147,7 @@ elseif key == "namedquests"    then label = "Named Quests"
 elseif key == "reputation"     then label = "Reputation"
 elseif key == "skill"          then label = "Skills"
 elseif key == "weapon"         then label = "Weapon Skills"
-elseif key == "_other"         then label = "Miscellaneous"
+elseif key == "misc"           then label = "Miscellaneous"
 elseif key == "meta"           then label = "Meta"
 elseif key == "legacy"         then label = "Legacy"
 else
