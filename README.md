@@ -26,9 +26,10 @@ Keijin Achievement Monitor (KAM) is a fully client-side achievement system for T
 It relies on classic Lua events and chat output, tracks your progress locally (per character or account), and displays everything in a custom, minimalist UI.
 
 Limitations:
-No retroactive tracking of previously completed content
-No online sync or server integration
-No modern Lua features – 100% Classic-compatible
+- No retroactive tracking of previously completed content
+- No online sync or server integration
+- No modern Lua features – 100% Classic-compatible
+
 ---
 
 ## 🧰 Installation
@@ -89,9 +90,9 @@ Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für 
 Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortschritt lokal (Charakter / Account) und zeigt alles in einem eigenen, minimalistischen UI.
 
 *Einschränkungen*:
-Kein rückwirkendes Tracking bereits erledigter Inhalte
-Kein Online-Sync oder Serverabgleich
-Keine modernen Lua-Funktionen – 100 % Classic-kompatibel
+- Kein rückwirkendes Tracking bereits erledigter Inhalte
+- Kein Online-Sync oder Serverabgleich
+- Keine modernen Lua-Funktionen – 100 % Classic-kompatibel
 ---
 ## 🧰 Installation
 1. ZIP-Datei herunterladen
