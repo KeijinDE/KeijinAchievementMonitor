@@ -57,7 +57,7 @@ function KAMN_SaveProgress(id, data)
       DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Char++ ➜ " .. id .. " (" .. newProgress .. ")")
     end
   elseif KAMN.debug then
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffaa88[KAM]|r Kein Update: Char-Fortschritt bereits bei " .. (currentChar.progress or 0))
+    --DEFAULT_CHAT_FRAME:AddMessage("|cffffaa88[KAM]|r Kein Update: Char-Fortschritt bereits bei " .. (currentChar.progress or 0))
   end
 
   -- 📌 Fortschritt ACCOUNT
@@ -75,7 +75,7 @@ function KAMN_SaveProgress(id, data)
       DEFAULT_CHAT_FRAME:AddMessage("|cff8888ff[KAM]|r Acc++ ➜ " .. id .. " (" .. newProgress .. ")")
     end
   elseif KAMN.debug then
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffaa88[KAM]|r Kein Update: Acc-Fortschritt bereits bei " .. (currentAcc.progress or 0))
+    --DEFAULT_CHAT_FRAME:AddMessage("|cffffaa88[KAM]|r Kein Update: Acc-Fortschritt bereits bei " .. (currentAcc.progress or 0))
   end
 
   -- 🔁 Backfill-Trigger aufrufen

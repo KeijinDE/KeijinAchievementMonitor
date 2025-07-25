@@ -56,7 +56,7 @@ function KAMN_ToggleStorageMode()
   -- Wichtig: Hier explizit setzen!
   KAMN_UseAccountData = (newMode == "account")
 
-  DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Speicher umgeschaltet auf: |cffffff88" .. string.upper(newMode))
+  DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Storage mode set to: |cffffff88" .. string.upper(newMode))
 
 -- 🧠 Fortschrittsdaten neu laden
 if KAMN_LoadSavedProgress then

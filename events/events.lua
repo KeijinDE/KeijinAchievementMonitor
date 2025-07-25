@@ -32,7 +32,7 @@ local function SafeExtract(str, pattern, lang)
     end
   end
   if KAMN and KAMN.debug and lang then
-    DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Keine Quest erkannt ("..lang.."): " .. str)
+    -- DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Keine Quest erkannt ("..lang.."): " .. str)
   end
   return nil
 end
@@ -47,7 +47,7 @@ eventFrame:RegisterEvent("COMBAT_TEXT_UPDATE")
 eventFrame:RegisterEvent("CHAT_MSG_COMBAT_HOSTILE_DEATH")
 eventFrame:RegisterEvent("QUEST_LOG_UPDATE")
 eventFrame:RegisterEvent("CHAT_MSG_SYSTEM")
-eventFrame:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE") -- 📌 Reputationsänderungen (relevant!)
+eventFrame:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE") 
 eventFrame:RegisterEvent("UI_INFO_MESSAGE")
 eventFrame:RegisterEvent("CHAT_MSG_SKILL")
 eventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
