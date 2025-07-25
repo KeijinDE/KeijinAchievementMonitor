@@ -21,7 +21,32 @@ table.insert(KAMN.achievements, {
   points = 5,
   requiredFor = { "" },
 })
-
+table.insert(KAMN.achievements, {
+  id = "KILL_Rat1",
+  name = "Rat Controll",
+  description = "Kill a Rat.",
+  type = "namedkill",
+  targetname = "Rat",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = { "" },
+})
+table.insert(KAMN.achievements, {
+  id = "KILL_Roach1",
+  name = "Roach Sniper",
+  description = "Kill a Roach.",
+  type = "namedkill",
+  targetname = "Roach",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = { "" },
+})
 table.insert(KAMN.achievements, {
   id = "KILL_SHEEP1",
   name = "Woolly Mistake",

@@ -54,6 +54,8 @@ table.insert(KAMN.achievements, {
     "KILL_ADDER1",
     "KILL_TOAD1",
     "KILL_FAWN1",
+	"KILL_Roach1",
+	"KILL_Rat1",
   },
   category = "Meta",
   points = 20,

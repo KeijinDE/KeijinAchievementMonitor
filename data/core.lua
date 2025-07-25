@@ -1,42 +1,42 @@
 -- core.lua
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
--- 📦 Version (zentral definiert)
-KAMN_VERSION = "0.3.1"
+-- Version (zentral definiert)
+KAMN_VERSION = "0.3.2"
 
 
--- ✅ Check for global corruption (classic safeguard)
+-- Check for global corruption (classic safeguard)
 if type(string) ~= "table" then
   DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM Debug] WARNING: Global 'string' corrupted (type: " .. type(string) .. ")")
 end
 
--- 🔧 Global addon namespace
+--  Global addon namespace
 KAMN = KAMN or {}
 
--- 🧠 Einheitliche CharKey-Hilfe: Realm-Name + Spielername
+--  Einheitliche CharKey-Hilfe: Realm-Name + Spielername
 function KAMN_GetCharKey()
   local name = UnitName("player") or "Unknown"
   local realm = GetRealmName() or "Realm"
   return realm .. "-" .. name
 end
 
--- 🗃 SavedVariables (initialized if missing)
+--  SavedVariables (initialized if missing)
 KAMN_CharacterDB     = KAMN_CharacterDB or {}
 KAMN_AccountProgress = KAMN_AccountProgress or {}
 KAMN_PlayerProgress  = KAMN_PlayerProgress or {}
 KAMN_UseAccountData  = KAMN_UseAccountData or false
 
--- ⚙️ Addon Options
+--  Addon Options
 KAMN_Options = KAMN_Options or {
   debug = false,
   showTooltipInfo = false, -- 🧪 Tooltip-Anzeige: Nur wenn aktiviert
 }
 
 
--- 🔊 Startup message (uses centralized version constant)
+--  Startup message (uses centralized version constant)
 DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAddons]|r |cffffff88KeijinAchievementMonitor|r v" .. KAMN_VERSION .. " – Use /kam")
 
--- 📟 Slash-Befehle
+--  Slash-Befehle
 SLASH_KAM1 = "/kam"
 SLASH_KAM2 = "/kamn"
 SLASH_KAM3 = "/kca"
@@ -45,7 +45,7 @@ SlashCmdList["KAM"] = function(msg)
   msg = string.lower(msg or "")
   local playerName = UnitName("player") or "Unknown"
 
-  -- 📘 Befehlsübersicht
+  --  Befehlsübersicht
   if msg == "" then
     DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAchievementMonitor]|r Available commands:")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam toggle|r – Toggle UI on/off")
@@ -56,10 +56,10 @@ SlashCmdList["KAM"] = function(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export legacy|r – Export only legacy")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export meta|r – Export only meta")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export all|r – Export all completed")
-    --DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
     return
 
-  -- 🖼 UI ein-/ausblenden
+  --  UI ein-/ausblenden
   elseif msg == "toggle" then
     if KAMNMainFrame then
       if KAMNMainFrame:IsShown() then
@@ -70,32 +70,43 @@ SlashCmdList["KAM"] = function(msg)
       end
     end
 
-  -- ⚙️ Konfig-Fenster öffnen
-  elseif msg == "config" then
-    if KAMNConfigFrame then
-      if KAMNConfigFrame:IsShown() then
-        KAMNConfigFrame:Hide()
-      else
-        KAMN_ShowConfig()
-      end
+  -- ️ Konfig-Fenster öffnen
+elseif msg == "config" then
+  if type(KAMN_CreateSettingsFrame) == "function" and not KAMNConfigFrame then
+    KAMN_CreateSettingsFrame()
+  end
+  if KAMNConfigFrame then
+    if KAMNConfigFrame:IsShown() then
+      KAMNConfigFrame:Hide()
+    else
+      KAMNConfigFrame:Show()
     end
+  else
+    DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r Config frame not available.")
+  end
 
-  -- 🐞 Debugmodus
+
+
+  --  Debugmodus
   elseif msg == "debug" then
     KAMN.debug = not KAMN.debug
     DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Mode: " .. tostring(KAMN.debug))
 
-  -- 🧪 Testbenachrichtigung
+  --  Testbenachrichtigung
   elseif msg == "test" then
     if KAMN_ShowNotify then
       KAMN_ShowNotify("This is a test achievement.")
     end
 
-  -- 🔁 Charakterfortschritt zurücksetzen
+  --  Charakterfortschritt zurücksetzen
   elseif msg == "reset" then
     StaticPopup_Show("KAMN_RESET_CONFIRM")
 
-  -- 📤 Export (mit optionalem Filter)
+--wipeall
+ elseif msg == "wipeall" then
+    KAMN_ResetAllProgress()
+	
+  --  Export (mit optionalem Filter)
   elseif string.find(msg, "^export") then
     local arg = string.gsub(msg, "^export%s*", "")
     local key = KAMN_GetCharKey()
@@ -125,7 +136,7 @@ SlashCmdList["KAM"] = function(msg)
   end
 end
 
--- 🧠 Initialisierung beim Login
+-- Initialisierung beim Login
 function KAMN:Initialize()
   self.debug = false
   if not self.achievements or table.getn(self.achievements) == 0 then
@@ -151,27 +162,37 @@ function KAMN:Initialize()
   end
 end
 
--- 🔁 Login-Trigger
+-- Login-Trigger
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function() KAMN:Initialize() end)
 
--- 🔒 Entwickler-Wipe
+-- Entwickler-Wipe
 StaticPopupDialogs["KAMN_CONFIRM_FULLRESET"] = {
   text = "This will wipe ALL character and account progress.\nAre you sure?",
-  button1 = "Yes, wipe all",
+  button1 = "Yes, continue",
+  button2 = "Cancel",
+  OnAccept = function()
+    StaticPopup_Show("KAMN_CONFIRM_FULLRESET_REALLY")
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = true,
+  preferredIndex = 3,
+}
+StaticPopupDialogs["KAMN_CONFIRM_FULLRESET_REALLY"] = {
+  text = "This cannot be undone!\nDo you really REALLY want to wipe ALL progress?",
+  button1 = "Yes, wipe everything",
   button2 = "Cancel",
   OnAccept = function()
     KAMN_AccountProgress = {}
     KAMN_PlayerProgress = {}
     KAMN_CharacterDB = {}
-
     local key = KAMN_GetCharKey()
     if KAMN_Settings and KAMN_Settings[key] then
       KAMN_Settings[key].mode = nil
     end
     KAMN_UseAccountData = nil
-
     DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r ALL progress and storage mode wiped.")
     ReloadUI()
   end,
@@ -181,12 +202,32 @@ StaticPopupDialogs["KAMN_CONFIRM_FULLRESET"] = {
   preferredIndex = 3,
 }
 
--- 🔧 Entwickler: Account & global Reset
+StaticPopupDialogs["KAMN_RESET_CONFIRM"] = {
+  text = "This will reset your character's progress.\nAre you sure?",
+  button1 = "Yes, reset",
+  button2 = "Cancel",
+  OnAccept = function()
+    local key = KAMN_GetCharKey()
+    if KAMN_PlayerProgress then
+      KAMN_PlayerProgress[key] = {}
+    end
+    if KAMN_CharacterDB then
+      KAMN_CharacterDB[key] = {}
+    end
+    DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r Character progress has been reset.")
+    ReloadUI()
+  end,
+  timeout = 0,
+  whileDead = true,
+  hideOnEscape = true,
+  preferredIndex = 3,
+}
+--  Entwickler: Account & global Reset
 function KAMN_ResetAllProgress()
   StaticPopup_Show("KAMN_CONFIRM_FULLRESET")
 end
 
--- 🧰 Entwickler-Dump-Funktion
+--  Entwickler-Dump-Funktion
 SLASH_KAMDUMP1 = "/kamdump"
 SlashCmdList["KAMDUMP"] = function()
   if KAMN_DumpProgress then
@@ -196,7 +237,7 @@ SlashCmdList["KAMDUMP"] = function()
   end
 end
 
--- 🔍 Hilfsfunktion: Ist Erfolg abgeschlossen?
+--  Hilfsfunktion: Ist Erfolg abgeschlossen?
 function KAMN_IsAchievementComplete(id)
   local data = KAMN_GetAchievementData(id)
   return data and data.complete == true

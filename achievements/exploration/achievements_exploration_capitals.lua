@@ -61,7 +61,7 @@ table.insert(KAMN.achievements, {
   name = "Stormwind Discovered",
   description = "Set foot in Stormwind, heart of the Alliance.",
   type = "discover",
-  zonename = "Stormwind City",
+  zonename = "Stormwind Habor",
   continent = "Eastern Kingdome",
   zonegroup = "Elwynn Forest",
   value = 1,

@@ -607,3 +607,154 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
+-- Durotar Labor Union
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_DUROTAR_1000",
+  name = "Durotar Associate",
+  description = "Gain 1,000 reputation with the Durotar Labor Union.",
+  type = "reputation",
+  subtype = "horde",
+  faction = "Durotar Labor Union",
+  value = 1000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_DUROTAR_3000",
+  name = "Durotar Aide",
+  description = "Gain 3,000 reputation with the Durotar Labor Union.",
+  type = "reputation",
+  subtype = "horde",
+  faction = "Durotar Labor Union",
+  value = 3000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_DUROTAR_6000",
+  name = "Labor Union Partner",
+  description = "Gain 6,000 reputation with the Durotar Labor Union.",
+  type = "reputation",
+  subtype = "horde",
+  faction = "Durotar Labor Union",
+  value = 6000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_DUROTAR_12000",
+  name = "Durotar Ally",
+  description = "Gain 12,000 reputation with the Durotar Labor Union.",
+  type = "reputation",
+  subtype = "horde",
+  faction = "Durotar Labor Union",
+  value = 12000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 10,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_DUROTAR_21000",
+  name = "Champion of the Labor Union",
+  description = "Gain 21,000 reputation with the Durotar Labor Union.",
+  type = "reputation",
+  subtype = "horde",
+  faction = "Durotar Labor Union",
+  value = 21000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 20,
+  requiredFor = {},
+})
+
+-- Silvermoon Remnant
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_SILVERMOON_1000",
+  name = "Ally of the Remnant",
+  description = "Gain 1,000 reputation with the Silvermoon Remnant.",
+  type = "reputation",
+  subtype = "alliance",
+  faction = "Silvermoon Remnant",
+  value = 1000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_SILVERMOON_3000",
+  name = "Respected by the Remnant",
+  description = "Gain 3,000 reputation with the Silvermoon Remnant.",
+  type = "reputation",
+  subtype = "alliance",
+  faction = "Silvermoon Remnant",
+  value = 3000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_SILVERMOON_6000",
+  name = "Friend of the Silvermoon",
+  description = "Gain 6,000 reputation with the Silvermoon Remnant.",
+  type = "reputation",
+  subtype = "alliance",
+  faction = "Silvermoon Remnant",
+  value = 6000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_SILVERMOON_12000",
+  name = "Honorary Sin'dorei",
+  description = "Gain 12,000 reputation with the Silvermoon Remnant.",
+  type = "reputation",
+  subtype = "alliance",
+  faction = "Silvermoon Remnant",
+  value = 12000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 10,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "REPUTATION_SILVERMOON_21000",
+  name = "Champion of Silvermoon",
+  description = "Gain 21,000 reputation with the Silvermoon Remnant.",
+  type = "reputation",
+  subtype = "alliance",
+  faction = "Silvermoon Remnant",
+  value = 21000,
+  progress = 0,
+  complete = false,
+  category = "Reputation",
+  points = 20,
+  requiredFor = {},
+})
