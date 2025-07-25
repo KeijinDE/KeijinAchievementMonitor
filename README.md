@@ -1,7 +1,7 @@
 🇬🇧 ENGLISH – GitHub Release Description
 
 # 📦 Keijin Achievement Monitor (KAM)
-**Version:** v0.3.0   | 250725_1630
+**Version:** v0.3.1   | 250725_2222
 
 **For:** Turtle WoW (Classic 1.12)  
 **Author:** Keijin  
