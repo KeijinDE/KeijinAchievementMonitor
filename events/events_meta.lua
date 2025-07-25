@@ -37,7 +37,7 @@ function KAMN_HandleMetaCheck()
         -- 🧩 Nur speichern, falls Fortschritt sichtbar sein soll
         KAMN_SaveProgress(a.id, a)
         if KAMN.debug then
-          DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[KAM Debug]|r Meta: " .. (a.name or a.id) .. " – Fortschritt " .. done .. "/" .. total)
+          --DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[KAM Debug]|r Meta: " .. (a.name or a.id) .. " – Fortschritt " .. done .. "/" .. total)
         end
       end
     end
