@@ -37,6 +37,7 @@ table.insert(KAMN.achievements, {
   description = "Awarded to players who participated during the KAM Alpha Phase in July 2025.",
   type = "misc",
   category = "Misc",
-  active = false,
-  points = 5
+  active = true,
+  points = 5,
+  requiredFor = {}
 })
