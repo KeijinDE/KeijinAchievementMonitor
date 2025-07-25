@@ -2,7 +2,7 @@
 ## Title: KeijinAchievementMonitor
 ## Notes: Custom achievement system for Turtle WoW, fully KI Generated
 ## Author: Keijin
-## Version: v0.3.0
+## Version: v0.3.1
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData
