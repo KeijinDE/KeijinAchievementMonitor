@@ -34,36 +34,39 @@ notifyFrame:SetScript("OnDragStop", function()
   KAMN_Settings.NotifyPosX = posX
   KAMN_Settings.NotifyPosY = posY
   if KAMN and KAMN.debug then
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify verschoben: X=" .. posX .. ", Y=" .. posY)
+    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify moved to: X=" .. posX .. ", Y=" .. posY)
+
   end
 end)
 notifyFrame:Hide()
 
--- Hintergrund
+-- Hintergrund mit Innenabstand
 notifyFrame.bg = notifyFrame:CreateTexture(nil, "BACKGROUND")
-notifyFrame.bg:SetAllPoints(true)
+notifyFrame.bg:SetPoint("TOPLEFT", notifyFrame, "TOPLEFT", 4, -4)
+notifyFrame.bg:SetPoint("BOTTOMRIGHT", notifyFrame, "BOTTOMRIGHT", -4, 4)
 notifyFrame.bg:SetTexture(0, 0, 0)
 notifyFrame.bg:SetAlpha(0.6)
+
 
 -- Rand
 notifyFrame.border = CreateFrame("Frame", nil, notifyFrame)
 notifyFrame.border:SetAllPoints(true)
 notifyFrame.border:SetBackdrop({
-  edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+  edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
   tile = false, edgeSize = 12,
 })
 notifyFrame.border:SetBackdropBorderColor(1, 1, 1, 0.8)
 
 -- Obere Zeile
-notifyFrame.title = notifyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+notifyFrame.title = notifyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 notifyFrame.title:SetPoint("TOP", notifyFrame, "TOP", 0, -10)
-notifyFrame.title:SetFont("Fonts\\FRIZQT__.TTF", 14, "OUTLINE")
+--notifyFrame.title:SetFont("Fonts\\FRIZQT__.TTF", 14, "OUTLINE")
 notifyFrame.title:SetText("|cffffff00Achievement Completed|r")
 
 -- Untere Zeile
 notifyFrame.text = notifyFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 notifyFrame.text:SetPoint("BOTTOM", notifyFrame, "BOTTOM", 0, 10)
-notifyFrame.text:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE")
+notifyFrame.text:SetFont("Fonts\\SKURRI.TTF", 18, "OUTLINE")
 notifyFrame.text:SetText("")
 
 -- 📢 Öffentliche Funktion zum Anzeigen
@@ -73,7 +76,7 @@ function KAMN_ShowNotify(name)
   KAMN_Settings = KAMN_Settings or {}
   if KAMN_Settings.NotifyEnabled == false then
     if KAMN and KAMN.debug then
-      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify ist deaktiviert – keine Anzeige für: " .. name)
+DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify is disabled – no display for: " .. name)
     end
     return
   end
@@ -112,7 +115,7 @@ notifyController:SetScript("OnUpdate", function()
     KAMN_LastNotify = nextName
 
     if KAMN and KAMN.debug then
-      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Zeige Notify: " .. nextName)
+DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Showing notify: " .. nextName)
     end
   else
     notifyBatchStarted = false

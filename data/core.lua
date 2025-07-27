@@ -2,7 +2,7 @@
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
 -- Version (zentral definiert)
-KAMN_VERSION = "0.3.2"
+KAMN_VERSION = "0.3.3"
 
 
 -- Check for global corruption (classic safeguard)
@@ -26,11 +26,17 @@ KAMN_AccountProgress = KAMN_AccountProgress or {}
 KAMN_PlayerProgress  = KAMN_PlayerProgress or {}
 KAMN_UseAccountData  = KAMN_UseAccountData or false
 
---  Addon Options
-KAMN_Options = KAMN_Options or {
-  debug = false,
-  showTooltipInfo = false, -- 🧪 Tooltip-Anzeige: Nur wenn aktiviert
-}
+-- 🔧 Init default options
+KAMN_Options = KAMN_Options or {}
+
+if KAMN_Options.debug == nil then
+  KAMN_Options.debug = false
+end
+
+if KAMN_Options.showTooltipInfo == nil then
+  KAMN_Options.showTooltipInfo = false -- oder false als Startwert
+end
+
 
 
 --  Startup message (uses centralized version constant)

@@ -97,8 +97,8 @@ elseif groupType == "weapon" then
  groupKey = "WEAPON_SKILL"
 elseif groupType == "skill" then
  groupKey = "PROFESSION_SKILL"
-elseif groupType == "quests" and a.generic then
- groupKey = "GENERIC_QUESTS"
+elseif groupType == "quest" then
+  groupKey = "GENERIC_QUEST"
 end
 
 -- Wenn keine Gruppe erkennbar, anzeigen
@@ -127,9 +127,9 @@ for i = 1, table.getn(KAMN.achievements) do
      match = true
    elseif groupType == "skill" and otherType == "skill" then
      match = true
-   elseif groupType == "quests" and otherType == "quests" and a.generic and other.generic then
-     match = true
-   end
+elseif groupType == "quest" and otherType == "quest" then
+  match = true
+end
 
    -- Wenn ein kleinerer Erfolg der Gruppe noch offen ist → aktuellen ausblenden
    if match and not (otherData and otherData.complete) and (otherValue < groupValue) then

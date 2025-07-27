@@ -23,7 +23,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 25,
   requiredFor = {},
+  continent = "Azeroth",
+  zonegroup = "Capitals",
 })
+
 
 -- Meta: Blackstone Isle (Goblins)
 table.insert(KAMN.achievements, {
@@ -40,7 +43,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Blackstone Isle",
 })
+
 
 -- Meta: Thalassian Highlands (High Elves)
 table.insert(KAMN.achievements, {
@@ -57,7 +63,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Thalassian Highlands",
 })
+
 
 
 -- Zone: Mulgore (Meta)
@@ -90,7 +99,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Mulgore",
 })
+
 
 -- Meta: Zone: Durotar
 table.insert(KAMN.achievements, {
@@ -115,7 +127,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Durotar",
 })
+
 
 -- Meta: Zone: Tirisfal Glades
 table.insert(KAMN.achievements, {
@@ -145,7 +160,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Eastern Kingdoms",
+  zonegroup = "Tirisfal Glades",
 })
+
 
 -- Meta: Zone: Elwynn Forest
 table.insert(KAMN.achievements, {
@@ -171,7 +189,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Eastern Kingdoms",
+  zonegroup = "Elwynn Forest",
 })
+
 -- Meta: Zone: Loch Modan
 table.insert(KAMN.achievements, {
   id = "DISCOVER_LOCHMODAN",
@@ -196,7 +217,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Eastern Kingdoms",
+  zonegroup = "Loch Modan",
 })
+
 
 -- Meta: Zone: Teldrassil
 table.insert(KAMN.achievements, {
@@ -221,7 +245,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Teldrassil",
 })
+
 
 
 -- Meta: Zone: Dun Morogh
@@ -255,7 +282,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Eastern Kingdoms",
+  zonegroup = "Dun Morogh",
 })
+
 
 -- Meta: Zone: Westfall
 table.insert(KAMN.achievements, {
@@ -284,7 +314,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Eastern Kingdoms",
+  zonegroup = "Westfall",
 })
+
 -- Meta: Zone: The Barrens
 table.insert(KAMN.achievements, {
   id = "DISCOVER_BARRENS",
@@ -305,7 +338,10 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "The Barrens",
 })
+
 
 -- Meta: Zone: Darkshore
 table.insert(KAMN.achievements, {
@@ -329,4 +365,6 @@ table.insert(KAMN.achievements, {
   complete = false,
   points = 15,
   requiredFor = {},
+  continent = "Kalimdor",
+  zonegroup = "Darkshore",
 })

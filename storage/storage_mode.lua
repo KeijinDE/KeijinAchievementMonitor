@@ -15,8 +15,8 @@ function KAMN_CheckInitialStorageMode()
 
   -- Zeige Auswahl-Popup zur initialen Festlegung
   StaticPopupDialogs["KAMN_SELECT_STORAGE_MODE"] = {
-    text = "Which storage mode do you want to use for this character?\n\n|cff88ff88Account-wide|r (shared across characters)\n|cffffff88or|r\n|cff88ff88Character-specific|r (per character)?",
-    button1 = "Account-wide",
+    text = "|cff88ff88[KeijinAddons]|r Which storage mode should |cffffff88KeijinAchievementMonitor|r use for this character?\n\n|cff88ff88Account-wide|r – Shared progress across all your characters.\n|cff88ff88Character-specific|r – Individual progress per character.",
+  button1 = "Account-wide",
     button2 = "Character-specific",
     OnAccept = function()
       KAMN_Settings[key].mode = "account"

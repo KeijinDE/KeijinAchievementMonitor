@@ -4,6 +4,94 @@
 KAMN = KAMN or {}
 KAMN.achievements = KAMN.achievements or {}
 
+
+-- Thalassian Highlands - High Elves --
+
+-- Quel'Danil Lodge
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_QUELDANILLODGE",
+  name = "Quel'Danil Lodge",
+  description = "Explore Quel'Danil Lodge in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Quel'Danil Lodge",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Sunfire Point
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_SUNFIREPOINT",
+  name = "Sunfire Point",
+  description = "Explore Sunfire Point in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Sunfire Point",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Farondale
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_FARONDALE",
+  name = "Farondale",
+  description = "Explore Farondale in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Farondale",
+  continent = "Kalimdor",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Ravencrest's Citadel
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_RAVENCRESTSCITADEL",
+  name = "Ravencrest's Citadel",
+  description = "Explore Ravencrest's Citadel in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Ravencrest's Citadel",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- San'layn Ruins
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_SANLAYNRUINS",
+  name = "San'layn Ruins",
+  description = "Explore San'layn Ruins in Thalassian Highlands.",
+  type = "discover",
+  zonename = "San'layn Ruins",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
 -- Blackstone Isle - Goblins --
 
 -- Smuggler's Cove
@@ -91,92 +179,7 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Thalassian Highlands - High Elves --
 
--- Quel'Danil Lodge
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_QUELDANILLODGE",
-  name = "Quel'Danil Lodge",
-  description = "Explore Quel'Danil Lodge in Thalassian Highlands.",
-  type = "discover",
-  zonename = "Quel'Danil Lodge",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
-
--- Sunfire Point
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_SUNFIREPOINT",
-  name = "Sunfire Point",
-  description = "Explore Sunfire Point in Thalassian Highlands.",
-  type = "discover",
-  zonename = "Sunfire Point",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
-
--- Farondale
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_FARONDALE",
-  name = "Farondale",
-  description = "Explore Farondale in Thalassian Highlands.",
-  type = "discover",
-  zonename = "Farondale",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
-
--- Ravencrest's Citadel
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_RAVENCRESTSCITADEL",
-  name = "Ravencrest's Citadel",
-  description = "Explore Ravencrest's Citadel in Thalassian Highlands.",
-  type = "discover",
-  zonename = "Ravencrest's Citadel",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
-
--- San'layn Ruins
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_SANLAYNRUINS",
-  name = "San'layn Ruins",
-  description = "Explore San'layn Ruins in Thalassian Highlands.",
-  type = "discover",
-  zonename = "San'layn Ruins",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
 
 -- Mulgore - Taure --
 

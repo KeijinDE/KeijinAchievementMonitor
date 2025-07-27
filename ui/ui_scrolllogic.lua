@@ -107,10 +107,12 @@ end
   if category == "ALL" or not order then
     order = {
       "stat",       -- Character
-      "kills", "namedkills", "namedkillgroup", "bosskill",  -- Combat
+	  "quests",
+	  "kills", 
+	  "reputation", -- Reputation  
+      "namedkills", "namedkillgroup", "bosskill",  -- Combat
       "explore",    -- Exploration
-      "quests", "namedquests",  -- Quests
-      "reputation", -- Reputation
+      "namedquests",  -- Quests
       "skill", "weapon",  -- Skills
       "misc",     -- Misc
       "meta",       -- Meta
@@ -136,42 +138,173 @@ end
     if hasVisible then
      
       local label
-if     key == "stat"           then label = "Level"
-elseif key == "kills"          then label = "Kills"
-elseif key == "namedkills"     then label = "Named Kills"
-elseif key == "namedkillgroup" then label = "Kill Groups"
-elseif key == "bosskill"       then label = "Boss Kills"
-elseif key == "explore"        then label = "Exploration"
-elseif key == "quests"         then label = "Quests"
-elseif key == "namedquests"    then label = "Named Quests"
-elseif key == "reputation"     then label = "Reputation"
-elseif key == "skill"          then label = "Skills"
-elseif key == "weapon"         then label = "Weapon Skills"
-elseif key == "misc"           then label = "Miscellaneous"
-elseif key == "meta"           then label = "Meta"
-elseif key == "legacy"         then label = "Legacy"
+if     key == "stat"           then label = "Character Growth"
+elseif key == "kills"          then label = "Combat Progress"
+elseif key == "namedkills"     then label = "Unique Targets"
+elseif key == "namedkillgroup" then label = "Hunting Challenges"
+elseif key == "bosskill"       then label = "Major Encounters"
+elseif key == "explore"        then label = "World Discovery"
+elseif key == "quests"         then label = "Quest Milestones"
+elseif key == "namedquests"    then label = "Story Quests"
+elseif key == "reputation"     then label = "Factions & Standing"
+elseif key == "skill"          then label = "Professions"
+elseif key == "weapon"         then label = "Weapon Mastery"
+elseif key == "misc"           then label = "Other Achievements"
+elseif key == "meta"           then label = "Achievement Sets"
+elseif key == "legacy"         then label = "Legacy Records"
 else
   label = string.upper(key)
 end
 
       table.insert(results, { isSubDivider = true, subLabel = label, groupKey = key })
 
-      table.sort(list, function(a, b)
-        if key == "kills" or key == "namedkillgroup" then
-          return (a.value or 0) < (b.value or 0)
-        else
-          return string.lower(a.name or "") < string.lower(b.name or "")
-        end
-      end)
+table.sort(list, function(a, b)
+  if key == "kills" or key == "namedkillgroup" or key == "quests" then
+    return (a.value or 0) < (b.value or 0)
 
-      for _, a in ipairs(list) do
-        if (filter == "DONE" and a.complete) or
-           (filter == "OPEN" and not a.complete) or
-           (filter == "ALL") then
-          a.groupKey = key
-          table.insert(results, a)
-        end
+  elseif key == "explore" then
+    local cA = string.lower(a.continent or "")
+    local cB = string.lower(b.continent or "")
+    if cA ~= cB then return cA < cB end
+
+    local zA = string.lower(a.zonegroup or "")
+    local zB = string.lower(b.zonegroup or "")
+    if zA ~= zB then return zA < zB end
+
+    -- Capitals: nach value absteigend
+    if zA == "capitals" then
+      return (a.value or 0) > (b.value or 0)
+    end
+
+    -- Zone-Metas (Zone: XYZ) zuerst, dann alphabetisch
+    local aName = string.lower(a.name or "")
+    local bName = string.lower(b.name or "")
+
+    local isZoneA = string.find(aName, "^zone:") ~= nil
+    local isZoneB = string.find(bName, "^zone:") ~= nil
+
+    if isZoneA ~= isZoneB then
+      return isZoneA
+    end
+
+    return aName < bName
+
+elseif key == "reputation" then
+  local order = { neutral = 1, horde = 2, alliance = 3 }
+
+  local sa = order[a.subtype or "neutral"] or 99
+  local sb = order[b.subtype or "neutral"] or 99
+  if sa ~= sb then return sa < sb end
+
+  local fa = string.lower(a.faction or "")
+  local fb = string.lower(b.faction or "")
+  if fa ~= fb then return fa < fb end
+
+  return (a.value or 0) < (b.value or 0)
+
+
+  else
+    return string.lower(a.name or "") < string.lower(b.name or "")
+  end
+end)
+
+
+
+
+
+
+      if key == "explore" then
+  local lastContinent = nil
+  local lastZoneGroup = nil
+
+  for _, a in ipairs(list) do
+    if (filter == "DONE" and a.complete) or
+       (filter == "OPEN" and not a.complete) or
+       (filter == "ALL") then
+
+      local continent = a.continent or "Unknown"
+      local zonegroup = a.zonegroup or "Miscellaneous"
+
+      if continent ~= lastContinent then
+        table.insert(results, {
+          isSubDivider = true,
+          subLabel = continent,
+          groupKey = key
+        })
+        lastContinent = continent
+        lastZoneGroup = nil -- Reset zone when continent changes
       end
+
+      if zonegroup ~= lastZoneGroup then
+        table.insert(results, {
+          isSubDivider = true,
+          subLabel = "  " .. zonegroup,
+          groupKey = key
+        })
+        lastZoneGroup = zonegroup
+      end
+
+      a.groupKey = key
+      table.insert(results, a)
+    end
+  end
+elseif key == "reputation" then
+  local lastSub = nil
+local lastFaction = nil
+
+
+  for _, a in ipairs(list) do
+    if (filter == "DONE" and a.complete) or
+       (filter == "OPEN" and not a.complete) or
+       (filter == "ALL") then
+
+      local sub = string.lower(a.subtype or "neutral")
+
+      if sub ~= lastSub then
+        local label = "Neutral Factions"
+        if sub == "horde" then
+          label = "Horde Factions"
+        elseif sub == "alliance" then
+          label = "Alliance Factions"
+        end
+
+        table.insert(results, {
+          isSubDivider = true,
+          subLabel = label,
+          groupKey = key
+        })
+
+        lastSub = sub
+      end
+
+      local faction = a.faction or "Unknown"
+
+if faction ~= lastFaction then
+  table.insert(results, {
+    isSubDivider = true,
+    subLabel = "  " .. faction,
+    groupKey = key
+  })
+  lastFaction = faction
+end
+
+a.groupKey = key
+table.insert(results, a)
+
+    end
+  end
+else
+  for _, a in ipairs(list) do
+    if (filter == "DONE" and a.complete) or
+       (filter == "OPEN" and not a.complete) or
+       (filter == "ALL") then
+      a.groupKey = key
+      table.insert(results, a)
+    end
+  end
+end
+
+
     end
   end
 
