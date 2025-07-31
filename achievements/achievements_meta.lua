@@ -20,6 +20,7 @@ table.insert(KAMN.achievements, {
     "KILL_500",
   },
   category = "Meta",
+  subcategory = "combat",
   points = 20,
 })
 -- Meta Achievement: Massacre Proven
@@ -28,6 +29,7 @@ table.insert(KAMN.achievements, {
   name = "Massacre Proven",
   description = "Prove your worth by earning the Massacre Master title.",
   type = "meta",
+  subcategory = "combat",
   requires = { "KILL_1000", "KILL_10000" },
   category = "Meta",
   points = 25,
@@ -58,6 +60,7 @@ table.insert(KAMN.achievements, {
 	"KILL_Rat1",
   },
   category = "Meta",
+  subcategory = "combat",
   points = 20,
 })
 
@@ -73,6 +76,7 @@ table.insert(KAMN.achievements, {
     "KILLGROUP_BOARS03",
   },
   category = "Meta",
+  subcategory = "combat",
   points = 20,
 })
 
@@ -91,6 +95,7 @@ table.insert(KAMN.achievements, {
     "KILLGROUP_TIRISFAL_DUSKBATS",
   },
   category = "Meta",
+  subcategory = "combat",
   points = 20,
 })
 
@@ -107,6 +112,7 @@ table.insert(KAMN.achievements, {
     "REPUTATION_GNOMEREGAN_1000",
   },
   category = "Meta",
+  subcategory = "reputation",
   points = 20,
 })
 
@@ -123,6 +129,7 @@ table.insert(KAMN.achievements, {
     "REPUTATION_DARKSPEAR_1000",
   },
   category = "Meta",
+  subcategory = "reputation",
   points = 20,
 })
 -- Horde Exalted Champion
@@ -139,6 +146,7 @@ table.insert(KAMN.achievements, {
     "REPUTATION_DARKSPEAR_21000",
   },
   category = "Meta",
+  subcategory = "reputation",
   points = 25,
 })
 
@@ -156,6 +164,7 @@ table.insert(KAMN.achievements, {
     "REPUTATION_GNOMEREGAN_21000",
   },
   category = "Meta",
+  subcategory = "reputation",
   points = 25,
 })
 
@@ -179,5 +188,6 @@ table.insert(KAMN.achievements, {
     "KILL_KAZZAK",
   },
   category = "Meta",
+  subcategory = "combat",
   points = 25,
 })

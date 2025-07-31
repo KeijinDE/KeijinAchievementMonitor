@@ -8,13 +8,28 @@ function KAM_GetFilteredAchievements(category, filter, search)
   if not KAMN or not KAMN.achievements then return {} end
 
   local matches = {}
+local segmentFilter = nil
+
+if string.find(category or "", "^ALL") and KAMN and KAMN.AllCategorySegments then
+  for _, segment in ipairs(KAMN.AllCategorySegments) do
+    if segment.key == category and type(segment.filter) == "function" then
+      segmentFilter = segment.filter
+      break
+    end
+  end
+end
 
   for _, a in ipairs(KAMN.achievements) do
     local match = true
 
-    if category ~= "ALL" and a.category ~= category then
-      match = false
-    end
+    if segmentFilter then
+  if not segmentFilter(a) then
+    match = false
+  end
+elseif category ~= "ALL" and a.category ~= category then
+  match = false
+end
+
 
     if filter == "OPEN" and a.complete then
       match = false
@@ -56,7 +71,16 @@ function KAM_GetFilteredAchievements(category, filter, search)
 if match then
   -- Gruppensperre nur aktivieren bei globalen Kategorien
   local isGlobalView = (category == "ALL" or category == "summary")
-  if isGlobalView and (filter == "OPEN" or filter == "ALL") then
+    if match then
+    -- Gruppensperre aktivieren für globale oder segmentierte ALL-Ansicht
+    local isGlobalView = string.find(category or "", "^ALL") or category == "summary"
+    if isGlobalView and (filter == "OPEN" or filter == "ALL") then
+      if KAMN_ShouldDisplayAchievement and not KAMN_ShouldDisplayAchievement(a) then
+        match = false
+      end
+    end
+ 
+
     if KAMN_ShouldDisplayAchievement and not KAMN_ShouldDisplayAchievement(a) then
       match = false
     end
@@ -67,7 +91,6 @@ end
 if match then
   table.insert(matches, a)
 end
-
   end
 
   local typeMap = {
@@ -80,45 +103,76 @@ end
     zone = "explore",
     discover = "explore",
     bosskill = "bosskill",
-	meta = "explore",
+	meta = "meta",
 	misc = "misc"
   }
 
-  local groups = {}
-  for _, a in ipairs(matches) do
+-- 🔁 Gruppierung der Ergebnisse nach Typ, Subcategory oder logischer Kategorie
+local groups = {}
+
+for _, a in ipairs(matches) do
+  local t
+
+  -- 🎯 A: Exploration-Metas (type = "meta", category = "Exploration")
+  -- → Gehören zur Gruppe "explore"
+  if a.type == "meta" and a.category == "Exploration" then
+    t = "explore"
+
+  -- 🎯 B: Klassische Meta-Erfolge → gruppiert nach subcategory
+  elseif a.type == "meta" and a.category == "meta" then
+    -- 🔒 Falls keine subcategory gesetzt ist, nutze "other" als Fallback
+    t = a.subcategory or "other"
+
+  -- 🌐 C: Alle anderen Erfolge → via typeMap
+  else
     local rawType = a.type or "_other"
-    local t = typeMap[rawType] or rawType
-    if not groups[t] then groups[t] = {} end
-    table.insert(groups[t], a)
+    t = typeMap[rawType] or rawType
   end
 
-  local orderMap = {
-    Combat = {"kills", "namedkills", "namedkillgroup", "bosskill"},
-    Skills = {"skill", "weapon"},
-    Reputation = {"reputation"},
-    Quests = {"quests", "namedquests"},
-    Exploration = {"explore"},
-    Character = {"stat"},
-	Misc = {"misc"}
-  }
+  if not groups[t] then groups[t] = {} end
+  table.insert(groups[t], a)
+end
 
-  -- 🔁 Spezielle Sortierreihenfolge für "ALL"
-  local order = orderMap[category]
+
+  local orderMap = {
+  Combat = {"kills", "namedkills", "namedkillgroup", "bosskill"},
+  Skills = {"skill", "weapon"},
+  Reputation = {"reputation"},
+  Quests = {"quests", "namedquests"},
+  Exploration = {"explore"},
+  Character = {"stat"},
+  Misc = {"misc"}
+}
+
+-- 🧭 Spezielle Gruppierung für Kategorie "meta" nach subcategory
+if category == "meta" then
+  local dynamicKeys = {}
+  for k, v in pairs(groups) do
+    table.insert(dynamicKeys, k)
+  end
+  table.sort(dynamicKeys)
+  order = dynamicKeys
+else
+  -- 🔁 Standardsortierung
+  order = orderMap[category]
   if category == "ALL" or not order then
     order = {
       "stat",       -- Character
-	  "quests",
-	  "kills", 
-	  "reputation", -- Reputation  
-      "namedkills", "namedkillgroup", "bosskill",  -- Combat
-      "explore",    -- Exploration
-      "namedquests",  -- Quests
-      "skill", "weapon",  -- Skills
-      "misc",     -- Misc
-      "meta",       -- Meta
-      "legacy",     -- Legacy
+      "quests",
+      "kills",
+      "reputation",
+      "namedkills", "namedkillgroup", "bosskill",
+      "explore",    -- Exploration (inkl. Metas)
+      "namedquests",
+      "skill", "weapon",
+      "misc",
+      "meta",
+      "legacy",
     }
   end
+end
+
+
 
   local results = {}
   for _, key in ipairs(order) do
@@ -137,24 +191,8 @@ end
 
     if hasVisible then
      
-      local label
-if     key == "stat"           then label = "Character Growth"
-elseif key == "kills"          then label = "Combat Progress"
-elseif key == "namedkills"     then label = "Unique Targets"
-elseif key == "namedkillgroup" then label = "Hunting Challenges"
-elseif key == "bosskill"       then label = "Major Encounters"
-elseif key == "explore"        then label = "World Discovery"
-elseif key == "quests"         then label = "Quest Milestones"
-elseif key == "namedquests"    then label = "Story Quests"
-elseif key == "reputation"     then label = "Factions & Standing"
-elseif key == "skill"          then label = "Professions"
-elseif key == "weapon"         then label = "Weapon Mastery"
-elseif key == "misc"           then label = "Other Achievements"
-elseif key == "meta"           then label = "Achievement Sets"
-elseif key == "legacy"         then label = "Legacy Records"
-else
-  label = string.upper(key)
-end
+      local label = KAM_LABELS.groups[key] or string.upper(key)
+
 
       table.insert(results, { isSubDivider = true, subLabel = label, groupKey = key })
 

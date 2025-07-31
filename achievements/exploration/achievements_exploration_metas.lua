@@ -11,6 +11,7 @@ table.insert(KAMN.achievements, {
   description = "Visit all six major cities of Azeroth.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_ORGRIMMAR",
     "DISCOVER_UNDERCITY",
@@ -35,6 +36,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all areas of the Goblin start zone on Blackstone Isle.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_SMUGGLERSCOVE", "DISCOVER_GOBLINSLUMS", "DISCOVER_BLACKSTONEMINE",
     "DISCOVER_CRIMSONWATCHTOWER", "DISCOVER_BILGEWATERDOCKS"
@@ -55,6 +57,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all areas of the High Elf start zone in the Thalassian Highlands.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_QUELDANILLODGE", "DISCOVER_SUNFIREPOINT", "DISCOVER_FARONDALE",
     "DISCOVER_RAVENCRESTSCITADEL", "DISCOVER_SANLAYNRUINS"
@@ -76,6 +79,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Mulgore.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_BAELDUN",
     "DISCOVER_BLOODHOOF",
@@ -111,6 +115,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Durotar.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_SKULLROCK",
     "DISCOVER_THUNDERRIDGE",
@@ -139,6 +144,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Tirisfal Glades.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_DEATHKNELL",
     "DISCOVER_BRILL",
@@ -172,6 +178,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Elwynn Forest.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_RIDGEPOINT",
     "DISCOVER_JEROD",
@@ -200,6 +207,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Loch Modan.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_IRONBAND",
     "DISCOVER_NORTHGATE",
@@ -229,6 +237,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Teldrassil.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_RUTHERAN",
     "DISCOVER_ALAMETH",
@@ -258,6 +267,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Dun Morogh.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_COLDRIDGEPASS",
     "DISCOVER_IRONGATES",
@@ -294,6 +304,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Westfall.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_MOONBROOK",
     "DISCOVER_GOLDCOAST",
@@ -325,6 +336,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in The Barrens.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_MORSHAN", "DISCOVER_THORNHILL", "DISCOVER_RFK", "DISCOVER_MERCHANT",
     "DISCOVER_HONORSSTAND", "DISCOVER_LUSHWATER", "DISCOVER_DREADMIST", "DISCOVER_SLUDGEFEN",
@@ -350,6 +362,7 @@ table.insert(KAMN.achievements, {
   description = "Explore all key areas in Darkshore.",
   type = "meta",
   category = "Exploration",
+  subcategory = "Exploration",
   requires = {
     "DISCOVER_BASHALARAN",
     "DISCOVER_REMTRAVEL",

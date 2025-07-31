@@ -17,36 +17,43 @@ function KAMN_CreateCategoryDropdown(parentFrame)
   categoryList:SetFrameStrata("DIALOG")
   categoryList:SetFrameLevel(20)
 
-  local baseCategories = {
-    { label = "Summary", value = "summary" },
-    { label = "Character", value = "Character" },
-    { label = "Combat", value = "Combat" },
-    { label = "Exploration", value = "Exploration" },
-    { label = "Quests", value = "Quests" },
-    { label = "Reputation", value = "Reputation" }
-  }
+-- 🔧 Initiale Dropdown-Kategorien
+local baseCategories = {
+  { label = "Summary", value = "summary" },
+  { label = "Character", value = "Character" },
+  { label = "Combat", value = "Combat" },
+  { label = "Exploration", value = "Exploration" },
+  { label = "Quests", value = "Quests" },
+  { label = "Reputation", value = "Reputation" },
+  { label = "Skills", value = "Skills" },
+  { label = "Misc", value = "Misc" },
+  { label = "Meta", value = "Meta" },
+  { label = "Legacy", value = "Legacy" }
+}
 
-  local knownValues, categories = {}, {}
-  for i = 1, table.getn(baseCategories) do
-    table.insert(categories, baseCategories[i])
-    knownValues[baseCategories[i].value] = true
-  end
+local knownValues, categories = {}, {}
+for i = 1, table.getn(baseCategories) do
+  table.insert(categories, baseCategories[i])
+  knownValues[baseCategories[i].value] = true
+end
 
-if KAMN and KAMN.achievements then
-  for _, a in ipairs(KAMN.achievements) do
-    if a.category and not knownValues[a.category] then
-      table.insert(categories, { label = a.category, value = a.category })
-      knownValues[a.category] = true
+-- 🔁 Zusätzliche segmentierte ALL-Kategorien einfügen
+if KAMN.AllCategorySegments then
+  for _, seg in ipairs(KAMN.AllCategorySegments) do
+    if not knownValues[seg.key] then
+      table.insert(categories, { label = seg.label, value = seg.key })
+      knownValues[seg.key] = true
     end
   end
 end
 
--- ⏹ Mapping: value → label für spätere Textaktualisierung
-KAMN_CategoryLabelMap = {}
+-- 📦 Aufbau der finalen Dropdown-Liste + Label-Map
+local categoryMap = {}
 for i = 1, table.getn(categories) do
   local cat = categories[i]
-  KAMN_CategoryLabelMap[cat.value] = cat.label
+  categoryMap[cat.value] = cat.label
 end
+KAMN_CategoryLabelMap = categoryMap
 
   for i = 1, table.getn(categories) do
     local cat = categories[i]
@@ -59,7 +66,10 @@ end
       currentCategory = cat.value
       if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
       KAMN_GlobalCategoryView = false
-      categoryBtn:SetText("Category: " .. cat.label)
+      if KAMN_UpdateDropdownLabel then
+  KAMN_UpdateDropdownLabel()
+end
+
       categoryList:Hide()
       KAM_ScrollOffset = 0
       KAMN_UpdateUI()
@@ -99,13 +109,40 @@ innerButton:SetScript("OnEnter", function()
 end)
 innerButton:SetScript("OnLeave", GameTooltip.Hide)
 
+if KAMN_UpdateDropdownLabel then
+  KAMN_UpdateDropdownLabel()
+end
 
   return categoryBtn, categoryList
 end
+
+-- UpdateDropDownList
+
 function KAMN_UpdateDropdownLabel()
-  if KAMNMainFrame and KAMNMainFrame.categoryBtn and KAMN_CategoryLabelMap then
-    local label = KAMN_CategoryLabelMap[currentCategory] or currentCategory
-    KAMNMainFrame.categoryBtn:SetText("Category: " .. label)
+  if not KAMNMainFrame then return end
+
+  local label = currentCategory or ""
+
+  -- 🔍 Prüfe segmentierte ALL-Kategorien
+  if string.find(label, "^ALL") and KAMN.AllCategorySegments then
+    for _, seg in ipairs(KAMN.AllCategorySegments) do
+      if seg.key == label then
+        label = seg.label
+        break
+      end
+    end
+  elseif KAMN_CategoryLabelMap and KAMN_CategoryLabelMap[label] then
+    label = KAMN_CategoryLabelMap[label]
+  end
+
+  local fullLabel = "Category: " .. label
+
+  -- ⬅ Aktualisiere sowohl Button als auch Labeltext
+  if KAMNMainFrame.categoryBtn then
+    KAMNMainFrame.categoryBtn:SetText(fullLabel)
+  end
+  if KAMNMainFrame.categoryBtnLabel then
+    KAMNMainFrame.categoryBtnLabel:SetText(fullLabel)
   end
 end
 

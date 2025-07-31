@@ -60,6 +60,13 @@ if currentCategory == "summary" and not KAMN_GlobalCategoryView and type(KAMN_Bu
 
   -- ⛔ Mini-Buttons in Summary ausblenden
   KAMN_SetMiniButtonVisibility(false)
+-- ⛔ Auch Prev/Nächste Buttons in Summary explizit ausblenden
+if KAMNMainFrame and KAMNMainFrame.miniPrev then
+  KAMNMainFrame.miniPrev:Hide()
+end
+if KAMNMainFrame and KAMNMainFrame.miniNext then
+  KAMNMainFrame.miniNext:Hide()
+end
 
   for i = 1, table.getn(KAMNMainFrame.entries) do
     KAMNMainFrame.entries[i]:Hide()
@@ -75,16 +82,38 @@ end
   local visible = KAMN.KAM_GetVisibleAchievements(currentCategory)
   local index = 1
 
-  if KAMNMainFrame and KAMNMainFrame.categoryHeader then
-    if currentCategory and currentCategory ~= "summary" then
-      local label = string.gsub(currentCategory, "^%l", string.upper)
-      KAMNMainFrame.categoryHeader:SetText(label)
-    else
-      KAMNMainFrame.categoryHeader:SetText("")
+-- 🏷 Kategorie-Titel dynamisch setzen
+if KAMNMainFrame and KAMNMainFrame.categoryHeader then
+  local label = currentCategory or ""
+
+  if currentCategory == "summary" then
+    label = "Summary"
+  elseif string.find(currentCategory, "^ALL") and KAMN.AllCategorySegments then
+    for _, seg in ipairs(KAMN.AllCategorySegments) do
+      if seg.key == currentCategory then
+        label = seg.label
+        break
+      end
     end
   end
 
-  for i, a in ipairs(visible) do
+  -- ⬅ oberes Button-Dropdown-Label
+if KAMN_UpdateDropdownLabel then
+  KAMN_UpdateDropdownLabel()
+end
+-- 🏷 Kategorie-Titel oben im Dropdown synchronisieren
+if KAMN_UpdateDropdownLabel then
+  KAMN_UpdateDropdownLabel()
+end
+
+
+end
+
+-- 📌 Segmentierte Anzeige – alle Einträge durchgehen
+for i = 1, table.getn(visible) do
+
+  local a = visible[i]
+
 
     if KAMNMainFrame.entries[index] then
       local entry = KAMNMainFrame.entries[index]
@@ -245,7 +274,45 @@ if KAMNMainFrame and KAMNMainFrame.pointsLabel then
 end
 
   -- ✅ Mini-Buttons wieder einblenden außerhalb von Summary
-KAMN_SetMiniButtonVisibility(true)
+-- 🔁 Sichtbarkeit der Mini-Buttons je nach Kategorie
+
+local isSummary = currentCategory == "summary"
+-- 🧭 Sichtbarkeitssteuerung für Mini-Buttons
+local isSummary = currentCategory == "summary"
+local isSegment = string.find(currentCategory or "", "^ALL")
+
+-- Haupt-MiniButtons: nur außerhalb von Summary
+KAMN_SetMiniButtonVisibility(not isSummary)
+
+-- Segment-Navigation (<< >>): nur wenn ALL-Segment aktiv
+if KAMNMainFrame and KAMNMainFrame.miniPrev and KAMNMainFrame.miniNext then
+  if isSummary then
+    KAMNMainFrame.miniPrev:Hide()
+    KAMNMainFrame.miniNext:Hide()
+  elseif isSegment then
+    KAMNMainFrame.miniPrev:Show()
+    KAMNMainFrame.miniNext:Show()
+  else
+    KAMNMainFrame.miniPrev:Hide()
+    KAMNMainFrame.miniNext:Hide()
+  end
+end
+
+
+-- Haupt-MiniButtons (All, Done, Open, Home)
+KAMN_SetMiniButtonVisibility(not isSummary)
+
+-- Segment-Buttons (<<, >>) nur in segmentierter Ansicht zeigen
+if KAMNMainFrame and KAMNMainFrame.miniPrev and KAMNMainFrame.miniNext then
+  if isSegment then
+    KAMNMainFrame.miniPrev:Show()
+    KAMNMainFrame.miniNext:Show()
+  else
+    KAMNMainFrame.miniPrev:Hide()
+    KAMNMainFrame.miniNext:Hide()
+  end
+end
+
 
 
   local currentMode = KAMN_UseAccountData and "Account" or "Character"

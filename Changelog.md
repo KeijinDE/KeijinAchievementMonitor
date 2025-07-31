@@ -1,3 +1,47 @@
+## 📦 Changelog – Version 0.4.0
+
+### ✨ Added
+
+- Segmented ALL view with 15 pages (ALL1–ALL15) for better performance
+- New segment navigation buttons << / >>
+- Expandable structure via KAMN.AllCategorySegments with centralized filter functions
+
+### 🛠 Fixed / Updated
+- Deleted obsolete `ui_buttons.lua`
+- Removed deprecated **Completed** and **Incomplete** UI buttons
+- Fixed display of Level, Meta, Capitals, and Reputation achievements
+- Implemented `subtype`-based filtering for Reputation (neutral, horde, alliance)
+- UI label (`categoryBtnLabel`) now updates correctly when switching segments
+- Removed unused reference to `categoryHeader`
+- Mini-buttons are now shown or hidden reliably depending on the active category
+
+
+### 🐞 Known Issues
+- Tooltip broken with pfui
+
+---
+
+## 📦 Changelog – Version 0.4.0 (Deutsch)
+
+### ✨ Neu hinzugefügt
+- Segmentierte „ALLE“-Ansicht mit 15 Seiten (ALL1–ALL15) für bessere Performance
+- Neue Segment-Navigationsbuttons << / >>
+- Erweiterbare Struktur über KAMN.AllCategorySegments mit zentralen Filterfunktionen
+
+### 🛠 Behoben / Überarbeitet
+- Veraltete Datei ui_buttons.lua entfernt
+- Veraltete UI-Buttons Abgeschlossen und Offen entfernt
+- Anzeige von Level-, Meta-, Hauptstadt- und Ruf-Erfolgen korrigiert
+- Filterung von Ruf-Erfolgen jetzt basierend auf subtype (neutral, horde, allianz)
+- UI-Label (categoryBtnLabel) wird beim Wechsel der Segmente korrekt aktualisiert
+- Nicht verwendete Referenz auf categoryHeader entfernt
+- Mini-Buttons werden nun zuverlässig je nach aktiver Kategorie ein- oder ausgeblendet
+
+### 🐞 Bekannte Probleme
+- Tooltip-Anzeige fehlerhaft in Kombination mit pfUI
+
+---
+
 ## 📦 Changelog – Version 0.3.3
 
 ### ✨ Added

@@ -162,48 +162,52 @@ local categoryBtn
 local filterWrapper = CreateFrame("Frame", nil, f)
 filterWrapper:SetWidth(270)
 filterWrapper:SetHeight(20)
-filterWrapper:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -40)
+filterWrapper:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -42)
 
 -- 🟡 Button: All
 local filterAll, filterAllBtn = KAMN_CreateDialogButton(filterWrapper, "All", 70, 20, function()
-  currentCategory = "ALL"
-  if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
-  currentFilter = "ALL"
-  KAM_ScrollOffset = 0
-  if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
-  KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
-end
+  KAMN_State.segmentIndex = 1
+  local segment = KAMN.AllCategorySegments[1]
+  if segment then
+    currentCategory = segment.key
+    currentFilter = "ALL"
+    KAM_ScrollOffset = 0
+    if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
+    if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
+      KAMNMainFrame.categoryBtnLabel:SetText("" .. segment.label)
+    end
+    KAMN_UpdateUI()
+  end
+end, "Show all segmented achievements")
 
-  KAMN_UpdateUI()
-end, "Show all achievements")
 
 filterAll:SetPoint("LEFT", filterWrapper, "LEFT", 0, 0)
 
 -- 🟠 Button: Incomplete
-local filterOpen, filterOpenBtn = KAMN_CreateDialogButton(filterWrapper, "Incomplete", 90, 20, function()
-  currentCategory = "ALL"
-  if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
-  currentFilter = "OPEN"
-  KAM_ScrollOffset = 0
-  if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
-    KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
-  end
-  KAMN_UpdateUI()
-end, "Show only incomplete achievements")
-filterOpen:SetPoint("LEFT", filterAll, "RIGHT", 5, 0)
+-- local filterOpen, filterOpenBtn = KAMN_CreateDialogButton(filterWrapper, "Incomplete", 90, 20, function()
+  -- currentCategory = "ALL"
+  -- if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
+  -- currentFilter = "OPEN"
+  -- KAM_ScrollOffset = 0
+  -- if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
+    -- KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
+  -- end
+  -- KAMN_UpdateUI()
+-- end, "Show only incomplete achievements")
+-- filterOpen:SetPoint("LEFT", filterAll, "RIGHT", 5, 0)
 
--- 🟢 Button: Completed
-local filterDone, filterDoneBtn = KAMN_CreateDialogButton(filterWrapper, "Completed", 90, 20, function()
-  currentCategory = "ALL"
-  if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
-  currentFilter = "DONE"
-  KAM_ScrollOffset = 0
-  if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
-    KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
-  end
-  KAMN_UpdateUI()
-end, "Show only completed achievements")
-filterDone:SetPoint("LEFT", filterOpen, "RIGHT", 5, 0)
+-- -- 🟢 Button: Completed
+-- local filterDone, filterDoneBtn = KAMN_CreateDialogButton(filterWrapper, "Completed", 90, 20, function()
+  -- currentCategory = "ALL"
+  -- if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
+  -- currentFilter = "DONE"
+  -- KAM_ScrollOffset = 0
+  -- if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
+    -- KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
+  -- end
+  -- KAMN_UpdateUI()
+-- end, "Show only completed achievements")
+-- filterDone:SetPoint("LEFT", filterOpen, "RIGHT", 5, 0)
 -- Suchfeld
 local searchBox = CreateFrame("EditBox", "KAMNSearchBox", f, "InputBoxTemplate")
 searchBox:SetWidth(80)
@@ -246,7 +250,7 @@ end
   end)
 
   local searchLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-  searchLabel:SetPoint("BOTTOMLEFT", searchBox, "TOPLEFT", 0, 2)
+  searchLabel:SetPoint("BOTTOMLEFT", searchBox, "TOPLEFT", 0, 5)
  searchLabel:SetText("|cffffff88Search:|r")
 
 
@@ -255,7 +259,8 @@ end
 categoryBtn = CreateFrame("Button", nil, f)
 categoryBtn:SetWidth(150)
 categoryBtn:SetHeight(22)
-categoryBtn:SetPoint("TOP", f, "TOP", -5, -60)
+categoryBtn:SetPoint("LEFT", filterAll, "RIGHT", 8, 0)
+
 categoryBtn:SetFrameStrata("DIALOG")
 categoryBtn:SetFrameLevel(20)
 
@@ -394,6 +399,17 @@ local miniHome, miniHomeBtn = KAMN_CreateDialogButton(f, "|cff88ff88<-|r", 24, 1
   KAMN_UpdateUI()
 end, "Back to Summary View")
 miniHome:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -94)
+-- ◀ Vorheriger Segment-Button
+local miniPrev, miniPrevBtn = KAMN_CreateDialogButton(f, "|cff88ff88<<|r", 24, 18, function()
+  KAMN_ChangeSegment(-1)
+end, "Previous achievement segment")
+miniPrev:SetPoint("LEFT", miniHome, "RIGHT", 6, 0)
+
+-- ▶ Nächster Segment-Button
+local miniNext, miniNextBtn = KAMN_CreateDialogButton(f, "|cff88ff88>>|r", 24, 18, function()
+  KAMN_ChangeSegment(1)
+end, "Next achievement segment")
+miniNext:SetPoint("LEFT", miniPrev, "RIGHT", 6, 0)
 
 -- 🅰 MiniAll Button
 local miniAll, miniAllBtn = KAMN_CreateDialogButton(f, "|cff88ff88A|r", 24, 18, function()
@@ -427,6 +443,9 @@ KAMNMainFrame.miniAll = miniAll
 KAMNMainFrame.miniOpen = miniOpen
 KAMNMainFrame.miniDone = miniDone
 KAMNMainFrame.miniHome = miniHome
+KAMNMainFrame.miniPrev = miniPrev
+KAMNMainFrame.miniNext = miniNext
+
 
   -- Einträge vorbereiten (nur so viele wie sichtbar nötig)
 f.entries = {}
