@@ -1,7 +1,34 @@
+## 📦 Changelog – Version 0.4.1
+
+### ✨ Added
+- Subcategory-based SubDividers for the Meta category
+→ Achievements are now grouped by subcategory (e.g. Combat, Progress, Faction) within the Meta view.
+- New milestone achievements for Professions and Weapon Skills (15 / 50 / 100 / 200 / 300)
+
+### 🛠 Fixed / Updated
+- Corrected group filtering logic (`KAMN_ShouldDisplayAchievement`) to only apply in **ALL** and **summary** views  
+  → Achievements are no longer unintentionally hidden in regular category views like *Combat* or *Character*  
+- Skill achievements are now sorted by skill name and progress milestone (e.g. 15 → 300) without additional section headers
+
+---
+
+### 📦 Changelog – Version 0.4.1 (Deutsch)
+
+### ✨ Neu hinzugefügt
+- Unterteiler für die Kategorie Meta auf Basis der subcategory
+→ Erfolge innerhalb der Meta-Ansicht sind nun thematisch gruppiert (z. B. Kampf, Fortschritt, Fraktionen).
+- Neue Meilenstein-Erfolge für Berufe und Waffenfertigkeiten (15 / 50 / 100 / 200 / 300)
+
+### 🛠 Behoben / Überarbeitet
+- Gruppensperre (`KAMN_ShouldDisplayAchievement`) greift nun **nur noch in ALL- und Summary-Ansichten**  
+  → Erfolge in Kategorien wie *Combat* oder *Character* werden nicht mehr versehentlich ausgeblendet  
+- Skill-Erfolge werden korrekt nach Fertigkeitsname und Fortschrittsstufe (z. B. 15 → 300) sortiert – ohne zusätzliche Abschnittsüberschriften  
+
+---
+
 ## 📦 Changelog – Version 0.4.0
 
 ### ✨ Added
-
 - Segmented ALL view with 15 pages (ALL1–ALL15) for better performance
 - New segment navigation buttons << / >>
 - Expandable structure via KAMN.AllCategorySegments with centralized filter functions
@@ -15,13 +42,12 @@
 - Removed unused reference to `categoryHeader`
 - Mini-buttons are now shown or hidden reliably depending on the active category
 
-
 ### 🐞 Known Issues
 - Tooltip broken with pfui
 
 ---
 
-## 📦 Changelog – Version 0.4.0 (Deutsch)
+### 📦 Changelog – Version 0.4.0 (Deutsch)
 
 ### ✨ Neu hinzugefügt
 - Segmentierte „ALLE“-Ansicht mit 15 Seiten (ALL1–ALL15) für bessere Performance
@@ -67,7 +93,7 @@
 
 ---
 
-### 🇩🇪 Deutsch – Version 0.3.3
+## 📦 Changelog – Version 0.3.3 (Deutsch)
 
 ### ✨ Hinzugefügt
 - Tooltip-Einstellung wird nun in den SavedVariables gespeichert.
