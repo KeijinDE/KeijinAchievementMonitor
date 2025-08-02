@@ -2,7 +2,7 @@
 ## Title: KeijinAchievementMonitor
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
-## Version: v0.4.0
+## Version: v0.4.1
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: KAMN_Options, KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData
@@ -41,10 +41,11 @@ ui\clickhandlers.lua
 # Achievements by Category
 achievements\achievements_char.lua
 achievements\achievements_reputation.lua
-achievements\achievements_skills.lua
 achievements\achievements_misc.lua
 achievements\achievements_meta.lua
 achievements\achievements_legacy.lua
+achievements\skills\achievements_skills_weapon.lua
+achievements\skills\achievements_skills_profession.lua
 achievements\quests\achievements_quests_generic.lua
 achievements\quests\achievements_quests_named.lua
 achievements\kills\achievements_killgroup.lua

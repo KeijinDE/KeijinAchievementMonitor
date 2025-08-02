@@ -309,7 +309,8 @@ local baseCategories = {
   { label = "Combat", value = "Combat" },
   { label = "Exploration", value = "Exploration" },
   { label = "Quests", value = "Quests" },
-  { label = "Reputation", value = "Reputation" }
+  { label = "Reputation", value = "Reputation" },
+  { label = "Skills", value = "Skills" }
 }
 local knownValues, categories = {}, {}
 for i = 1, table.getn(baseCategories) do

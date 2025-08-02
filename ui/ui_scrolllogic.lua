@@ -68,24 +68,29 @@ end
       match = false
     end
 
+-- 🛡 Gruppensperre nur bei segmentierter Ansicht (ALLx oder summary)
 if match then
-  -- Gruppensperre nur aktivieren bei globalen Kategorien
-  local isGlobalView = (category == "ALL" or category == "summary")
-    if match then
-    -- Gruppensperre aktivieren für globale oder segmentierte ALL-Ansicht
-    local isGlobalView = string.find(category or "", "^ALL") or category == "summary"
-    if isGlobalView and (filter == "OPEN" or filter == "ALL") then
-      if KAMN_ShouldDisplayAchievement and not KAMN_ShouldDisplayAchievement(a) then
-        match = false
-      end
-    end
- 
+  local isGlobalView = string.find(category or "", "^ALL") or category == "summary"
 
+  -- -- 🔎 Debugausgabe zur Analyse
+  -- if KAMN.debug then
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r ID=" .. (a.id or "?") ..
+      -- " | Kategorie=" .. (category or "?") ..
+      -- " | isGlobalView=" .. tostring(isGlobalView) ..
+      -- " | Filter=" .. tostring(filter))
+  -- end
+
+  -- 📌 Nur bei globaler Ansicht prüfen wir Gruppenfilter
+  if isGlobalView and (filter == "OPEN" or filter == "ALL") then
     if KAMN_ShouldDisplayAchievement and not KAMN_ShouldDisplayAchievement(a) then
       match = false
+      -- if KAMN.debug then
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff8800[KAM Debug]|r → Ausgeblendet durch Gruppenlogik: " .. (a.id or "?"))
+      -- end
     end
   end
 end
+
 
 
 if match then
@@ -93,19 +98,22 @@ if match then
 end
   end
 
-  local typeMap = {
-    kill = "kills",
-    namedkill = "namedkills",
-    namedkillgroup = "namedkillgroup",
-    quest = "quests",
-    namedquest = "namedquests",
-    level = "stat",
-    zone = "explore",
-    discover = "explore",
-    bosskill = "bosskill",
-	meta = "meta",
-	misc = "misc"
-  }
+local typeMap = {
+  kill = "kills",
+  namedkill = "namedkills",
+  namedkillgroup = "namedkillgroup",
+  quest = "quests",
+  namedquest = "namedquests",
+  level = "stat",
+  zone = "explore",
+  discover = "explore",
+  bosskill = "bosskill",
+  meta = "meta",
+  misc = "misc",
+  skill = "skill",
+  weapon = "weapon" -- oder "weapon", wenn du trennen willst
+}
+
 
 -- 🔁 Gruppierung der Ergebnisse nach Typ, Subcategory oder logischer Kategorie
 local groups = {}
@@ -246,11 +254,6 @@ elseif key == "reputation" then
   end
 end)
 
-
-
-
-
-
       if key == "explore" then
   local lastContinent = nil
   local lastZoneGroup = nil
@@ -299,12 +302,9 @@ local lastFaction = nil
       local sub = string.lower(a.subtype or "neutral")
 
       if sub ~= lastSub then
-        local label = "Neutral Factions"
-        if sub == "horde" then
-          label = "Horde Factions"
-        elseif sub == "alliance" then
-          label = "Alliance Factions"
-        end
+        local labelKey = "rep_" .. sub -- z. B. rep_neutral
+local label = KAM_LABELS.groups[labelKey] or string.upper(sub)
+
 
         table.insert(results, {
           isSubDivider = true,
@@ -331,6 +331,57 @@ table.insert(results, a)
 
     end
   end
+  
+elseif key == "skill" then
+  -- 🔢 Sortiere Skills nach skillname und innerhalb der Gruppe nach value
+  table.sort(list, function(a, b)
+    local sa = string.lower(a.skillname or "")
+    local sb = string.lower(b.skillname or "")
+    if sa ~= sb then return sa < sb end
+    return (a.value or 0) < (b.value or 0)
+  end)
+
+  -- 📄 Füge nur die Einträge ein, keine SubDivider
+  for _, a in ipairs(list) do
+    if (filter == "DONE" and a.complete) or
+       (filter == "OPEN" and not a.complete) or
+       (filter == "ALL") then
+      a.groupKey = key
+      table.insert(results, a)
+    end
+  end
+
+
+
+elseif key == "meta" then
+  local lastSub = nil
+  table.sort(list, function(a, b)
+    local sa = string.lower(a.subcategory or "")
+    local sb = string.lower(b.subcategory or "")
+    if sa ~= sb then return sa < sb end
+    return string.lower(a.name or "") < string.lower(b.name or "")
+  end)
+
+  for _, a in ipairs(list) do
+    if (filter == "DONE" and a.complete) or
+       (filter == "OPEN" and not a.complete) or
+       (filter == "ALL") then
+
+      local sub = a.subcategory or "Other"
+      if sub ~= lastSub then
+        local label = KAM_LABELS.groups[sub] or sub
+        table.insert(results, {
+          isSubDivider = true,
+          subLabel = label,
+          groupKey = key
+        })
+        lastSub = sub
+      end
+
+      a.groupKey = key
+      table.insert(results, a)
+    end
+  end
 else
   for _, a in ipairs(list) do
     if (filter == "DONE" and a.complete) or
@@ -341,8 +392,6 @@ else
     end
   end
 end
-
-
     end
   end
 
@@ -422,6 +471,36 @@ function KAM_GetVisibleAchievements(category)
   end
   return visible
 end
+
+-- 🔍 Zeigt nur den jeweils niedrigsten offenen Meilenstein je Gruppe oder Skill/Waffe
+function KAMN_ShouldDisplayAchievement(a)
+  if a.complete then return true end
+
+  -- 🧩 A: Klassische Meilensteingruppen (Kill, Quest, Level)
+  if a.group and a.value then
+    for _, b in ipairs(KAMN.achievements) do
+      if b.group == a.group and not b.complete and b.value and b.value < a.value then
+        return false
+      end
+    end
+  end
+
+  -- 🧪 B: Skill / Weapon Meilensteine (NEU)
+  if (a.type == "skill" or a.type == "weapon") and a.skillname and a.value then
+    for _, b in ipairs(KAMN.achievements) do
+      if b.id ~= a.id and
+         b.type == a.type and
+         b.skillname == a.skillname and
+         not b.complete and
+         (b.value or 0) < a.value then
+        return false
+      end
+    end
+  end
+
+  return true
+end
+
 
 -- 🔄 Global export
 KAMN = KAMN or {}

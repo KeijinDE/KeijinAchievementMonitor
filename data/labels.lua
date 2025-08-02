@@ -119,7 +119,6 @@ KAMN.AllCategorySegments = {
 KAM_LABELS.groups = {
   progress = "Achievement Progress",
   combat   = "Combat Challenges",
-  reputation  = "Faction Goals",
   other    = "Other Meta Achievements",
   explore  = "World Discovery",
   stat     = "Character Growth",
@@ -133,7 +132,11 @@ KAM_LABELS.groups = {
   skill = "Professions",
   weapon = "Weapon Mastery",
   misc = "Other Achievements",
-  legacy = "Legacy Records"
+  legacy = "Legacy Records",
+  rep_neutral  = "Neutral Factions",
+  rep_horde    = "Horde Factions",
+  rep_alliance = "Alliance Factions",
+
 
 }
 

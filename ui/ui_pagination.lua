@@ -64,9 +64,4 @@ function KAMN_CreateSegmentButtons(parent)
   rightBtn:SetScript("OnClick", function()
     KAMN_ChangeSegment(1)
   end)
-
-  -- Optional: Titelanzeige zwischen Buttons
-  local label = parent:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-  label:SetPoint("LEFT", leftBtn, "RIGHT", 6, 0)
-  label:SetText("|cffffff88Segmentierte Ansicht|r")
 end
