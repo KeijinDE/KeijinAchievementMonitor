@@ -333,25 +333,101 @@ table.insert(results, a)
   end
   
 elseif key == "skill" then
-  -- 🔢 Sortiere Skills nach skillname und innerhalb der Gruppe nach value
-  table.sort(list, function(a, b)
-    local sa = string.lower(a.skillname or "")
-    local sb = string.lower(b.skillname or "")
-    if sa ~= sb then return sa < sb end
-    return (a.value or 0) < (b.value or 0)
-  end)
+  -- 🧮 Gruppiere nach skillname und ermittle höchsten Fortschritt
+  local skillGroups = {}
+  local maxProgress = {}
 
-  -- 📄 Füge nur die Einträge ein, keine SubDivider
   for _, a in ipairs(list) do
-    if (filter == "DONE" and a.complete) or
-       (filter == "OPEN" and not a.complete) or
-       (filter == "ALL") then
-      a.groupKey = key
-      table.insert(results, a)
+    local name = a.skillname or "Unknown"
+    if not skillGroups[name] then skillGroups[name] = {} end
+    table.insert(skillGroups[name], a)
+
+    -- Fortschritt berechnen (aus a.progress oder per DB-Funktion)
+    local prog = a.progress or 0
+    if prog == 0 and KAMN_GetCharacterProgress and a.id then
+      prog = KAMN_GetCharacterProgress(a.id) or 0
+    end
+
+    if not maxProgress[name] or prog > maxProgress[name] then
+      maxProgress[name] = prog
     end
   end
 
+  -- 🔠 Sortiere skillnamen nach höchstem Fortschritt (absteigend)
+  local sortedNames = {}
+  for name, _ in pairs(skillGroups) do
+    table.insert(sortedNames, name)
+  end
+  table.sort(sortedNames, function(a, b)
+    return (maxProgress[a] or 0) > (maxProgress[b] or 0)
+  end)
 
+  -- 🧱 Gruppen sortieren und einfügen
+  for _, name in ipairs(sortedNames) do
+    local entries = skillGroups[name]
+
+    -- Sortiere innerhalb einer Gruppe nach Zielwert
+    table.sort(entries, function(a, b)
+      return (a.value or 0) < (b.value or 0)
+    end)
+
+    -- Einträge einfügen
+    for _, a in ipairs(entries) do
+      if (filter == "DONE" and a.complete) or
+         (filter == "OPEN" and not a.complete) or
+         (filter == "ALL") then
+        a.groupKey = key
+        table.insert(results, a)
+      end
+    end
+  end
+
+elseif key == "weapon" then
+  -- 🧮 Gruppiere nach Waffentyp (skillname) und ermittle höchsten Fortschritt
+  local weaponGroups = {}
+  local maxProgress = {}
+
+  for _, a in ipairs(list) do
+    local name = a.skillname or "Unknown"
+    if not weaponGroups[name] then weaponGroups[name] = {} end
+    table.insert(weaponGroups[name], a)
+
+    local prog = a.progress or 0
+    if prog == 0 and KAMN_GetCharacterProgress and a.id then
+      prog = KAMN_GetCharacterProgress(a.id) or 0
+    end
+
+    if not maxProgress[name] or prog > maxProgress[name] then
+      maxProgress[name] = prog
+    end
+  end
+
+  -- 🔠 Sortiere nach höchstem Fortschritt (absteigend)
+  local sortedNames = {}
+  for name, _ in pairs(weaponGroups) do
+    table.insert(sortedNames, name)
+  end
+  table.sort(sortedNames, function(a, b)
+    return (maxProgress[a] or 0) > (maxProgress[b] or 0)
+  end)
+
+  -- 🧱 Innerhalb jeder Waffengruppe sortieren nach Zielwert
+  for _, name in ipairs(sortedNames) do
+    local entries = weaponGroups[name]
+    table.sort(entries, function(a, b)
+      return (a.value or 0) < (b.value or 0)
+    end)
+
+    
+    for _, a in ipairs(entries) do
+      if (filter == "DONE" and a.complete) or
+         (filter == "OPEN" and not a.complete) or
+         (filter == "ALL") then
+        a.groupKey = key
+        table.insert(results, a)
+      end
+    end
+  end
 
 elseif key == "meta" then
   local lastSub = nil

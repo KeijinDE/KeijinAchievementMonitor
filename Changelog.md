@@ -1,3 +1,27 @@
+## 📦 Changelog – Version 0.4.2
+
+### ✨ Added
+- New sorting logic for weapon and profession skills
+→ Skill groups are now displayed in descending order of progress, with each step sorted by goal.
+
+### 🛠 Fixed / Updated
+- Cleaned up internal grouping and skill block processing
+
+- Improved logic separation for weapon vs. profession achievements
+
+## 📦 Changelog – Version 0.4.2 (Deutsch)
+
+### ✨ Neu hinzugefügt
+- Neue Sortierlogik für Waffen- und Berufs-Fertigkeiten
+→ Skillgruppen werden nun in absteigender Reihenfolge ihres Fortschritts angezeigt, jeder Fortschritt innerhalb der Gruppe ist nach Zielwert sortiert.
+
+### 🛠 Behoben / Überarbeitet
+- Interne Gruppierung und Verarbeitung von Skills überarbeitet
+
+- Logik für Waffen- und Berufs-Erfolge sauber getrennt
+
+
+
 ## 📦 Changelog – Version 0.4.1
 
 ### ✨ Added
