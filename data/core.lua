@@ -2,7 +2,7 @@
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
 -- Version (zentral definiert)
-KAMN_VERSION = "0.4.2"
+KAMN_VERSION = "0.4.3"
 
 
 -- Check for global corruption (classic safeguard)

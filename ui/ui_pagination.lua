@@ -44,7 +44,6 @@ function KAMN_ChangeSegment(direction)
   end
 end
 
-
 -- 🖼 UI-Button-Erstellung (links/rechts)
 function KAMN_CreateSegmentButtons(parent)
   local leftBtn = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
@@ -64,4 +63,13 @@ function KAMN_CreateSegmentButtons(parent)
   rightBtn:SetScript("OnClick", function()
     KAMN_ChangeSegment(1)
   end)
+end
+
+-- 🔁 SegmentFilter-Mapping erzeugen für ALL1–ALL15
+-- Damit logic_filtering.lua korrekt nach category filtern kann
+KAMN.AllCategorySegmentMap = {}
+for _, segment in ipairs(KAMN.AllCategorySegments) do
+  if segment.key and segment.filter then
+    KAMN.AllCategorySegmentMap[segment.key] = segment.filter
+  end
 end

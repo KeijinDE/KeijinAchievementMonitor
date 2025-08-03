@@ -2,7 +2,7 @@
 ## Title: KeijinAchievementMonitor
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
-## Version: v0.4.2
+## Version: v0.4.3
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: KAMN_Options, KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData
@@ -31,7 +31,11 @@ events\events_misc.lua
 
 # UI
 ui\ui_main.lua
-ui\ui_scrolllogic.lua
+logic\logic_scroll.lua
+logic\logic_filtering.lua
+logic\logic_grouping.lua
+logic\logic_resultbuilder.lua
+logic\ui_scrolllogic.lua
 ui\ui_notify.lua
 ui\ui_summary.lua
 ui\ui_config.lua

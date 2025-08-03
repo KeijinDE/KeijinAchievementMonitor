@@ -324,6 +324,13 @@ end
   if KAMNConfigFrame and KAMNConfigFrame.storageModeLabel then
     KAMNConfigFrame.storageModeLabel:SetText("" .. currentMode)
   end
+  
+  -- 🖱 Mausrad-Scroll korrekt an MainFrame binden mit gültiger Kategorie
+if KAMNMainFrame and KAMNMainFrame.scrollWrapper and currentCategory and currentCategory ~= "summary" then
+  KAMN.KAM_AttachMouseScroll(KAMNMainFrame.scrollWrapper, currentCategory)
+end
+
+
 end
 
 

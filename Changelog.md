@@ -1,3 +1,19 @@
+## 📦 Changelog – Version 0.4.3
+
+### 🛠 Fixed / Updated
+- Modularized former `ui_scrolllogic.lua` into clean logic files  
+→ Structural reorganization without altering visible functionality
+
+---
+
+## 📦 Changelog – Version 0.4.3 (Deutsch)
+
+### 🛠 Behoben / Überarbeitet
+- Ehemalige `ui_scrolllogic.lua` strukturell modularisiert  
+→ Technische Umstellung ohne sichtbare Funktionsänderung
+
+---
+
 ## 📦 Changelog – Version 0.4.2
 
 ### ✨ Added
@@ -20,7 +36,7 @@
 
 - Logik für Waffen- und Berufs-Erfolge sauber getrennt
 
-
+---
 
 ## 📦 Changelog – Version 0.4.1
 
