@@ -61,7 +61,7 @@ eventFrame:SetScript("OnEvent", function()
   if event == "COMBAT_TEXT_UPDATE" and KAMN_HandleCombatTextUpdate then
     updated = KAMN_HandleCombatTextUpdate(event, arg1) or updated
 
-  -- 📌 Benannte Gegner / Bosse
+  -- 📌 Benannte Gegner / Bosse (eigener Killblow)
   elseif event == "CHAT_MSG_COMBAT_HOSTILE_DEATH" then
     if KAMN_HandleHostileDeath then
       updated = KAMN_HandleHostileDeath(event, arg1) or updated
@@ -74,10 +74,13 @@ eventFrame:SetScript("OnEvent", function()
   elseif event == "QUEST_LOG_UPDATE" and KAMN_HandleQuestLogUpdate then
     updated = KAMN_HandleQuestLogUpdate(event) or updated
 
-  -- 📌 Systemmeldungen (z. B. Quests abgeschlossen)
+  -- 📌 Systemmeldungen (z. B. Gruppen-Kill von Bossen)
   elseif event == "CHAT_MSG_SYSTEM" then
     if KAMN_HandleSystemMessage then
       updated = KAMN_HandleSystemMessage(event, arg1) or updated
+    end
+    if KAMN_HandleProximityKill then
+      updated = KAMN_HandleProximityKill(event, arg1) or updated
     end
 
   -- 📌 Reputationsfortschritt (Thunder Bluff etc.)

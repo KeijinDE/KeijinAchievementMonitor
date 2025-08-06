@@ -8,7 +8,7 @@ KAMN.AllCategorySegments = {
     label = "Generic Progression",
     filter = function(a)
       local t = a.type
-      return t == "level" or t == "quest" or t == "kill"
+      return t == "level" or t == "quest" or t == "generickill"
     end
   },
   {
@@ -23,7 +23,7 @@ KAMN.AllCategorySegments = {
     label = "Combat: Named & Boss",
     filter = function(a)
       local t = a.type
-      return t == "namedkill" or t == "namedkillgroup" or t == "bosskill"
+      return t == "kill" or t == "namedkill" or t == "namedkillgroup" or t == "bosskill" 
     end
   },
   -- {
@@ -136,6 +136,10 @@ KAM_LABELS.groups = {
   rep_neutral  = "Neutral Factions",
   rep_horde    = "Horde Factions",
   rep_alliance = "Alliance Factions",
+  mob = "Lesser Targets",
+  elite = "Elite Enemies",
+  boss = "Boss Encounters",
+
 
 
 }

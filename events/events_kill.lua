@@ -22,7 +22,8 @@ function KAMN_HandleCombatTextUpdate(event, arg1)
 
   local updated = false
   for _, a in ipairs(KAMN.achievements or {}) do
-    if a.type == "kill" and (a.active ~= false) and not a.complete then
+    if (a.type == "kill" or a.type == "generickill") and (a.active ~= false) and not a.complete then
+
       local current = GetRegistryProgress(a.id)
       local newProgress = KAMN_TriggerProgress(a.id, current + 1, false)
       updated = true
@@ -37,29 +38,39 @@ end
 
 function KAMN_HandleHostileDeath(event, arg1)
   local msg = arg1 or ""
-  if not (string.find(msg, "^You have slain") or string.find(msg, "^Du hast")) then return false end
+  if KAMN.debug then
+    DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] HostileDeath Event: " .. msg)
+  end
+
+  -- ➕ NEU: Weiterleitung bei "dies." / "stirbt."
+  if not (string.find(msg, "^You have slain") or string.find(msg, "^Du hast")) then
+    return KAMN_HandleProximityKill(event, msg)
+  end
 
   local updated = false
-  for _, a in ipairs(KAMN.achievements or {}) do
-    if a.type == "kill" and (a.active ~= false) and not a.complete then
-      local current = GetRegistryProgress(a.id)
-      local newProgress = KAMN_TriggerProgress(a.id, current + 1, false)
-      updated = true
-      if KAMN.debug then
-        DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Kill matched: " .. a.name .. " (" .. a.id .. ") progress = " .. newProgress)
-      end
 
-    elseif (a.type == "namedkill" or a.type == "bosskill") and (a.active ~= false) and not a.complete then
+  for i = 1, table.getn(KAMN.achievements) do
+    local a = KAMN.achievements[i]
+
+    if (a.type == "kill" or a.type == "namedkill" or a.type == "bosskill") and (a.active ~= false) and not a.complete then
       local matched = false
+
+      -- Einzelziel-Vergleich
       if a.targetname and string.find(string.lower(msg), string.lower(a.targetname)) then
         matched = true
+
+      -- Mehrfachziel-Vergleich
       elseif type(a.targetnames) == "table" then
-        for i = 1, table.getn(a.targetnames) do
-          if string.find(string.lower(msg), string.lower(a.targetnames[i])) then
+        for j = 1, table.getn(a.targetnames) do
+          if string.find(string.lower(msg), string.lower(a.targetnames[j])) then
             matched = true
             break
           end
         end
+
+      -- Generischer Kill (kein Zielname)
+      elseif not a.targetname then
+        matched = true
       end
 
       if matched then
@@ -75,6 +86,8 @@ function KAMN_HandleHostileDeath(event, arg1)
 
   return updated
 end
+
+
 
 function KAMN_HandleNamedKillGroup(event, msg)
   if not msg then return false end
@@ -98,6 +111,51 @@ if match ~= "" and (lname == match or string.find(lname, match)) then
   end
   break
 end
+      end
+    end
+  end
+
+  return updated
+end
+
+-- 📌 Funktion: Gruppen-Kill durch Systemmeldung (z. B. für Instanzbosse)
+function KAMN_HandleProximityKill(event, msg)
+  if not msg then return false end
+
+  -- Systemmeldungen: "X has slain Y", "X hat Y getötet", "Y dies.", "Y stirbt."
+  local name = 
+    SafeMatch(msg, "^(.+) has slain") or
+    SafeMatch(msg, "^(.+) hat .+ getötet") or
+    SafeMatch(msg, "^(.+) dies%.$") or
+    SafeMatch(msg, "^(.+) stirbt%.$")
+
+  if not name then return false end
+
+  local lname = string.lower(name)
+  local updated = false
+
+  for i = 1, table.getn(KAMN.achievements) do
+    local a = KAMN.achievements[i]
+    if (a.type == "namedkill" or a.type == "bosskill") and (a.active ~= false) and not a.complete then
+      local matched = false
+      if a.targetname and string.find(string.lower(msg), string.lower(a.targetname)) then
+        matched = true
+      elseif type(a.targetnames) == "table" then
+        for j = 1, table.getn(a.targetnames) do
+          if string.find(string.lower(msg), string.lower(a.targetnames[j])) then
+            matched = true
+            break
+          end
+        end
+      end
+
+      if matched then
+        local current = GetRegistryProgress(a.id)
+        local newProgress = KAMN_TriggerProgress(a.id, current + 1, false)
+        updated = true
+        if KAMN.debug then
+          DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] ProximityKill: " .. a.name .. " (" .. a.id .. ") progress = " .. newProgress)
+        end
       end
     end
   end

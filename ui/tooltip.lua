@@ -17,7 +17,7 @@ local function ShowKillAchievementTooltip(unit)
   if KAMN.debug and name ~= lastDebugName then
     firstDebug = true
     lastDebugName = name
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r RAW Mouseover Name: '" .. name .. "'")
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r RAW Mouseover Name: '" .. name .. "'")
   end
 
   if name == lastUnitName then return end
@@ -32,26 +32,26 @@ local function ShowKillAchievementTooltip(unit)
 
       if a.targetname then
         local candidate = string.lower(string.gsub(a.targetname, "%s", ""))
-        if KAMN.debug and firstDebug then
-          DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich targetname: '" .. lname .. "' vs '" .. candidate .. "'")
-        end
+        -- if KAMN.debug and firstDebug then
+          -- DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich targetname: '" .. lname .. "' vs '" .. candidate .. "'")
+        -- end
         if lname == candidate then match = true end
       end
 
       if not match and a.target then
         local candidate = string.lower(string.gsub(a.target, "%s", ""))
-        if KAMN.debug and firstDebug then
-          DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich target: '" .. lname .. "' vs '" .. candidate .. "'")
-        end
+        -- if KAMN.debug and firstDebug then
+          -- DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich target: '" .. lname .. "' vs '" .. candidate .. "'")
+        -- end
         if lname == candidate then match = true end
       end
 
       if not match and a.targetnames and type(a.targetnames) == "table" then
         for i = 1, table.getn(a.targetnames) do
           local candidate = string.lower(string.gsub(a.targetnames[i], "%s", ""))
-          if KAMN.debug and firstDebug then
-            DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich targetnames[" .. i .. "]: '" .. lname .. "' vs '" .. candidate .. "'")
-          end
+          -- if KAMN.debug and firstDebug then
+            -- DEFAULT_CHAT_FRAME:AddMessage("[KAM Debug] Vergleich targetnames[" .. i .. "]: '" .. lname .. "' vs '" .. candidate .. "'")
+          -- end
           if lname == candidate then
             match = true
             break
@@ -74,10 +74,10 @@ local function ShowKillAchievementTooltip(unit)
 
   if addedLine then GameTooltip:Show() end
 
-  if firstDebug then
-    local status = addedLine and "Treffer" or "kein Treffer"
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Tooltip: " .. name .. " → " .. status)
-  end
+  -- if firstDebug then
+    -- local status = addedLine and "Treffer" or "kein Treffer"
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Tooltip: " .. name .. " → " .. status)
+  -- end
 end
 
 -- UI Frames: TargetFrame etc.

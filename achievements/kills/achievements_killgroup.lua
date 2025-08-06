@@ -228,3 +228,18 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
+
+
+table.insert(KAMN.achievements, {
+  id = "KILL_BRISTLEBACK15",
+  name = "Bristleback Invasion",
+  description = "Defeat 15 Bristleback Quilboars.",
+  type = "namedkillgroup",
+  targetname = "Bristleback Quilboar",
+  value = 15,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = {},
+})

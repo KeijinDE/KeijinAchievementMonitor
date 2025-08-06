@@ -268,3 +268,9 @@ end
 -- repDebugFrame:SetScript("OnEvent", function()
   -- DEFAULT_CHAT_FRAME:AddMessage("|cff99ccff[KAM Debug]|r Event: " .. event .. " | arg1: " .. tostring(arg1))
 -- end)
+
+
+KAMN_Settings = KAMN_Settings or {}
+if KAMN_Settings.NotifySoundEnabled == nil then
+  KAMN_Settings.NotifySoundEnabled = true
+end

@@ -7,13 +7,13 @@ KAMN.achievements = KAMN.achievements or {}
 
 -- Thalassian Highlands - High Elves --
 
--- Quel'Danil Lodge
+-- Alah'Thalas
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_QUELDANILLODGE",
-  name = "Quel'Danil Lodge",
-  description = "Explore Quel'Danil Lodge in Thalassian Highlands.",
+  id = "DISCOVER_ALAHTHALAS",
+  name = "Alah'Thalas",
+  description = "Explore Alah'Thalas in Thalassian Highlands.",
   type = "discover",
-  zonename = "Quel'Danil Lodge",
+  zonename = "Alah'Thalas",
   continent = "Eastern Kingdoms",
   zonegroup = "Thalassian Highlands",
   value = 1,
@@ -24,13 +24,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Sunfire Point
+-- Anasterian Park
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_SUNFIREPOINT",
-  name = "Sunfire Point",
-  description = "Explore Sunfire Point in Thalassian Highlands.",
+  id = "DISCOVER_ANASTERIANPARK",
+  name = "Anasterian Park",
+  description = "Explore Anasterian Park in Thalassian Highlands.",
   type = "discover",
-  zonename = "Sunfire Point",
+  zonename = "Anasterian Park",
   continent = "Eastern Kingdoms",
   zonegroup = "Thalassian Highlands",
   value = 1,
@@ -41,30 +41,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Farondale
+-- Ballador's Chapel
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_FARONDALE",
-  name = "Farondale",
-  description = "Explore Farondale in Thalassian Highlands.",
+  id = "DISCOVER_BALLADORSCHAPEL",
+  name = "Ballador's Chapel",
+  description = "Explore Ballador's Chapel in Thalassian Highlands.",
   type = "discover",
-  zonename = "Farondale",
-  continent = "Kalimdor",
-  zonegroup = "Thalassian Highlands",
-  value = 1,
-  progress = 0,
-  complete = false,
-  category = "Exploration",
-  points = 5,
-  requiredFor = {},
-})
-
--- Ravencrest's Citadel
-table.insert(KAMN.achievements, {
-  id = "DISCOVER_RAVENCRESTSCITADEL",
-  name = "Ravencrest's Citadel",
-  description = "Explore Ravencrest's Citadel in Thalassian Highlands.",
-  type = "discover",
-  zonename = "Ravencrest's Citadel",
+  zonename = "Ballador's Chapel",
   continent = "Eastern Kingdoms",
   zonegroup = "Thalassian Highlands",
   value = 1,
@@ -75,13 +58,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- San'layn Ruins
+-- Brinthilien
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_SANLAYNRUINS",
-  name = "San'layn Ruins",
-  description = "Explore San'layn Ruins in Thalassian Highlands.",
+  id = "DISCOVER_BRINTHILIEN",
+  name = "Brinthilien",
+  description = "Explore Brinthilien in Thalassian Highlands.",
   type = "discover",
-  zonename = "San'layn Ruins",
+  zonename = "Brinthilien",
   continent = "Eastern Kingdoms",
   zonegroup = "Thalassian Highlands",
   value = 1,
@@ -91,16 +74,170 @@ table.insert(KAMN.achievements, {
   points = 5,
   requiredFor = {},
 })
+
+-- The Farstride (Deepmurk Cave)
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_FARSTRIDE",
+  name = "The Farstride",
+  description = "Explore the Farstride (Deepmurk Cave) in Thalassian Highlands.",
+  type = "discover",
+  zonename = "The Farstride",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Felstrider Retreat
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_FELSTRIDERRETREAT",
+  name = "Felstrider Retreat",
+  description = "Explore Felstrider Retreat in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Felstrider Retreat",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Isle of Eternal Autumn
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_ETERNALAUTUMN",
+  name = "Isle of Eternal Autumn",
+  description = "Explore the Isle of Eternal Autumn in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Isle of Eternal Autumn",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- The Last Runestone
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_LASTRUNESTONE",
+  name = "The Last Runestone",
+  description = "Explore the Last Runestone in Thalassian Highlands.",
+  type = "discover",
+  zonename = "The Last Runestone",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Ruins of Nashal'aran
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_NASHALARAN",
+  name = "Ruins of Nashal'aran",
+  description = "Explore the Ruins of Nashal'aran in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Ruins of Nashal'aran",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- The Scourged Pass
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_SCOURGEDPASS",
+  name = "The Scourged Pass",
+  description = "Explore the Scourged Pass in Thalassian Highlands.",
+  type = "discover",
+  zonename = "The Scourged Pass",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Silver Covenant Camp
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_SILVERCOVENANT",
+  name = "Silver Covenant Camp",
+  description = "Explore the Silver Covenant Camp in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Silver Covenant Camp",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Silver Sun Mine
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_SILVERSUNMINE",
+  name = "Silver Sun Mine",
+  description = "Explore Silver Sun Mine in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Silver Sun Mine",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Thaumarium
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_THAUMARIUM",
+  name = "Thaumarium",
+  description = "Explore Thaumarium in Thalassian Highlands.",
+  type = "discover",
+  zonename = "Thaumarium",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Thalassian Highlands",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
 
 -- Blackstone Isle - Goblins --
 
--- Smuggler's Cove
+-- Black Ash Coalpits
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_SMUGGLERSCOVE",
-  name = "Smuggler's Cove",
-  description = "Explore Smuggler's Cove in Blackstone Isle.",
+  id = "DISCOVER_BLACKASHCOALPITS",
+  name = "Black Ash Coalpits",
+  description = "Explore Black Ash Coalpits in Blackstone Isle.",
   type = "discover",
-  zonename = "Smuggler's Cove",
+  zonename = "Black Ash Coalpits",
   continent = "Kalimdor",
   zonegroup = "Blackstone Isle",
   value = 1,
@@ -111,13 +248,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Goblin Slums
+-- Black Ash Mine
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_GOBLINSLUMS",
-  name = "Goblin Slums",
-  description = "Explore Goblin Slums in Blackstone Isle.",
+  id = "DISCOVER_BLACKASHMINE",
+  name = "Black Ash Mine",
+  description = "Explore Black Ash Mine in Blackstone Isle.",
   type = "discover",
-  zonename = "Goblin Slums",
+  zonename = "Black Ash Mine",
   continent = "Kalimdor",
   zonegroup = "Blackstone Isle",
   value = 1,
@@ -128,13 +265,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Blackstone Mine
+-- Gazzik's Workshop
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_BLACKSTONEMINE",
-  name = "Blackstone Mine",
-  description = "Explore Blackstone Mine in Blackstone Isle.",
+  id = "DISCOVER_GAZZIKWORKSHOP",
+  name = "Gazzik's Workshop",
+  description = "Explore Gazzik's Workshop in Blackstone Isle.",
   type = "discover",
-  zonename = "Blackstone Mine",
+  zonename = "Gazzik's Workshop",
   continent = "Kalimdor",
   zonegroup = "Blackstone Isle",
   value = 1,
@@ -145,13 +282,13 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Crimson Watchtower
+-- Rustgate Lumber Yard
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_CRIMSONWATCHTOWER",
-  name = "Crimson Watchtower",
-  description = "Explore Crimson Watchtower in Blackstone Isle.",
+  id = "DISCOVER_RUSTGATELUMBER",
+  name = "Rustgate Lumber Yard",
+  description = "Explore Rustgate Lumber Yard in Blackstone Isle.",
   type = "discover",
-  zonename = "Crimson Watchtower",
+  zonename = "Rustgate Lumber Yard",
   continent = "Kalimdor",
   zonegroup = "Blackstone Isle",
   value = 1,
@@ -162,13 +299,47 @@ table.insert(KAMN.achievements, {
   requiredFor = {},
 })
 
--- Bilgewater Docks
+-- Rustgate Ridge
 table.insert(KAMN.achievements, {
-  id = "DISCOVER_BILGEWATERDOCKS",
-  name = "Bilgewater Docks",
-  description = "Explore Bilgewater Docks in Blackstone Isle.",
+  id = "DISCOVER_RUSTGATERIDGE",
+  name = "Rustgate Ridge",
+  description = "Explore Rustgate Ridge in Blackstone Isle.",
   type = "discover",
-  zonename = "Bilgewater Docks",
+  zonename = "Rustgate Ridge",
+  continent = "Kalimdor",
+  zonegroup = "Blackstone Isle",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- Venture Co. Slums
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_VENTURESLUMS",
+  name = "Venture Co. Slums",
+  description = "Explore Venture Co. Slums in Blackstone Isle.",
+  type = "discover",
+  zonename = "Venture Co. Slums",
+  continent = "Kalimdor",
+  zonegroup = "Blackstone Isle",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Exploration",
+  points = 5,
+  requiredFor = {},
+})
+
+-- The Water Hole
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_WATERHOLE",
+  name = "The Water Hole",
+  description = "Explore the Water Hole in Blackstone Isle.",
+  type = "discover",
+  zonename = "The Water Hole",
   continent = "Kalimdor",
   zonegroup = "Blackstone Isle",
   value = 1,

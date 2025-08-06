@@ -3,7 +3,8 @@
 -- Gruppiert und sortiert Erfolge nach Typ, Subtyp oder Kategorie
 function KAM_GroupAndSortAchievements(matches, category, filter)
   local typeMap = {
-    kill = "kills",
+    kill = "mob",                -- Einzelziele wie "Prairie Dog", "Deer"
+    generickill = "kills",       -- Massenkills: "Kill 10", "Kill 100", etc.
     namedkill = "namedkills",
     namedkillgroup = "namedkillgroup",
     quest = "quests",
@@ -15,28 +16,32 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
     meta = "meta",
     misc = "misc",
     skill = "skill",
-    weapon = "weapon"
-
+    weapon = "weapon",
   }
 
   local groups = {}
 
   for _, a in ipairs(matches) do
     local t
+
+    -- 🧭 Meta-Erfolge (Exploration & allgemeine Meta)
     if a.type == "meta" and a.category == "Exploration" then
       t = "explore"
     elseif a.type == "meta" and a.category == "meta" then
       t = a.subcategory or "other"
+
+    -- 🧱 Standard-Zuweisung
     else
       local rawType = a.type or "_other"
       t = typeMap[rawType] or rawType
     end
+
     if not groups[t] then groups[t] = {} end
     table.insert(groups[t], a)
   end
 
   local orderMap = {
-    Combat = {"kills", "namedkills", "namedkillgroup", "bosskill"},
+    Combat = {"kills", "mob", "namedkills", "namedkillgroup", "bosskill"},
     Skills = {"skill", "weapon"},
     Reputation = {"reputation"},
     Quests = {"quests", "namedquests"},
@@ -57,7 +62,7 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
     order = orderMap[category]
     if category == "ALL" or not order then
       order = {
-        "stat", "quests", "kills", "reputation",
+        "stat", "quests", "kills", "mob", "reputation",
         "namedkills", "namedkillgroup", "bosskill",
         "explore", "namedquests", "skill", "weapon",
         "misc", "meta", "legacy"

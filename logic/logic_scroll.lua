@@ -107,10 +107,10 @@ function KAMN_ShouldDisplayAchievement(a)
   end
 
   -- 4. Killstaffel
-  if a.type == "kill" and a.value then
+  if a.type == "generickill" and a.value then
     for _, b in ipairs(KAMN.achievements) do
       if b.id ~= a.id and
-         b.type == "kill" and
+         b.type == "generickill" and
          not b.complete and
          (b.value or 0) < a.value then
         return false

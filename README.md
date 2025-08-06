@@ -1,7 +1,7 @@
 🇬🇧 ENGLISH – GitHub Release Description
 
 # 📦 Keijin Achievement Monitor (KAM)
-**Version:** v0.4.3   | 0308_2155
+**Version:** v0.5.0   | XXXXXXXX
 📦 [View changelog](Changelog.md)
 
 **For:** Turtle WoW (Classic 1.12)  
@@ -68,7 +68,7 @@ Feedback and bug reports are welcome – please include screenshots or debug out
 ## 🇩🇪 DEUTSCH – GitHub Release Beschreibung
 
 # 📦 Keijin Achievement Monitor (KAM)
-**Version:** v0.4.3  
+**Version:** v0.5.0  
 📦 [Änderungsprotokoll ansehen](Changelog.md)
 
 **Für:** Turtle WoW (Classic 1.12)  

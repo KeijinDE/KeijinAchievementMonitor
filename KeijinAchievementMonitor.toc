@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: KeijinAchievementMonitor
+## Title: |cff88ff88Keijin|r Achievement Monitor (KAM)
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
 ## Version: v0.4.3
@@ -54,12 +54,15 @@ achievements\quests\achievements_quests_generic.lua
 achievements\quests\achievements_quests_named.lua
 achievements\kills\achievements_killgroup.lua
 achievements\kills\achievements_killnamed.lua
+achievements\kills\achievements_kill_elite.lua
 achievements\kills\achievements_kills.lua
 achievements\exploration\achievements_exploration_capitals.lua
 achievements\exploration\achievements_exploration_startingzones.lua
 achievements\exploration\achievements_exploration_kalimdor.lua
 achievements\exploration\achievements_exploration_easternkingdoms.lua
 achievements\exploration\achievements_exploration_metas.lua
+achievements\exploration\achievements_exploration_turtle_meta.lua
+achievements\exploration\achievements_exploration_turtle.lua
 
 # Misc
 ui\tooltip.lua

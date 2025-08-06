@@ -144,16 +144,6 @@ f.title:SetFont("Fonts\\MORPHEUS.ttf", 18)
 f.title:SetPoint("TOP", f, "TOP", -60, -12)  -- zentrierter
 f.title:SetText("|cff88ff88Keijin Achievements Monitor|r")
 
--- -- Kategorie-Überschrift oberhalb der Liste
--- f.categoryHeader = f:CreateFontString(nil, "OVERLAY")
--- f.categoryHeader:SetFont("Fonts\\SKURRI.ttf", 16)
--- f.categoryHeader:SetTextColor(1, 1, 0.6)
--- f.categoryHeader:SetPoint("TOPLEFT", f, "TOPLEFT", 140, -97)
--- f.categoryHeader:SetWidth(370)
--- f.categoryHeader:SetJustifyH("LEFT")
--- f.categoryHeader:SetText("")  -- Initial leer
-
-
 -- 🔳 Globale Filter-Buttons mit dynamischer Anzeige + Tooltip
 -- Vorab-Deklaration des Category-Buttons, damit er überall verfügbar ist
 local categoryBtn
@@ -183,37 +173,12 @@ end, "Show all segmented achievements")
 
 filterAll:SetPoint("LEFT", filterWrapper, "LEFT", 0, 0)
 
--- 🟠 Button: Incomplete
--- local filterOpen, filterOpenBtn = KAMN_CreateDialogButton(filterWrapper, "Incomplete", 90, 20, function()
-  -- currentCategory = "ALL"
-  -- if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
-  -- currentFilter = "OPEN"
-  -- KAM_ScrollOffset = 0
-  -- if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
-    -- KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
-  -- end
-  -- KAMN_UpdateUI()
--- end, "Show only incomplete achievements")
--- filterOpen:SetPoint("LEFT", filterAll, "RIGHT", 5, 0)
-
--- -- 🟢 Button: Completed
--- local filterDone, filterDoneBtn = KAMN_CreateDialogButton(filterWrapper, "Completed", 90, 20, function()
-  -- currentCategory = "ALL"
-  -- if KAMN_ClearDetailSection then KAMN_ClearDetailSection() end
-  -- currentFilter = "DONE"
-  -- KAM_ScrollOffset = 0
-  -- if KAMNMainFrame and KAMNMainFrame.categoryBtnLabel then
-    -- KAMNMainFrame.categoryBtnLabel:SetText("Category: All Categories")
-  -- end
-  -- KAMN_UpdateUI()
--- end, "Show only completed achievements")
--- filterDone:SetPoint("LEFT", filterOpen, "RIGHT", 5, 0)
 -- Suchfeld
 local searchBox = CreateFrame("EditBox", "KAMNSearchBox", f, "InputBoxTemplate")
 searchBox:SetWidth(80)
 searchBox:SetHeight(18)
 searchBox:SetAutoFocus(false)
-searchBox:SetPoint("TOPRIGHT", f, "TOPRIGHT", -25, -40)
+searchBox:SetPoint("TOPRIGHT", f, "TOPRIGHT", -25, -42)
 
 -- Vorab deklarieren, damit innerhalb der Funktion darauf zugegriffen werden kann
 local clearWrapper
@@ -257,9 +222,9 @@ end
 
 -- Kategorie-Dropdown (Classic-Stil mit Rahmen & Auto-Close bei externem Klick)
 categoryBtn = CreateFrame("Button", nil, f)
-categoryBtn:SetWidth(150)
+categoryBtn:SetWidth(170)
 categoryBtn:SetHeight(22)
-categoryBtn:SetPoint("LEFT", filterAll, "RIGHT", 8, 0)
+categoryBtn:SetPoint("LEFT", filterAll, "RIGHT", 18, 0)
 
 categoryBtn:SetFrameStrata("DIALOG")
 categoryBtn:SetFrameLevel(20)

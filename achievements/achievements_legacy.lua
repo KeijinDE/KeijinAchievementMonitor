@@ -25,3 +25,15 @@ table.insert(KAMN.achievements, {
 })
 ]]
 
+-- Alpha
+table.insert(KAMN.achievements, {
+  id = "MISC_001",
+  name = "KAM Alpha Hero",
+  description = "Awarded to players who participated during the KAM Alpha Phase in July 2025.",
+  type = "legacy",                                -- Erfolgs-Typ (für UI-Gruppierung)
+  oldtype = "misc",                              -- Ursprünglicher Typ vor Archivierung
+  category = "Legacy",
+  points = 5,
+  requiredFor = {},
+  active = false,
+})

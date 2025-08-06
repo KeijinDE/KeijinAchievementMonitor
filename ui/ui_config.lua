@@ -92,6 +92,18 @@ function KAMN_CreateSettingsFrame()
       end
     end
   end)
+  
+  local toggleSoundBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+  toggleSoundBtn:SetWidth(160)
+  toggleSoundBtn:SetHeight(24)
+  toggleSoundBtn:SetText("|cff88ff88Toggle Notify Sound|r")
+  toggleSoundBtn:SetPoint("TOP", replayBtn, "BOTTOM", 0, -10)
+  toggleSoundBtn:SetScript("OnClick", function()
+    KAMN_Settings = KAMN_Settings or {}
+    KAMN_Settings.NotifySoundEnabled = not KAMN_Settings.NotifySoundEnabled
+    local state = KAMN_Settings.NotifySoundEnabled and "enabled" or "disabled"
+    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Notify Sound is now " .. state .. ".")
+  end)
 
   -- 🔘 RIGHT SIDE
   local resetBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")

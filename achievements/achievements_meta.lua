@@ -23,17 +23,7 @@ table.insert(KAMN.achievements, {
   subcategory = "combat",
   points = 20,
 })
--- Meta Achievement: Massacre Proven
-table.insert(KAMN.achievements, {
-  id = "META_SLAYER_002",
-  name = "Massacre Proven",
-  description = "Prove your worth by earning the Massacre Master title.",
-  type = "meta",
-  subcategory = "combat",
-  requires = { "KILL_1000", "KILL_10000" },
-  category = "Meta",
-  points = 25,
-})
+
 
 -- Meta Achievement: Kill all peaceful Critters
 table.insert(KAMN.achievements, {
@@ -190,4 +180,110 @@ table.insert(KAMN.achievements, {
   category = "Meta",
   subcategory = "combat",
   points = 25,
+})
+
+--- Exploration
+-- Eastern Kingdoms
+-- 🧭 Meta: Explore the Eastern Kingdoms
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_EK",
+  name = "Explore the Eastern Kingdoms",
+  description = "Discover all regions of the Eastern Kingdoms.",
+  type = "meta",
+  category = "Meta",
+  subcategory = "Exploration",
+  continent = "Eastern Kingdoms",
+  zonegroup = "Eastern Kingdoms",
+  progress = 0,
+  complete = false,
+  points = 25,
+  requires = {
+    "DISCOVER_ARATHI",
+    "DISCOVER_BADLANDS",
+    "DISCOVER_BLASTEDLANDS",
+    "DISCOVER_BURNINGSTEPPES",
+    "DISCOVER_DEADWINDPASS",
+    "DISCOVER_DUNMOROGH",
+    "DISCOVER_DUSKWOOD",
+    "DISCOVER_EASTERNPLAGUELANDS",
+    "DISCOVER_ELWYNN",
+    "DISCOVER_HILLSBRAD",
+    "DISCOVER_HINTERLANDS",
+    "DISCOVER_LOCHMODAN",
+    "DISCOVER_REDRIDGE",
+    "DISCOVER_SEARINGGORGE",
+    "DISCOVER_SILVERPINEFOREST",
+    "DISCOVER_STRANGLETHORN",
+    "DISCOVER_SWAMPOFSORROWS",
+    "DISCOVER_TIRISFAL",
+    "DISCOVER_WESTERNPLAGUELANDS",
+    "DISCOVER_WESTFALL",
+    "DISCOVER_WETLANDS",
+    -- Eastern Capitals
+    "DISCOVER_STORMWIND",
+    "DISCOVER_IRONFORGE",
+    "DISCOVER_UNDERCITY",
+  },
+  requiredFor = {},
+})
+
+-- Kalimdor
+-- 🧭 Meta: Kalimdor Explorer
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_KALIMDOR",
+  name = "Explore Kalimdor",
+  description = "Discover all regions of Kalimdor.",
+  type = "meta",
+  category = "Meta",
+  subcategory = "Exploration",
+  continent = "Kalimdor",
+  zonegroup = "Kalimdor",
+  progress = 0,
+  complete = false,
+  points = 25,
+  requires = {
+    "DISCOVER_ASHENVALE",
+    "DISCOVER_AZSHARA",
+    "DISCOVER_BARRENS",
+    "DISCOVER_DARKSHORE",
+    "DISCOVER_DESOLACE",
+    "DISCOVER_DUROTAR",
+    "DISCOVER_DUSTWALLOWMARSH",
+    "DISCOVER_FERALAS",
+    "DISCOVER_MOONGLADE",
+    "DISCOVER_MULGORE",
+    "DISCOVER_SILITHUS",
+    "DISCOVER_STONETALONMOUNTAINS",
+    "DISCOVER_TANARIS",
+    "DISCOVER_TELDRASSIL",
+    "DISCOVER_THOUSANDNEEDLES",
+    "DISCOVER_UNGOROCRATER",
+    "DISCOVER_WINTERSPRING",
+    -- Capitals
+    "DISCOVER_ORGRIMMAR",
+    "DISCOVER_THUNDERBLUFF",
+    "DISCOVER_DARNASSUS",
+  },
+  requiredFor = {},
+})
+
+-- Azeroth
+-- 🧭 Meta: Explore the World
+table.insert(KAMN.achievements, {
+  id = "DISCOVER_AZEROTH",
+  name = "World Explorer",
+  description = "Discover all regions and capitals across the Eastern Kingdoms and Kalimdor.",
+  type = "meta",
+  category = "Meta",
+  subcategory = "Exploration",
+  continent = "Azeroth",
+  zonegroup = "Azeroth",
+  progress = 0,
+  complete = false,
+  points = 60,
+  requires = {
+    "DISCOVER_EK",
+    "DISCOVER_KALIMDOR",
+  },
+  requiredFor = {},
 })

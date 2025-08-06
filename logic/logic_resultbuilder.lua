@@ -10,9 +10,13 @@ function KAM_BuildResultList(groups, order, category, filter)
     elseif key == "explore" then
       local zones = {}
       for _, a in ipairs(list) do
-        if not zones[a.continent] then zones[a.continent] = {} end
-        if not zones[a.continent][a.zonegroup] then zones[a.continent][a.zonegroup] = {} end
-        table.insert(zones[a.continent][a.zonegroup], a)
+local cont = a.continent or "Unknown"
+local zone = a.zonegroup or "Unsorted"
+
+zones[cont] = zones[cont] or {}
+zones[cont][zone] = zones[cont][zone] or {}
+table.insert(zones[cont][zone], a)
+
       end
 
       local continents = {}
@@ -146,7 +150,9 @@ function KAM_BuildResultList(groups, order, category, filter)
         end
 
         if hasOpen then
-          table.insert(openList, { isSubDivider = true, subLabel = s, groupKey = key })
+          local label = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups[s]) or s
+table.insert(openList, { isSubDivider = true, subLabel = label, groupKey = key })
+
           for _, a in ipairs(metas[s]) do
             if not a.complete then
               a.groupKey = key
