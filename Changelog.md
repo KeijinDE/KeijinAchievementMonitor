@@ -6,6 +6,10 @@
 - All remaining zones in Eastern Kingdoms and Kalimdor have been added
 → Includes zone-based achievements and full meta achievements for both continents
 → New overarching meta for "Azeroth Explorer"
+- Notification popup now plays a sound when shown 
+- Option to toggle the notification sound in the settings panel
+- Notify frame now displays the achievement description along with the title
+→ Title and description are shown together when available
 
 ### 🛠 Fixed / Updated
 - Alpha achievement has been marked as a Legacy achievement
@@ -13,43 +17,21 @@
 
 - UI: The search field is now aligned with the "All" button
 → Improved visual consistency across the top section of the main frame
-- Notify frame now displays the achievement description along with the title
-→ Title and description are shown together when available
-Improved stability when loading exploration achievements
+- Improved stability when loading exploration achievements
 → Achievements without continent or zonegroup are now automatically placed into "Unknown" / "Unsorted" sections to avoid UI errors
 → Prevents crashes caused by malformed or incomplete data
 - Kill mechanics expanded and refined
 → Elite and Raid bosses now only require proximity at the time of death
 → Critters and group targets still require personal kill credit (self-kill)
 → Introduced new kill type groups for proper sorting and UI clarity
+- Meta category now shows proper labels for subgroups like "Combat" and "Reputation"
+- Generic Kill progression now respects milestone filtering (only next tier shown in ALL1)
+- Achievement "Bristleback Invasion" moved to "namedkillgroup" Type
+
+### 🔥 Removed: 
+- Plainstrider kill achievements (10/20) removed
+- Duskbat Slayer kill achievement removed
 ---
-
-## 📦 Changelog – Version 0.5.0 (Deutsch)
-
-### ✨ Hinzugefügt
-- Vorbereitung auf Patch 1.18: Neue Gebiete für zukünftige Erkundungserfolge integriert
-→ Vorab eingebundene Unterzonen für das kommende Turtle WoW-Update
-- Alle verbleibenden Gebiete in den Östlichen Königreichen und Kalimdor wurden ergänzt
-→ Enthält Gebietserfolge und vollständige Meta-Erfolge für beide Kontinente
-→ Zusätzlich ein übergreifender Erfolg: „Entdecker von Azeroth“
-
-### 🛠 Behoben / Überarbeitet
-- Alpha-Erfolg wurde als Legacy-Erfolg markiert
-→ Nicht mehr erspielbar, bleibt aber sichtbar für alle, die ihn erreicht haben
-
-- UI: Das Suchfeld ist jetzt **bündig mit dem „All“-Button** ausgerichtet  
-→ Optisch saubere Ausrichtung im oberen Bereich des Hauptfensters
-- Notify-Fenster zeigt zusätzlich zur Erfolgsüberschrift nun auch die **Beschreibung** an  
-→ Titel und Beschreibung werden gemeinsam angezeigt, wenn vorhanden
-Stabilitätsverbesserung bei Erkundungserfolgen
-→ Erfolge ohne continent oder zonegroup werden nun automatisch unter "Unknown" / "Unsorted" gruppiert
-→ Verhindert UI-Fehler durch unvollständige oder fehlerhafte Daten
-- Kill-Logik erweitert und überarbeitet
-→ Elite- und Raidbosse benötigen nur noch Anwesenheit beim Tod
-→ Critter und Gruppenziele setzen weiterhin einen eigenen Killblow voraus
-→ Neue Killgruppen eingeführt für eine saubere Trennung und Sortierung im UI
----
-
 ## 📦 Changelog – Version 0.4.3
 
 ### 🛠 Fixed / Updated
