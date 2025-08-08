@@ -47,6 +47,13 @@ local function ShowKillAchievementTooltip(unit)
             break
           end
         end
+      elseif a.groupMatch and type(a.groupMatch) == "table" then
+        for j = 1, table.getn(a.groupMatch) do
+          if NormalizeName(a.groupMatch[j]) == lname then
+            match = true
+            break
+          end
+        end
       end
 
       if match then
@@ -77,3 +84,4 @@ f:SetScript("OnUpdate", function()
     lastUnitName = ""
   end
 end)
+
