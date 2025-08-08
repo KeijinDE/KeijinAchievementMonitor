@@ -1,3 +1,14 @@
+## Changelog - Version 0.5.1
+
+### 🛠 Fixed / Updated
+- Tooltip now stable with pfui
+
+## 📦 Changelog – Version 0.5.1 (Deutsch)
+
+### 🛠 Behoben / Überarbeitet
+- Tooltip funktioniert nun auch mit pfUI
+
+
 ## 📦 Changelog – Version 0.5.0
 
 ### ✨ Added
@@ -31,6 +42,42 @@
 ### 🔥 Removed: 
 - Plainstrider kill achievements (10/20) removed
 - Duskbat Slayer kill achievement removed
+---
+
+## 📦 Changelog – Version 0.5.0 (Deutsch)
+
+### ✨ Hinzugefügt
+- Vorbereitung auf Patch 1.18: Neue Gebiete für zukünftige Erkundungserfolge integriert
+→ Vorab eingebundene Unterzonen für das kommende Turtle WoW-Update
+- Alle verbleibenden Gebiete in den Östlichen Königreichen und Kalimdor wurden ergänzt
+→ Enthält Gebietserfolge und vollständige Meta-Erfolge für beide Kontinente
+→ Zusätzlich ein übergreifender Erfolg: „Entdecker von Azeroth“
+- Benachrichtigungen spielen jetzt einen Sound beim Aufpoppen ab
+- Benachrichtigungssound kann jetzt im Einstellungsmenü ein- oder ausgeschaltet werden
+- Notify-Fenster zeigt zusätzlich zur Erfolgsüberschrift nun auch die **Beschreibung** an  
+→ Titel und Beschreibung werden gemeinsam angezeigt, wenn vorhanden
+
+### 🛠 Behoben / Überarbeitet
+- Alpha-Erfolg wurde als Legacy-Erfolg markiert
+→ Nicht mehr erspielbar, bleibt aber sichtbar für alle, die ihn erreicht haben
+
+- UI: Das Suchfeld ist jetzt **bündig mit dem „All“-Button** ausgerichtet  
+→ Optisch saubere Ausrichtung im oberen Bereich des Hauptfensters
+- Stabilitätsverbesserung bei Erkundungserfolgen
+→ Erfolge ohne continent oder zonegroup werden nun automatisch unter "Unknown" / "Unsorted" gruppiert
+→ Verhindert UI-Fehler durch unvollständige oder fehlerhafte Daten
+- Kill-Logik erweitert und überarbeitet
+→ Elite- und Raidbosse benötigen nur noch Anwesenheit beim Tod
+→ Critter und Gruppenziele setzen weiterhin einen eigenen Killblow voraus
+→ Neue Killgruppen eingeführt für eine saubere Trennung und Sortierung im UI
+- Meta-Kategorie zeigt nun korrekte Labels für Untergruppen wie „Kampf“ und „Ruf“
+- Generische Kill-Meilensteine zeigen in ALL1 nur die nächste noch offene Stufe an
+- Achievement "Bristleback Invasion" verschoben in "namedkillgroup" Type
+
+### 🔥 Entfernt: 
+- Plainstrider Kill Erfolge (10/20) wurden entfernt
+- Duskbat Slayer Kill Erfolg wurde entfernt
+
 ---
 ## 📦 Changelog – Version 0.4.3
 
