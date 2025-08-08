@@ -225,9 +225,10 @@ categoryBtn = CreateFrame("Button", nil, f)
 categoryBtn:SetWidth(170)
 categoryBtn:SetHeight(22)
 categoryBtn:SetPoint("LEFT", filterAll, "RIGHT", 18, 0)
-
-categoryBtn:SetFrameStrata("DIALOG")
-categoryBtn:SetFrameLevel(20)
+local baseStrata = f:GetFrameStrata()
+local baseLevel  = f:GetFrameLevel()
+categoryBtn:SetFrameStrata(baseStrata)
+categoryBtn:SetFrameLevel(baseLevel + 2)
 
 -- Rahmen im Dialog-Stil
 categoryBtn:SetBackdrop({
@@ -251,15 +252,15 @@ categoryList:SetWidth(170)
 categoryList:SetHeight(12 * 18)
 categoryList:SetPoint("TOP", categoryBtn, "BOTTOM", 0, 0)
 categoryList:SetBackdrop(nil)
-categoryList:SetFrameStrata("DIALOG")
-categoryList:SetFrameLevel(21)
+categoryList:SetFrameStrata(baseStrata)
+categoryList:SetFrameLevel(categoryBtn:GetFrameLevel() + 1)
 categoryList:Hide()
 
 -- ClickBlocker zum automatischen Schließen außerhalb
 local clickBlocker = CreateFrame("Frame", nil, UIParent)
 clickBlocker:SetAllPoints(UIParent)
 clickBlocker:EnableMouse(true)
-clickBlocker:SetFrameStrata("DIALOG")
+clickBlocker:SetFrameStrata(baseStrata)
 clickBlocker:SetFrameLevel(categoryList:GetFrameLevel() - 1)
 clickBlocker:SetScript("OnMouseDown", function()
   categoryList:Hide()
