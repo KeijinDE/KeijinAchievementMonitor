@@ -4,7 +4,6 @@
 -- Version (zentral definiert)
 KAMN_VERSION = "0.5.1"
 
-
 -- Check for global corruption (classic safeguard)
 if type(string) ~= "table" then
   DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM Debug] WARNING: Global 'string' corrupted (type: " .. type(string) .. ")")
@@ -55,7 +54,7 @@ SlashCmdList["KAM"] = function(msg)
   if msg == "" then
     DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAchievementMonitor]|r Available commands:")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam toggle|r – Toggle UI on/off")
-    --DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam config|r – Open settings window")
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam config|r – Open settings window")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam debug|r – Toggle debug mode")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam test|r – Show test Notify")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export|r – Export completed achievements")
