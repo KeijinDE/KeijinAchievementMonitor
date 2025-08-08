@@ -61,7 +61,7 @@ local function ShowKillAchievementTooltip(unit)
         if not data.complete then
           local progress = data.progress or 0
           local goal = a.value or a.amount or 1
-          local line = "|cff88ff88[KAM]|r Kill Achievement: |cffffff00" .. (a.name or a.id) .. " (" .. progress .. "/" .. goal .. ")"
+          local line = "Kill Achievement: |cffffff00" .. (a.name or a.id) .. " (" .. progress .. "/" .. goal .. ")"
           GameTooltip:AddLine(line)
           GameTooltip:Show()
           return
@@ -84,4 +84,5 @@ f:SetScript("OnUpdate", function()
     lastUnitName = ""
   end
 end)
+
 
