@@ -2,11 +2,13 @@
 
 ### 🛠 Fixed / Updated
 - Tooltip now stable with pfui
+- Correct Layer for Dropdown
 
 ## 📦 Changelog – Version 0.5.1 (Deutsch)
 
 ### 🛠 Behoben / Überarbeitet
 - Tooltip funktioniert nun auch mit pfUI
+- Layer korrigiert für Dropdown
 
 
 ## 📦 Changelog – Version 0.5.0
