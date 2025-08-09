@@ -168,6 +168,63 @@ table.insert(openList, { isSubDivider = true, subLabel = label, groupKey = key }
           end
         end
       end
+    elseif key == "namedquests" then
+  -- Spezialfall: Story Quests mit Unterteilern nach questhub
+
+  -- Quests nach Hub gruppieren
+  local hubs = {}
+  for _, a in ipairs(list) do
+    local hub = a.questhub or "Other"
+    hubs[hub] = hubs[hub] or {}
+    table.insert(hubs[hub], a)
+  end
+
+  -- Alphabetisch sortierte Hub-Namen
+  local hubNames = {}
+  for hub in pairs(hubs) do table.insert(hubNames, hub) end
+  table.sort(hubNames)
+
+  -- Hauptlabel "Story Quests" einfügen, wenn es offene Einträge gibt
+  local hasAnyOpen = false
+  for _, hub in ipairs(hubNames) do
+    for _, a in ipairs(hubs[hub]) do
+      if not a.complete then hasAnyOpen = true break end
+    end
+    if hasAnyOpen then break end
+  end
+  local mainLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups[key]) or key
+  if hasAnyOpen then
+    table.insert(openList, { isSubDivider = true, subLabel = mainLabel, groupKey = key })
+  end
+
+  -- Pro Hub Unter‑Divider + Einträge
+  for _, hub in ipairs(hubNames) do
+    local hasOpen, hasDone = false, false
+    for _, a in ipairs(hubs[hub]) do
+      if a.complete then hasDone = true else hasOpen = true end
+    end
+
+    if hasOpen then
+      table.insert(openList, { isSubDivider = true, subLabel = "  " .. hub, groupKey = key })
+      table.sort(hubs[hub], function(a, b) return (a.name or "") < (b.name or "") end)
+      for _, a in ipairs(hubs[hub]) do
+        if not a.complete then
+          a.groupKey = key
+          table.insert(openList, a)
+        end
+      end
+    end
+
+    if hasDone then
+      for _, a in ipairs(hubs[hub]) do
+        if a.complete then
+          a.groupKey = key
+          table.insert(doneList, a)
+        end
+      end
+    end
+  end
+
 
     else
       -- Standardfall für alles andere

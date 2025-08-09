@@ -1,15 +1,128 @@
--- ui_config.lua – Settings mit Tooltip-Toggle + Bereichslabels + Trennlinie
+-- ui_config.lua – Konsistente Config-UI (Classic 1.12)
+-- • Einheitliche Chat-Ausgaben: |cff88ff88[KAM]|r <Label>: enabled/disabled (grün/rot)
+-- • Linke Spalte sortiert: ON/OFF-Buttons → Abstand → Show/Play-Buttons
+-- • Rechte Spalte: Reset, Reset Position, Toggle Storage Mode (Popup) + Live-Label
+-- • Classic-kompatibel: kein SetSize(), kein #table, kein _G, keine OnUpdate/elapsed
 
+-- =========================================================
+-- 🔧 Wrapper-Helfer (nutzt KAMN_CreateDialogButton aus ui_main.lua, fällt sonst zurück)
+-- =========================================================
+local function KAMN_MakeWrappedButton(parent, label, width, height, clickFunc, tooltipText)
+  if KAMN_CreateDialogButton then
+    local w, b = KAMN_CreateDialogButton(parent, label, width, height, clickFunc, tooltipText)
+    return w, b, true
+  end
+
+  local w = CreateFrame("Frame", nil, parent)
+  w:SetWidth(width or 140)
+  w:SetHeight(height or 20)
+  w:SetBackdrop({
+    bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+    tile = true, tileSize = 16, edgeSize = 12,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+  })
+  w:SetBackdropColor(0.1, 0.2, 0.1, 1.0)
+
+  local b = CreateFrame("Button", nil, w, "UIPanelButtonTemplate")
+  b:SetWidth(width or 140)
+  b:SetHeight(height or 20)
+  b:SetPoint("CENTER", w, "CENTER", 0, 0)
+  b:SetText(label)
+
+  if type(clickFunc) == "function" then b:SetScript("OnClick", clickFunc) end
+  if tooltipText then
+    b:SetScript("OnEnter", function()
+      GameTooltip:SetOwner(b, "ANCHOR_RIGHT")
+      GameTooltip:SetText(tooltipText, 1, 1, 1)
+      GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+  end
+
+  return w, b, false
+end
+
+-- =========================================================
+-- 🔘 Status-Button (ON/OFF): Wrapper + kleine Statusbox + Text
+--    Classic-sicherer Click-Handler (this:GetParent())
+-- =========================================================
+local function KAMN_CreateStatusButton(parent, opts)
+  -- opts: { label, tooltip, getStateFunc, onClick, width, height }
+  local width = opts.width or 200
+  local height = opts.height or 22
+  local wrapper, btn = KAMN_MakeWrappedButton(parent, opts.label, width, height, nil, opts.tooltip)
+
+  -- Status-Symbol (links)
+  local box = wrapper:CreateTexture(nil, "OVERLAY")
+  box:SetTexture("Interface\\Buttons\\WHITE8x8")
+  box:SetWidth(10)
+  box:SetHeight(10)
+  box:SetPoint("LEFT", wrapper, "LEFT", 6, 0)
+
+  -- Status-Text
+  local st = wrapper:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+  st:SetPoint("LEFT", box, "RIGHT", 6, 0)
+  st:SetText("")
+
+  -- Button-Text etwas nach rechts (nur Optik)
+  if btn and btn.GetFontString then
+    local fs = btn:GetFontString()
+    if fs then
+      fs:ClearAllPoints()
+      fs:SetPoint("CENTER", btn, "CENTER", 18, 0)
+    end
+  end
+
+  -- Update-Funktion
+  wrapper.KAMN_UpdateStatus = function(self)
+    local on = false
+    if type(opts.getStateFunc) == "function" then on = opts.getStateFunc() and true or false end
+    if on then
+      box:SetVertexColor(0.53, 1.0, 0.53, 1.0) -- grün
+      st:SetText("|cff88ff88ON|r")
+    else
+      box:SetVertexColor(1.0, 0.3, 0.3, 1.0)   -- rot
+      st:SetText("|cffff5555OFF|r")
+    end
+  end
+
+  btn:SetScript("OnClick", function()
+    if type(opts.onClick) == "function" then opts.onClick() end
+    local parentWrapper = this and this:GetParent()
+    if parentWrapper and parentWrapper.KAMN_UpdateStatus then
+      parentWrapper:KAMN_UpdateStatus()
+    end
+  end)
+
+  wrapper:KAMN_UpdateStatus()
+  return wrapper, btn
+end
+
+-- =========================================================
+-- 🧱 Trennzeile (horizontale Linie) für optischen Abstand
+-- =========================================================
+local function KAMN_CreateSeparator(parent, width)
+  local line = parent:CreateTexture(nil, "ARTWORK")
+  line:SetTexture(1, 1, 1, 0.25)
+  line:SetHeight(1)
+  line:SetWidth(width or 180)
+  return line
+end
+
+-- ============================
+-- ⚙ Hauptfunktion: Settings UI
+-- ============================
 function KAMN_CreateSettingsFrame()
   if KAMNConfigFrame then return end
 
   local f = CreateFrame("Frame", "KAMNConfigFrame", UIParent)
-  f:SetWidth(400)
+  f:SetWidth(420)
   f:SetHeight(360)
   f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
   f:SetBackdrop({
-  bgFile = "Interface/DialogFrame/UI-DialogBox-Background",
-  edgeFile = "Interface/DialogFrame/UI-DialogBox-Border",
+    bgFile = "Interface/DialogFrame/UI-DialogBox-Background",
+    edgeFile = "Interface/DialogFrame/UI-DialogBox-Border",
     tile = true, tileSize = 16, edgeSize = 16,
     insets = { left = 4, right = 4, top = 4, bottom = 4 }
   })
@@ -27,195 +140,204 @@ function KAMN_CreateSettingsFrame()
   -- 🏷 Title
   f.title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
   f.title:SetPoint("TOP", f, "TOP", 0, -10)
-  f.title:SetText("KAMN Settings")
+  f.title:SetText("|cff88ff88KAM Settings|r")
 
-  -- 📎 Labels
+  -- 📎 Bereichs-Labels
   local leftLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-  leftLabel:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -22)
-  leftLabel:SetText("|cff88ff88General Settings|r")
+  leftLabel:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -28)
+  leftLabel:SetText("General")
 
   local rightLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-  rightLabel:SetPoint("TOPRIGHT", f, "TOPRIGHT", -40, -22)
+  rightLabel:SetPoint("TOPRIGHT", f, "TOPRIGHT", -40, -28)
   rightLabel:SetTextColor(1, 1, 0.533)
   rightLabel:SetText("Data Options")
 
-  -- │ Vertical line
+  -- │ Vertikale Linie
   local vLine = f:CreateTexture(nil, "ARTWORK")
-  vLine:SetTexture(1, 1, 1)
+  vLine:SetTexture(1, 1, 1, 0.4)
   vLine:SetWidth(1)
-  vLine:SetHeight(185)
-  vLine:SetPoint("TOP", f, "TOP", 0, -30)
+  vLine:SetHeight(230)
+  vLine:SetPoint("TOP", f, "TOP", 0, -36)
 
-  -- 🔘 LEFT SIDE
-  local debugBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  debugBtn:SetWidth(160)
-  debugBtn:SetHeight(24)
-  debugBtn:SetText("|cff88ff88Toggle Debug Mode|r")
-  debugBtn:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -40)
-  debugBtn:SetScript("OnClick", function()
-    KAMN.debug = not KAMN.debug
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Mode: " .. (KAMN.debug and "On" or "Off"))
-  end)
+  -- ======================
+  -- ⬅ Linke Spalte (UI)
+  -- Reihenfolge: ON/OFF → (Abstand) → Show/Play
+  -- ======================
 
-  local dummyBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  dummyBtn:SetWidth(160)
-  dummyBtn:SetHeight(24)
-  dummyBtn:SetText("|cff88ff88Show Notify Test|r")
-  dummyBtn:SetPoint("TOP", debugBtn, "BOTTOM", 0, -10)
-  dummyBtn:SetScript("OnClick", function()
+  -- 🔊 Toggle Debug Mode (ON/OFF)
+  local debugBtn = KAMN_CreateStatusButton(f, {
+    label = "Toggle Debug Mode",
+    tooltip = "Enable/Disable verbose debug messages in chat.",
+    getStateFunc = function() return KAMN and KAMN.debug == true end,
+    onClick = function()
+      KAMN = KAMN or {}
+      KAMN.debug = not KAMN.debug
+      local msg = KAMN.debug and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Debug Mode: " .. msg)
+    end,
+    width = 180, height = 22
+  })
+  debugBtn:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -48)
+
+  -- 🔔 Toggle Notify Frame (ON/OFF)
+  local notifyBtn = KAMN_CreateStatusButton(f, {
+    label = "Toggle Notify Frame",
+    tooltip = "Show/Hide the floating notify frame.",
+    getStateFunc = function()
+      KAMN_Settings = KAMN_Settings or {}
+      return KAMN_Settings.NotifyEnabled == true
+    end,
+    onClick = function()
+      KAMN_Settings = KAMN_Settings or {}
+      KAMN_Settings.NotifyEnabled = not KAMN_Settings.NotifyEnabled
+      local msg = KAMN_Settings.NotifyEnabled and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Notify Frame: " .. msg)
+    end,
+    width = 180, height = 22
+  })
+  notifyBtn:SetPoint("TOPLEFT", debugBtn, "BOTTOMLEFT", 0, -10)
+
+  -- 🔊 Toggle Notify Sound (ON/OFF)
+  local soundBtn = KAMN_CreateStatusButton(f, {
+    label = "Toggle Notify Sound",
+    tooltip = "Enable/Disable sound on achievement notify.",
+    getStateFunc = function()
+      KAMN_Settings = KAMN_Settings or {}
+      return KAMN_Settings.NotifySoundEnabled == true
+    end,
+    onClick = function()
+      KAMN_Settings = KAMN_Settings or {}
+      KAMN_Settings.NotifySoundEnabled = not KAMN_Settings.NotifySoundEnabled
+      local msg = KAMN_Settings.NotifySoundEnabled and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Notify Sound: " .. msg)
+    end,
+    width = 180, height = 22
+  })
+  soundBtn:SetPoint("TOPLEFT", notifyBtn, "BOTTOMLEFT", 0, -10)
+
+  -- 🛈 Tooltip Info (ON/OFF)
+  local tooltipBtn = KAMN_CreateStatusButton(f, {
+    label = "Toggle Tooltip Info",
+    tooltip = "Show extra info in item/achievement tooltips.",
+    getStateFunc = function()
+      KAMN_Options = KAMN_Options or {}
+      return KAMN_Options.showTooltipInfo == true
+    end,
+    onClick = function()
+      KAMN_Options = KAMN_Options or {}
+      KAMN_Options.showTooltipInfo = not KAMN_Options.showTooltipInfo
+      local msg = KAMN_Options.showTooltipInfo and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Tooltip Info: " .. msg)
+    end,
+    width = 180, height = 22
+  })
+  tooltipBtn:SetPoint("TOPLEFT", soundBtn, "BOTTOMLEFT", 0, -10)
+
+  -- Kleiner Abstand (Separator)
+  local sepLeft = KAMN_CreateSeparator(f, 180)
+  sepLeft:SetPoint("TOPLEFT", tooltipBtn, "BOTTOMLEFT", 10, -8)
+  sepLeft:SetVertexColor(1, 1, 1, 0.20)
+
+  -- 🪧 Show Notify Test (Button)
+  local showTestWrapper
+  showTestWrapper = KAMN_MakeWrappedButton(f, "Show Notify Test", 180, 22, function()
     if KAMN_ShowNotify then
       KAMN_ShowNotify("Test message: Works!")
     end
-  end)
+    -- keine Statusmeldung nötig; der Test selbst zeigt die Notify
+  end, "Play a test notification (visual only)")
+  showTestWrapper:SetPoint("TOPLEFT", sepLeft, "BOTTOMLEFT", -10, -10)
 
-  local toggleNotifyBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  toggleNotifyBtn:SetWidth(160)
-  toggleNotifyBtn:SetHeight(24)
-  toggleNotifyBtn:SetText("|cff88ff88Toggle Notify Frame|r")
-  toggleNotifyBtn:SetPoint("TOP", dummyBtn, "BOTTOM", 0, -10)
-  toggleNotifyBtn:SetScript("OnClick", function()
-    KAMN_Settings = KAMN_Settings or {}
-    KAMN_Settings.NotifyEnabled = not KAMN_Settings.NotifyEnabled
-    local state = KAMN_Settings.NotifyEnabled and "enabled" or "disabled"
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r NotifyFrame is now " .. state .. ".")
-  end)
-
-  local replayBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  replayBtn:SetWidth(160)
-  replayBtn:SetHeight(24)
-  replayBtn:SetText("|cff88ff88Play Last Achievement|r")
-  replayBtn:SetPoint("TOP", toggleNotifyBtn, "BOTTOM", 0, -10)
-  replayBtn:SetScript("OnClick", function()
-    if KAMN_LastNotifyQueue then
+  -- ▶ Play Last Achievement (Button)
+  local replayWrapper
+  replayWrapper = KAMN_MakeWrappedButton(f, "Play Last Achievement", 180, 22, function()
+    if KAMN_LastNotifyQueue and KAMN_ShowNotify then
       for i = 1, table.getn(KAMN_LastNotifyQueue) do
         KAMN_ShowNotify(KAMN_LastNotifyQueue[i])
       end
     end
-  end)
-  
-  local toggleSoundBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  toggleSoundBtn:SetWidth(160)
-  toggleSoundBtn:SetHeight(24)
-  toggleSoundBtn:SetText("|cff88ff88Toggle Notify Sound|r")
-  toggleSoundBtn:SetPoint("TOP", replayBtn, "BOTTOM", 0, -10)
-  toggleSoundBtn:SetScript("OnClick", function()
-    KAMN_Settings = KAMN_Settings or {}
-    KAMN_Settings.NotifySoundEnabled = not KAMN_Settings.NotifySoundEnabled
-    local state = KAMN_Settings.NotifySoundEnabled and "enabled" or "disabled"
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Notify Sound is now " .. state .. ".")
-  end)
+  end, "Replay the last shown achievement notifications")
+  replayWrapper:SetPoint("TOPLEFT", showTestWrapper, "BOTTOMLEFT", 0, -10)
 
-  -- 🔘 RIGHT SIDE
-  local resetBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  resetBtn:SetWidth(160)
-  resetBtn:SetHeight(24)
-  resetBtn:SetText("|cffffff88Reset Achievements|r")
-  resetBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -20, -40)
-  resetBtn:SetScript("OnClick", function()
+  -- =======================
+  -- ➡ Rechte Spalte (Data)
+  -- =======================
+
+  -- ↩ Reset Achievements (Wrapper + Popup)
+  local resetWrapper
+  resetWrapper = KAMN_MakeWrappedButton(f, "|cffffff88Reset Achievements|r", 180, 22, function()
     StaticPopupDialogs["KAMN_RESET_CONFIRM"] = {
       text = "Do you really want to reset all achievement progress?\nThis will also remove completed legacy achievements.",
       button1 = "Yes", button2 = "No",
       OnAccept = function()
         if KAMN_ResetCharacterProgress then
           KAMN_ResetCharacterProgress()
+          DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Progress Reset: |cffff5555done|r")
         end
       end,
       timeout = 0, whileDead = true, hideOnEscape = true, showAlert = true,
     }
     StaticPopup_Show("KAMN_RESET_CONFIRM")
-  end)
+  end, "Reset all progress for the current storage scope")
+  resetWrapper:SetPoint("TOPRIGHT", f, "TOPRIGHT", -20, -48)
 
- -- ↩ Reset Frame Position
-local resetPosBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-resetPosBtn:SetWidth(160)
-resetPosBtn:SetHeight(24)
-resetPosBtn:SetText("|cffffff88Reset Frame Position|r")
-resetPosBtn:SetPoint("TOP", resetBtn, "BOTTOM", 0, -10)
-resetPosBtn:SetScript("OnClick", function()
-  StaticPopupDialogs["KAMN_RESET_FRAME_POSITION"] = {
-    text = "Do you really want to reset the position of the achievement frame?",
+  -- ↩ Reset Frame Position (Wrapper + Popup)
+  local resetPosWrapper
+  resetPosWrapper = KAMN_MakeWrappedButton(f, "|cffffff88Reset Frame Position|r", 180, 22, function()
+    StaticPopupDialogs["KAMN_RESET_FRAME_POSITION"] = {
+      text = "Do you really want to reset the position of the achievement frame?",
+      button1 = "Yes",
+      button2 = "No",
+      OnAccept = function()
+        KAMN_CharacterDB = KAMN_CharacterDB or {}
+        KAMN_CharacterDB.MainFrameX = 0
+        KAMN_CharacterDB.MainFrameY = 0
+        if KAMNMainFrame then
+          KAMNMainFrame:ClearAllPoints()
+          KAMNMainFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 30, -30)
+          KAMNMainFrame:StopMovingOrSizing()
+          DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Frame Position: |cff88ff88reset|r")
+        else
+          DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Position will reset on next open.")
+        end
+      end,
+      timeout = 0, whileDead = true, hideOnEscape = true, showAlert = true,
+    }
+    StaticPopup_Show("KAMN_RESET_FRAME_POSITION")
+  end, "Reset the main window position to default")
+  resetPosWrapper:SetPoint("TOPRIGHT", resetWrapper, "BOTTOMRIGHT", 0, -10)
+
+  -- ⚠ Popup zur Bestätigung des Storage Mode
+  StaticPopupDialogs["KAMN_STORAGE_MODE_CONFIRM"] = {
+    text = "Changing the storage mode can corrupt your achievement data.\nDo you really want to continue?",
     button1 = "Yes",
     button2 = "No",
     OnAccept = function()
-      KAMN_CharacterDB = KAMN_CharacterDB or {}
-      KAMN_CharacterDB.MainFrameX = 0
-      KAMN_CharacterDB.MainFrameY = 0
-      if KAMNMainFrame then
-        KAMNMainFrame:ClearAllPoints()
-  KAMNMainFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 30, -30)
-
-        KAMNMainFrame:StopMovingOrSizing()
-        DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Frame position reset.")
+      if KAMN_ToggleStorageMode then
+        KAMN_ToggleStorageMode()
+        if KAMNConfigFrame and KAMNConfigFrame.storageModeLabel then
+          local label = "" .. (KAMN_UseAccountData and "Account" or "Character")
+          KAMNConfigFrame.storageModeLabel:SetText(label)
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Storage Mode: |cff88ff88switched|r")
       else
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffff00[KAM]|r Position will reset on next open.")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Storage Mode: |cffff5555function missing|r")
       end
     end,
-    timeout = 0,
-    whileDead = true,
-    hideOnEscape = true,
-    showAlert = true,
+    timeout = 0, whileDead = true, hideOnEscape = true, showAlert = true,
   }
-  StaticPopup_Show("KAMN_RESET_FRAME_POSITION")
-end)
 
-StaticPopupDialogs["KAMN_STORAGE_MODE_CONFIRM"] = {
-  text = "Changing the storage mode can corrupt your achievement data.\nDo you really want to continue?",
-  button1 = "Yes",
-  button2 = "No",
-  OnAccept = function()
-    if KAMN_ToggleStorageMode then
-      KAMN_ToggleStorageMode()
+-- 🔁 Storage Mode Switch (nur Button mit Popup) – jetzt links auf Höhe des letzten linken Buttons
+local storageBtnWrapper
+storageBtnWrapper = KAMN_MakeWrappedButton(f, "Toggle Storage Mode", 180, 22, function()
+  StaticPopup_Show("KAMN_STORAGE_MODE_CONFIRM")
+end, "Switch between Account-wide and Character-only data storage")
+storageBtnWrapper:SetPoint("TOPLEFT", replayWrapper, "TOPRIGHT", 20, 0) -- gleiche Höhe wie Play Last Achievement
 
-      if KAMNConfigFrame and KAMNConfigFrame.storageModeLabel then
-        local label = "" .. (KAMN_UseAccountData and "Account" or "Character")
-        KAMNConfigFrame.storageModeLabel:SetText(label)
-      end
 
-      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Storage mode switched.")
-    else
-      DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r ToggleStorageMode() not found.")
-    end
-  end,
-  timeout = 0,
-  whileDead = true,
-  hideOnEscape = true,
-  showAlert = true,
-}
-
-  local storageToggleBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  storageToggleBtn:SetWidth(160)
-  storageToggleBtn:SetHeight(24)
-  storageToggleBtn:SetText("|cffffff88Toggle Storage Mode|r")
-  storageToggleBtn:SetPoint("TOP", resetPosBtn, "BOTTOM", 0, -10)
-  storageToggleBtn:SetScript("OnClick", function()
-    StaticPopup_Show("KAMN_STORAGE_MODE_CONFIRM")
-  end)
-
-  -- Trennlinie unten
-  local hLine = f:CreateTexture(nil, "ARTWORK")
-  hLine:SetTexture(1, 1, 1, 0.3)
-  hLine:SetHeight(1)
-  hLine:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -230)
-  hLine:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -230)
-
-  -- 🧪 Tooltip Toggle (Experimental)
-  local labelExp = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  labelExp:SetPoint("TOPLEFT", f, "TOPLEFT", 20, -240)
-  labelExp:SetText("|cff88ccffExperimental Features|r")
-
-  local tooltipBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-  tooltipBtn:SetWidth(160)
-  tooltipBtn:SetHeight(24)
-  tooltipBtn:SetText("|cff88ccffToggle Tooltip Info|r")
-  tooltipBtn:SetPoint("TOPLEFT", labelExp, "BOTTOMLEFT", 0, -10)
-  tooltipBtn:SetScript("OnClick", function()
-    KAMN_Options = KAMN_Options or {}
-    KAMN_Options.showTooltipInfo = not KAMN_Options.showTooltipInfo
-    local state = KAMN_Options.showTooltipInfo and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ccff[KAM]|r Tooltip Info is now " .. state .. ".")
-  end)
-
-  -- 📦 Speichermodusanzeige
+  -- =======================================
+  -- 📦 Live-Anzeige unten rechts
+  -- =======================================
   f.storageModeLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
   f.storageModeLabel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -10, 10)
   f.storageModeLabel:SetTextColor(1, 1, 0.533)

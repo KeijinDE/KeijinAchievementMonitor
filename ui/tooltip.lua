@@ -12,7 +12,7 @@ local function TooltipHasKAMText()
   local n = GameTooltip:NumLines()
   for i = 1, n do
     local fs = getglobal("GameTooltipTextLeft" .. i)
-    if fs and fs:GetText() and string.find(fs:GetText(), "%[KAM%]") then
+    if fs and fs:GetText() and string.find(fs:GetText(), "%Kill Achievement") then
       return true
     end
   end
@@ -84,5 +84,4 @@ f:SetScript("OnUpdate", function()
     lastUnitName = ""
   end
 end)
-
 

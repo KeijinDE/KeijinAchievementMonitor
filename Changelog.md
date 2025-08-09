@@ -1,3 +1,75 @@
+## 📦 Changelog – Version 0.6.0
+
+### ✨ Added
+- **Hardcore Mode Detection** via passive spell in spellbook.  
+  → Once detected, all HC-specific achievements are unlocked and progress can be tracked.
+- **New Achievement Category:** `Hardcore Achievements` (page `ALL13B`), visible only when Hardcore mode is active.
+- **Hardcore Versions** of kill, quest, reputation, and level achievements added alongside normal ones.
+- **New Quest Achievements** for starting zones and capital cities:  
+  → Elwynn Forest, Durotar, Dun Morogh, Teldrassil, Mulgore, Thalassian Highlands, Blackstone Isle.  
+  → Stormwind, Orgrimmar, Darnassus, Ironforge, Undercity, Thunder Bluff.
+- **Raid and Dungeon Questlines** added as achievements:  
+  → Blackrock Depths (Royal Rescue), Blackwing Lair, Molten Core, Naxxramas, Onyxia, Ruins/Temple of Ahn’Qiraj, Zul’Gurub.
+- **Segmented Quest Pages** for Story, Professions, Raids, and Class quests in the ALL view.
+- **Questhub Sub-Dividers** in the Quests category:  
+  → Achievements with the same questhub value are now automatically grouped.  
+  → Supports starting zones, capital cities, dungeons, and raids.
+
+### 🛠 Fixed / Updated
+- Normal achievements now continue to progress when Hardcore mode is active.
+- Corrected filters and category handling so that Hardcore and normal achievements can both be tracked simultaneously.
+- Labels system updated to support dynamic visibility for the Hardcore page.
+- **`generickill` Tracking** extended to `HOSTILE_DEATH` events for more reliable counting (works with and without Floating Combat Text).
+- **Account-wide Skill Achievements** now only track the highest value ever reached (no longer accumulate lower character values).
+- **UI Main Frame:** Reworked for a cleaner layout and consistent button design.
+- **UI Config Frame:** Completely redesigned for improved layout, cleaner structure, and unified button design.
+- **Category Dropdown:** Adjusted frame level to correctly sit below game windows.
+- **Result Builder:** Added questhub-based divider logic.
+- Updated existing quest achievements with questhub values to enable future sorting.
+- Updated quest descriptions for clearer zone references.
+- **Elite and Boss Kill Descriptions** updated to clarify that presence at the kill is sufficient.
+
+---
+
+## 📦 Changelog – Version 0.6.0 (Deutsch)
+
+### ✨ Hinzugefügt
+- **Hardcore-Modus-Erkennung** über passiven Zauber im Zauberbuch.  
+  → Sobald erkannt, werden alle HC-spezifischen Erfolge freigeschaltet und Fortschritt kann erfasst werden.
+- **Neue Erfolgskategorie:** `Hardcore Achievements` (Seite `ALL13B`), sichtbar nur, wenn der Hardcore-Modus aktiv ist.
+- **Hardcore-Versionen** von Kill-, Quest-, Ruf- und Level-Erfolgen zusätzlich zu den normalen hinzugefügt.
+- **Neue Quest-Erfolge** für Startgebiete und Hauptstädte:  
+  → Elwynn Forest, Durotar, Dun Morogh, Teldrassil, Mulgore, Thalassian Highlands, Blackstone Isle.  
+  → Stormwind, Orgrimmar, Darnassus, Ironforge, Undercity, Thunder Bluff.
+- **Raid- und Dungeon-Questreihen** als Erfolge hinzugefügt:  
+  → Blackrocktiefen (Königliche Rettung), Pechschwingenhort, Geschmolzener Kern, Naxxramas, Onyxia, Ruinen/Tempel von Ahn’Qiraj, Zul’Gurub.
+- **Segmentierte Quest-Seiten** für Story-, Berufs-, Raid- und Klassen-Quests in der ALL-Ansicht.
+- **Questhub-Unterteiler** in der Kategorie Quests:  
+  → Erfolge mit gleichem questhub werden automatisch zusammengefasst.  
+  → Unterstützt Startgebiete, Hauptstädte, Dungeons und Raids.
+
+### 🛠 Behoben / Geändert
+- Normale Erfolge zählen nun auch weiter, wenn der Hardcore-Modus aktiv ist.
+- Filter- und Kategorienlogik angepasst, sodass Hardcore- und normale Erfolge gleichzeitig erfasst werden.
+- Labels-System aktualisiert, um die Hardcore-Seite dynamisch ein-/auszublenden.
+- **`generickill`-Zählung** auf `HOSTILE_DEATH`-Events erweitert, um zuverlässiger zu zählen (funktioniert mit und ohne Floating Combat Text).
+- **Accountweite Skill-Erfolge** erfassen nur noch den höchsten jemals erreichten Wert (niedrigere Werte von anderen Charakteren werden nicht mehr addiert).
+- **UI-Hauptfenster:** Überarbeitet für ein aufgeräumteres Layout und einheitliches Button-Design.
+- **UI-Konfigurationsfenster:** Komplett überarbeitet für ein aufgeräumteres Layout, klarere Struktur und einheitliche Buttons.
+- **Kategorie-Dropdown:** Ebenenpriorität korrigiert, überdeckt keine Spielfenster mehr.
+- **Resultbuilder:** Neue questhub-Logik für Unterteiler eingebaut.
+- Vorhandene Quest-Erfolge mit questhub-Werten ergänzt, um spätere Sortierung zu ermöglichen.
+- Quest-Beschreibungen um klare Gebietsangaben erweitert.
+- **Beschreibungen für Elite- und Boss-Kill-Erfolge** überarbeitet, Klarstellung, dass Anwesenheit beim Tod ausreichend ist.
+
+## Changelog - Version 0.5.2
+
+### 🛠 Fixed / Updated
+- Description of Kill Achievement adjust. 
+
+## 📦 Changelog – Version 0.5.2 (Deutsch)
+
+- Beschreibung von Kill Erfolgen justiert. 
 ## Changelog - Version 0.5.1
 
 ### 🛠 Fixed / Updated

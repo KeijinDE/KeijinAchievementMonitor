@@ -48,6 +48,7 @@ table.insert(KAMN.achievements, {
     "KILL_FAWN1",
 	"KILL_Roach1",
 	"KILL_Rat1",
+	"KILL_HARE1"
   },
   category = "Meta",
   subcategory = "combat",
@@ -280,10 +281,91 @@ table.insert(KAMN.achievements, {
   zonegroup = "Azeroth",
   progress = 0,
   complete = false,
-  points = 60,
+  points = 25,
   requires = {
     "DISCOVER_EK",
     "DISCOVER_KALIMDOR",
   },
   requiredFor = {},
+})
+
+-- 🧭 Meta: Blackwing Lair Quest Reihe
+table.insert(KAMN.achievements, {
+  id = "META_BWL_QUESTS",
+  name = "Blackwing Lair Quest Master",
+  description = "Complete the full quest chain within Blackwing Lair.",
+  type = "meta",
+  requires = {
+    "QUEST_NEFARIUSS_CORRUPTION1",
+    "QUEST_ONLY_ONE_MAY_RISE1",
+    "QUEST_PURPLE_LOTUS_COLLECTION1",
+    "QUEST_SCYTHE_OF_THE_GODDESS1",
+  },
+  category = "Meta",
+  subcategory = "quests",
+  points = 25,
+})
+-- 🧭 Meta: Molten Core Quest Reihe
+table.insert(KAMN.achievements, {
+  id = "META_MC_QUESTS",
+  name = "Molten Core Quest Master",
+  description = "Complete the full quest chain within Molten Core.",
+  type = "meta",
+  requires = {
+    "QUEST_ATTUNEMENT_TO_THE_CORE1",
+    "QUEST_FAVOR_BLOOD_OF_THE_MOUNTAIN1",
+    "QUEST_FAVOR_CORE_LEATHER1",
+    "QUEST_SCRYING_GOGGLES1",
+  },
+  category = "Meta",
+  subcategory = "quests",
+  points = 40,
+})
+-- 🧭 Meta: Naxxramas Quest Reihe
+table.insert(KAMN.achievements, {
+  id = "META_NAXX_QUESTS",
+  name = "Naxxramas Quest Master",
+  description = "Complete the full quest chain within Naxxramas.",
+  type = "meta",
+  requires = {
+    "QUEST_THE_FALL_OF_KELTHUZAD1",
+    "QUEST_THE_FATE_OF_RAMALADNI1",
+    "QUEST_THE_ONLY_SONG_I_KNOW1",
+  },
+  category = "Meta",
+  subcategory = "quests",
+  points = 25,
+})
+-- 🧭 Meta: Temple of Ahn'Qiraj Quest Reihe
+table.insert(KAMN.achievements, {
+  id = "META_TAQ_QUESTS",
+  name = "Temple of Ahn'Qiraj Quest Master",
+  description = "Complete the full quest chain within the Temple of Ahn'Qiraj.",
+  type = "meta",
+  requires = {
+    "QUEST_SECRETS_OF_THE_QIRAJI1",
+    "QUEST_MORTAL_CHAMPIONS1",
+    "QUEST_CTHUNS_LEGACY1",
+  },
+  category = "Meta",
+  subcategory = "quests",
+  points = 25,
+})
+-- 🧭 Meta: Zul'Gurub Quest Reihe
+table.insert(KAMN.achievements, {
+  id = "META_ZG_QUESTS",
+  name = "Zul'Gurub Quest Master",
+  description = "Complete the full quest chain within Zul'Gurub.",
+  type = "meta",
+  requires = {
+    "QUEST_A_BIJOU_FOR_ZANZA1",
+    "QUEST_A_COLLECTION_OF_HEADS1",
+    "QUEST_CONFRONT_YEHKINYA1",
+    "QUEST_ESSENCE_MANGOES1",
+    "QUEST_GURUBASHI_VILEBRANCH_WITHERBARK_COINS1",
+    "QUEST_NATS_MEASURING_TAPE1",
+  },
+  category = "Meta",
+  subcategory = "quests",
+  points = 25,
 })

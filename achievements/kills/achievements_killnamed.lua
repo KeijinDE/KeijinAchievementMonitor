@@ -23,6 +23,20 @@ table.insert(KAMN.achievements, {
   requiredFor = { "" },
 })
 table.insert(KAMN.achievements, {
+  id = "KILL_HARE1",
+  name = "Hare, no more! ",
+  description = "Kill a Hare.",
+  type = "kill",
+  alttype = "mob",
+  targetname = "Hare",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = { "" },
+})
+table.insert(KAMN.achievements, {
   id = "KILL_Rat1",
   name = "Rat Controll",
   description = "Kill a Rat.",

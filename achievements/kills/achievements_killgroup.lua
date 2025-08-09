@@ -243,3 +243,31 @@ table.insert(KAMN.achievements, {
   points = 5,
   requiredFor = {},
 })
+
+table.insert(KAMN.achievements, {
+  id = "KILL_MOUNTAINCOUGAR15",
+  name = "Less Cats",
+  description = "Defeat 15 Mountain Cougar in Red Cloud Mesa.",
+  type = "namedkillgroup",
+  targetname = "Mountain Cougar",
+  value = 15,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "KILL_BATTLEBOAR15",
+  name = "Less Pigs",
+  description = "Defeat 15 Battleboar in Red Cloud Mesa.",
+  type = "namedkillgroup",
+  targetname = "Battleboar",
+  value = 15,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = {},
+})
