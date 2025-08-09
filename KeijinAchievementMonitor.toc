@@ -2,7 +2,6 @@
 ## Title: |cff88ff88Keijin|r Achievement Monitor (KAM)
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
-## Version: v0.5.1
 ## Version: v0.6.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
