@@ -125,3 +125,11 @@ Dieses System wird laufend weiterentwickelt.
 Weitere Erfolge, feinere Gruppierungen und genauere Killverfolgung folgen mit späteren Updates.
 Feedback und Fehlerberichte sind willkommen – Screenshots oder Debug-Ausgaben helfen bei der Analyse.
 
+---
+### 🛠 Credits
+
+## KillLog
+https://github.com/Road-block/KillLog
+
+## ShaguNotify
+https://github.com/shagu/ShaguNotify
