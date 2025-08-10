@@ -68,83 +68,124 @@ function KAM_AttachMouseScroll(frame, category)
 end)
 end
 
--- 🔍 Gruppensperre für Meilensteine
+-- 🔍 Gruppensperre für Meilensteine (inkl. namedkillgroup via groupMatch-Signatur)
+local function KAMN_NKG_Signature(a)
+  -- Erzeugt eine stabile Signatur für namedkillgroup anhand groupMatch
+  if not a or a.type ~= "namedkillgroup" or not a.groupMatch then return nil end
+  local names, i = {}, 1
+  for i = 1, table.getn(a.groupMatch) do
+    local n = a.groupMatch[i]
+    if n and type(n) == "string" then
+      table.insert(names, string.lower(n))
+    end
+  end
+  table.sort(names)
+  return table.concat(names, "|")
+end
+
 function KAMN_ShouldDisplayAchievement(a)
   if a.complete then return true end
 
-  -- 1. Gruppensperre über group+value (z. B. Kill_100)
+  -- 1) Generische Gruppensperre (z. B. DEATH_COUNT, QUEST_COUNT, …)
   if a.group and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.group == a.group and not b.complete and b.value and b.value < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.group == a.group and not b.complete and (b.value or 0) < a.value then
         return false
       end
     end
   end
 
-  -- 2. Spezialsperre für Berufe/Waffen
+  -- 2) Skills / Weapon (pro Skillname staffeln)
   if (a.type == "skill" or a.type == "weapon") and a.skillname and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.id ~= a.id and
-         b.type == a.type and
-         b.skillname == a.skillname and
-         not b.complete and
-         (b.value or 0) < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == a.type and b.skillname == a.skillname and not b.complete and (b.value or 0) < a.value then
         return false
       end
     end
   end
 
-  -- 3. Queststaffel
+  -- 3) Quests (generic)
   if a.type == "quest" and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.id ~= a.id and
-         b.type == "quest" and
-         not b.complete and
-         (b.value or 0) < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == "quest" and not b.complete and (b.value or 0) < a.value then
         return false
       end
     end
   end
 
-  -- 4. Killstaffel
+  -- 4) Generic Kills
   if a.type == "generickill" and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.id ~= a.id and
-         b.type == "generickill" and
-         not b.complete and
-         (b.value or 0) < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == "generickill" and not b.complete and (b.value or 0) < a.value then
         return false
       end
     end
   end
 
-  -- 5. Levelstaffel
+  -- 5) Level
   if a.type == "level" and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.id ~= a.id and
-         b.type == "level" and
-         not b.complete and
-         (b.value or 0) < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == "level" and not b.complete and (b.value or 0) < a.value then
         return false
       end
     end
   end
 
-  -- 6. Rufstaffel
+  -- 6) Reputation (pro Fraktion)
   if a.type == "reputation" and a.faction and a.value then
-    for _, b in ipairs(KAMN.achievements) do
-      if b.id ~= a.id and
-         b.type == "reputation" and
-         b.faction == a.faction and
-         not b.complete and
-         (b.value or 0) < a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == "reputation" and b.faction == a.faction and not b.complete and (b.value or 0) < a.value then
         return false
+      end
+    end
+  end
+
+  -- 7) Death (nur innerhalb gleicher group staffeln; Qualifier ohne group blocken NICHT)
+  if a.type == "death" and a.value then
+    local i
+    for i = 1, table.getn(KAMN.achievements) do
+      local b = KAMN.achievements[i]
+      if b and b.id ~= a.id and b.type == "death" and not b.complete then
+        if a.group and b.group and a.group == b.group and (b.value or 0) < a.value then
+          return false
+        end
+      end
+    end
+  end
+
+  -- 8) 🆕 namedkillgroup (staffeln nur innerhalb derselben Mob-Gruppe via groupMatch)
+  if a.type == "namedkillgroup" and a.value and a.groupMatch then
+    local sigA = KAMN_NKG_Signature(a)
+    if sigA then
+      local i
+      for i = 1, table.getn(KAMN.achievements) do
+        local b = KAMN.achievements[i]
+        if b and b.id ~= a.id and b.type == "namedkillgroup" and not b.complete and (b.value or 0) < a.value and b.groupMatch then
+          local sigB = KAMN_NKG_Signature(b)
+          if sigB and sigB == sigA then
+            return false
+          end
+        end
       end
     end
   end
 
   return true
 end
+
+
 
 
 -- 🔁 Export

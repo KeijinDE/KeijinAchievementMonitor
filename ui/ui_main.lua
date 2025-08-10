@@ -206,6 +206,11 @@ function KAMN_CreateUI()
         KAMNMainFrame.categoryText:SetText("Category: All Categories")
       end
     end
+-- Enter schließt das Suchfeld
+searchBox:SetScript("OnEnterPressed", function()
+  -- Fokus entfernen, damit keine weitere Eingabe möglich ist
+  this:ClearFocus()
+end)
 
     KAMN_UpdateUI()
   end)
@@ -266,7 +271,9 @@ function KAMN_CreateUI()
     { label = "Exploration", value = "Exploration" },
     { label = "Quests", value = "Quests" },
     { label = "Reputation", value = "Reputation" },
-    { label = "Skills", value = "Skills" }
+    { label = "Skills", value = "Skills" },
+	{ label = "Hardcore",   value = "Hardcore" }
+		
   }
   local knownValues, categories = {}, {}
   for i = 1, table.getn(baseCategories) do

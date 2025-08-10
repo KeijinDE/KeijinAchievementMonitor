@@ -1,4 +1,5 @@
 -- 📦 logic_resultbuilder.lua – mit Spezialsortierungen für Explore, Reputation, Skill, Meta
+-- Neu: eigener 'stat'-Block mit Unterteilern "Level" und "Deaths"
 
 function KAM_BuildResultList(groups, order, category, filter)
   local openList, doneList = {}, {}
@@ -7,16 +8,15 @@ function KAM_BuildResultList(groups, order, category, filter)
     local list = groups[key]
     if not list or table.getn(list) == 0 then
       -- keine Daten
+
     elseif key == "explore" then
       local zones = {}
       for _, a in ipairs(list) do
-local cont = a.continent or "Unknown"
-local zone = a.zonegroup or "Unsorted"
-
-zones[cont] = zones[cont] or {}
-zones[cont][zone] = zones[cont][zone] or {}
-table.insert(zones[cont][zone], a)
-
+        local cont = a.continent or "Unknown"
+        local zone = a.zonegroup or "Unsorted"
+        zones[cont] = zones[cont] or {}
+        zones[cont][zone] = zones[cont][zone] or {}
+        table.insert(zones[cont][zone], a)
       end
 
       local continents = {}
@@ -103,11 +103,11 @@ table.insert(zones[cont][zone], a)
         end
 
         if hasOpen then
-  table.insert(openList, {
-    isSubDivider = true,
-    subLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups["rep_" .. subtype]) or subtype,
-    groupKey = key
-  })
+          table.insert(openList, {
+            isSubDivider = true,
+            subLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups["rep_" .. subtype]) or subtype,
+            groupKey = key
+          })
 
           for _, f in ipairs(facNames) do
             table.insert(openList, { isSubDivider = true, subLabel = "  " .. f, groupKey = key })
@@ -151,8 +151,7 @@ table.insert(zones[cont][zone], a)
 
         if hasOpen then
           local label = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups[s]) or s
-table.insert(openList, { isSubDivider = true, subLabel = label, groupKey = key })
-
+          table.insert(openList, { isSubDivider = true, subLabel = label, groupKey = key })
           for _, a in ipairs(metas[s]) do
             if not a.complete then
               a.groupKey = key
@@ -168,63 +167,115 @@ table.insert(openList, { isSubDivider = true, subLabel = label, groupKey = key }
           end
         end
       end
+
     elseif key == "namedquests" then
-  -- Spezialfall: Story Quests mit Unterteilern nach questhub
+      -- Story Quests nach questhub
+      local hubs = {}
+      for _, a in ipairs(list) do
+        local hub = a.questhub or "Other"
+        hubs[hub] = hubs[hub] or {}
+        table.insert(hubs[hub], a)
+      end
 
-  -- Quests nach Hub gruppieren
-  local hubs = {}
-  for _, a in ipairs(list) do
-    local hub = a.questhub or "Other"
-    hubs[hub] = hubs[hub] or {}
-    table.insert(hubs[hub], a)
-  end
+      local hubNames = {}
+      for hub in pairs(hubs) do table.insert(hubNames, hub) end
+      table.sort(hubNames)
 
-  -- Alphabetisch sortierte Hub-Namen
-  local hubNames = {}
-  for hub in pairs(hubs) do table.insert(hubNames, hub) end
-  table.sort(hubNames)
+      local hasAnyOpen = false
+      local i, j
+      for i = 1, table.getn(hubNames) do
+        local hub = hubNames[i]
+        for j = 1, table.getn(hubs[hub]) do
+          local a = hubs[hub][j]
+          if not a.complete then hasAnyOpen = true break end
+        end
+        if hasAnyOpen then break end
+      end
 
-  -- Hauptlabel "Story Quests" einfügen, wenn es offene Einträge gibt
-  local hasAnyOpen = false
-  for _, hub in ipairs(hubNames) do
-    for _, a in ipairs(hubs[hub]) do
-      if not a.complete then hasAnyOpen = true break end
-    end
-    if hasAnyOpen then break end
-  end
-  local mainLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups[key]) or key
-  if hasAnyOpen then
-    table.insert(openList, { isSubDivider = true, subLabel = mainLabel, groupKey = key })
-  end
+      local mainLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups[key]) or key
+      if hasAnyOpen then
+        table.insert(openList, { isSubDivider = true, subLabel = mainLabel, groupKey = key })
+      end
 
-  -- Pro Hub Unter‑Divider + Einträge
-  for _, hub in ipairs(hubNames) do
-    local hasOpen, hasDone = false, false
-    for _, a in ipairs(hubs[hub]) do
-      if a.complete then hasDone = true else hasOpen = true end
-    end
+      for _, hub in ipairs(hubNames) do
+        local hasOpen, hasDone = false, false
+        table.sort(hubs[hub], function(a, b) return (a.name or "") < (b.name or "") end)
+        for _, a in ipairs(hubs[hub]) do
+          if a.complete then hasDone = true else hasOpen = true end
+        end
 
-    if hasOpen then
-      table.insert(openList, { isSubDivider = true, subLabel = "  " .. hub, groupKey = key })
-      table.sort(hubs[hub], function(a, b) return (a.name or "") < (b.name or "") end)
-      for _, a in ipairs(hubs[hub]) do
-        if not a.complete then
-          a.groupKey = key
-          table.insert(openList, a)
+        if hasOpen then
+          table.insert(openList, { isSubDivider = true, subLabel = "  " .. hub, groupKey = key })
+          for _, a in ipairs(hubs[hub]) do
+            if not a.complete then
+              a.groupKey = key
+              table.insert(openList, a)
+            end
+          end
+        end
+
+        if hasDone then
+          for _, a in ipairs(hubs[hub]) do
+            if a.complete then
+              a.groupKey = key
+              table.insert(doneList, a)
+            end
+          end
         end
       end
-    end
 
-    if hasDone then
-      for _, a in ipairs(hubs[hub]) do
-        if a.complete then
-          a.groupKey = key
-          table.insert(doneList, a)
+    elseif key == "stat" then
+      -- 🆕 Character-Block in zwei Unterabschnitte splitten: Level & Death
+      local levels, deaths = {}, {}
+      local i
+      for i = 1, table.getn(list) do
+        local a = list[i]
+        if a and a.type == "level" then
+          table.insert(levels, a)
+        elseif a and a.type == "death" then
+          table.insert(deaths, a)
         end
       end
-    end
-  end
 
+      -- sortierbar nach Name, damit stabil
+      table.sort(levels, function(a, b) return (a.value or 0) < (b.value or 0) end)
+      table.sort(deaths, function(a, b) return (a.value or 0) < (b.value or 0) end)
+
+      -- Labels
+      local levelLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups.level) or "Level Milestones"
+      local deathLabel = (KAM_LABELS and KAM_LABELS.groups and KAM_LABELS.groups.death) or "Deaths"
+
+      -- offene Level
+      local hasOpenL = false
+      for i = 1, table.getn(levels) do if not levels[i].complete then hasOpenL = true break end end
+      if hasOpenL then
+        table.insert(openList, { isSubDivider = true, subLabel = levelLabel, groupKey = key })
+        for i = 1, table.getn(levels) do
+          local a = levels[i]
+          if not a.complete then a.groupKey = key table.insert(openList, a) end
+        end
+      end
+      -- abgeschlossene Level
+      for i = 1, table.getn(levels) do
+        local a = levels[i]
+        if a.complete then a.groupKey = key table.insert(doneList, a) end
+      end
+
+      -- offene Deaths
+      local hasOpenD = false
+      for i = 1, table.getn(deaths) do if not deaths[i].complete then hasOpenD = true break end end
+      if hasOpenD then
+        table.insert(openList, { isSubDivider = true, subLabel = deathLabel, groupKey = key })
+        for i = 1, table.getn(deaths) do
+          local a = deaths[i]
+          if not a.complete then a.groupKey = key table.insert(openList, a) end
+        end
+      end
+      -- abgeschlossene Deaths
+      for i = 1, table.getn(deaths) do
+        local a = deaths[i]
+        if a.complete then a.groupKey = key table.insert(doneList, a) end
+      end
 
     else
       -- Standardfall für alles andere

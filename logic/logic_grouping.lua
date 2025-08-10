@@ -1,4 +1,5 @@
 -- 🧩 logic_grouping.lua – Achievement Grouping & Sorting (Turtle WoW 1.12 / Lua 5.1)
+-- Änderung: 'death' wird wie Level-Stats gruppiert (→ "stat"), sodass die Anzeige unter "Character" erfolgt.
 
 -- Gruppiert und sortiert Erfolge nach Typ, Subtyp oder Kategorie
 function KAM_GroupAndSortAchievements(matches, category, filter)
@@ -10,6 +11,9 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
     quest = "quests",
     namedquest = "namedquests",
     level = "stat",
+    -- 🆕 Death-Erfolge wie Level/Stats behandeln, damit sie in "Character" erscheinen
+    death = "stat",
+
     zone = "explore",
     discover = "explore",
     bosskill = "bosskill",
@@ -46,7 +50,7 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
     Reputation = {"reputation"},
     Quests = {"quests", "namedquests"},
     Exploration = {"explore"},
-    Character = {"stat"},
+    Character = {"stat"}, -- 'death' steckt jetzt in 'stat', daher keine weitere Änderung nötig
     Misc = {"misc"},
   }
 

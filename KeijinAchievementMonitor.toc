@@ -2,7 +2,7 @@
 ## Title: |cff88ff88Keijin|r Achievement Monitor (KAM)
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
-## Version: v0.6.0
+## Version: v0.7.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: KAMN_Options, KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData

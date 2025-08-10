@@ -1,3 +1,71 @@
+## 📦 Changelog – Version 0.7.0
+
+### ✨ Added
+- **Death Achievements**:
+  - *First Fall* – first death of the character.
+  - *Bare Bones* – death without wearing any armor.
+  - Death milestones: 5 / 10 / 25 / 50 / 100 deaths (`DEATH_COUNT` group, cumulative).
+- **Death Tracking**:
+  - Separate event handlers for death qualifiers (First/Naked) and death counters.
+  - Fully Classic-compatible (Lua 5.1, no modern constructs).
+- **UI Integration**:
+  - Death achievements now appear under **Character** and on **ALL1** (Generic Progression).
+- **Additional Achievements**:
+  - Kill achievements for Mulgore.
+
+### 🛠 Fixed / Updated
+- **ALL1 Filter**:
+  - Now includes Death achievements alongside Level/Quest/Generic Kill.
+  - HC filter also applies to Death generics.
+  - Hardcore generics in ALL1 are hidden on non-HC characters.
+- **Dropdown Categories**:
+  - Hardcore category fixed in position after “Skills,” always visible regardless of HC status.
+- **Legacy Achievements**:
+  - Now only displayed when completed.
+- **(Sub)Dividers**:
+  - Added new (sub)dividers.
+- **Reputation Tracking:** Fixed an issue where a conflict with a global `SafeMatch` variable could cause a Lua error (`bad argument #1 to 'tonumber'`).  
+  → Reputation gains are now detected robustly, even when other addons use variables or functions with the same name.
+- **Named Kill Group:** Added milestone logic – higher `namedkillgroup` tiers are automatically hidden as long as a lower, unfinished tier for the same mob group exists (also applies to the Summary view).
+- **UI Search Field:** Pressing the Enter key now removes focus from the search field, preventing further input until clicked again.
+- **Tooltip Styling:** Changed the color scheme of KAM tooltip lines – instead of standard yellow, now uses calm, Classic-friendly colors (blue-green, warm beige, neutral gray) to stand out from pfUI and other addons.
+
+---
+
+
+## 📦 Changelog – Version 0.7.0 (Deutsch)
+
+### ✨ Added
+- **Death Achievements**:
+  - *First Fall* – erster Tod des Charakters.
+  - *Bare Bones* – Tod ohne jegliche Rüstungsteile.
+  - Death-Meilensteine: 5 / 10 / 25 / 50 / 100 Tode (`DEATH_COUNT`-Gruppe, kumulativ).
+- **Death Tracking**:
+  - Separate Event-Handler für Death-Qualifier (First/Naked) und Death-Counter.
+  - Vollständig Classic-kompatibel (Lua 5.1, keine modernen Konstrukte).
+- **UI-Integration**:
+  - Death-Erfolge erscheinen unter **Character** und auf **ALL1** (Generic Progression).
+- **Weitere Erfolge hinzugefügt**:
+  - Kill Erfolge für Mulgore 
+
+### 🛠 Fixed / Updated
+- **ALL1-Filter**:
+  - Enthält jetzt auch Death-Achievements neben Level/Quest/Generic Kill.
+  - HC-Filter greift auch bei Death-Generics.
+  - Hardcore-Generics in ALL1 werden bei non-HC-Chars ausgeblendet.
+- **Dropdown-Kategorien**:
+  - Hardcore-Kategorie fest nach „Skills“ einsortiert, unabhängig vom HC-Status sichtbar.
+- **Legacy Achievements**: 
+  - werden nur als abgeschlossen angezeigt
+- **(Sub)Divider**:
+  - neue (Sub)Divider hinzugefügt  
+- **Reputation Tracking:** Fehler behoben, bei dem ein Konflikt mit einer globalen `SafeMatch`-Variable zu einem Lua-Fehler (`bad argument #1 to 'tonumber'`) führen konnte.  
+  → Rufgewinne werden nun robust erkannt, auch wenn externe Addons gleichnamige Funktionen oder Variablen nutzen.
+- **Named Kill Group:** Staffel-Logik hinzugefügt – höhere `namedkillgroup`-Stufen werden automatisch ausgeblendet, solange eine niedrigere, noch offene Stufe derselben Mob-Gruppe existiert (gilt auch für die Summary-Ansicht).
+- **UI Search Field:** Drücken der Enter-Taste entfernt nun den Fokus aus dem Suchfeld, sodass keine weitere Eingabe möglich ist, bis es erneut angeklickt wird.
+- **Tooltip Styling:** Farbschema der KAM-Zusatzzeilen geändert – statt dem Standard-Gelb nun ruhige, classic-freundliche Farben (Blaugrün, warmes Beige, neutrales Grau), um sich klar von pfUI und anderen Addons abzuheben.
+
+
 ## 📦 Changelog – Version 0.6.0
 
 ### ✨ Added

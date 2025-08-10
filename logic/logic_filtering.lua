@@ -31,6 +31,10 @@ function KAM_FilterAchievements(category, filter, search)
     elseif match and filter == "OPEN" and a.complete then
       match = false
     end
+    -- Legacy-Kategorie (Dropdown): immer nur Completed
+    if match and category == "Legacy" and (not a.complete or a.type ~= "legacy") then
+      match = false
+    end
 
     -- Textsuche (Name oder Beschreibung)
     if match and lowerSearch ~= "" then

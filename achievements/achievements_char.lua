@@ -107,3 +107,102 @@ table.insert(KAMN.achievements, {
   complete = false,
   category = "Character"
 , points = 10 , requiredFor = {} })
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_FIRST",
+  name = "First Fall",
+  description = "Suffer your first death.",
+  type = "death",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 5,
+  requiredFor = {}
+})
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_NAKED",
+  name = "Bare Bones",
+  description = "Die while wearing no armor pieces.",
+  type = "death",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 10,
+  requiredFor = {}
+})
+
+-- ------------------------------------------------
+-- Death Count Milestones (kumulativ) – gruppiert
+-- ------------------------------------------------
+table.insert(KAMN.achievements, {
+  id = "DEATH_5",
+  name = "Five Times Down",
+  description = "Die 5 times with this character.",
+  type = "death",
+  group = "DEATH_COUNT",
+  value = 5,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 5,
+  requiredFor = {}
+})
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_10",
+  name = "Tenacious Spirit",
+  description = "Die 10 times with this character.",
+  type = "death",
+  group = "DEATH_COUNT",
+  value = 10,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 10,
+  requiredFor = {}
+})
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_25",
+  name = "Quarter Century of Wipes",
+  description = "Die 25 times with this character.",
+  type = "death",
+  group = "DEATH_COUNT",
+  value = 25,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 15,
+  requiredFor = {}
+})
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_50",
+  name = "Half to a Hundred",
+  description = "Die 50 times with this character.",
+  type = "death",
+  group = "DEATH_COUNT",
+  value = 50,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 20,
+  requiredFor = {}
+})
+
+table.insert(KAMN.achievements, {
+  id = "DEATH_100",
+  name = "Century of Defeats",
+  description = "Die 100 times with this character.",
+  type = "death",
+  group = "DEATH_COUNT",
+  value = 100,
+  progress = 0,
+  complete = false,
+  category = "Character",
+  points = 25,
+  requiredFor = {}
+})

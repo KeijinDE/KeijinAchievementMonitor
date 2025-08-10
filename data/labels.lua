@@ -80,10 +80,19 @@ KAMN.AllCategorySegments = {
     key = "ALL1",
     label = "Generic Progression",
     filter = function(a)
+      if not a then return false end
+      -- Hardcore-Generics auf non-HC-Char ausblenden,
+      -- Vergleich in ALL13B weiterhin möglich
+      if a.category == "Hardcore" and not KAMN_HardcoreEnabled() then
+        return false
+      end
+
       local t = a.type
-      return t == "level" or t == "quest" or t == "generickill"
+      -- Level, generische Quests, generische Kills, Death (inkl. Meilensteine)
+      return t == "level" or t == "quest" or t == "generickill" or t == "death"
     end
   },
+
   -- {
   --   key = "ALL2",
   --   label = "Named Quests",
@@ -219,15 +228,26 @@ KAMN.AllCategorySegments = {
       return a.type == "misc"
     end
   },
-  {
-    key = "ALL15",
-    label = "Legacy Achievements",
-    filter = function(a)
-      return a.type == "legacy"
-    end
-  }
+{
+  key = "ALL15",
+  label = "Legacy Achievements",
+  filter = function(a)
+    -- Legacy nur anzeigen, wenn abgeschlossen
+    return a and a.type == "legacy" and a.complete == true
+  end
+},
 }
-
+-- 🧭 Kompatibilität: Map (key → filter) aus der Liste erzeugen
+KAMN.AllCategorySegmentMap = {}
+do
+  local i
+  for i = 1, table.getn(KAMN.AllCategorySegments) do
+    local seg = KAMN.AllCategorySegments[i]
+    if seg and seg.key and type(seg.filter) == "function" then
+      KAMN.AllCategorySegmentMap[seg.key] = seg.filter
+    end
+  end
+end
 -- 📛 Gruppenbezeichnungen
 KAM_LABELS.groups = {
   progress = "Achievement Progress",
@@ -252,4 +272,7 @@ KAM_LABELS.groups = {
   mob = "Lesser Targets",
   elite = "Elite Enemies",
   boss = "Boss Encounters",
+    level = "Level Milestones",
+  death = "Deaths",
+
 }

@@ -2,7 +2,7 @@
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
 -- Version (zentral definiert)
-KAMN_VERSION = "0.6.0"
+KAMN_VERSION = "0.7.0"
 
 -- Check for global corruption (classic safeguard)
 if type(string) ~= "table" then
