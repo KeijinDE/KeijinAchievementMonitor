@@ -10,7 +10,7 @@
 ---
 
 ## 📘 Description
-KAM is a standalone achievement system for Turtle WoW (Patch 1.12). 
+KAM is a standalone achievement system for Turtle WoW (WoW Patch 1.12). 
 It features:
 - Custom achievements for exploration, quests, reputation, skills, kills, bosses and more
 - Progress tracking on character and account level
@@ -77,7 +77,7 @@ Feedback and bug reports are welcome – please include screenshots or debug out
 ---
 
 ## 📘 Beschreibung
-KAM ist ein eigenständiges Erfolgssystem für Turtle WoW (Patch 1.12). 
+KAM ist ein eigenständiges Erfolgssystem für Turtle WoW (WoW Patch 1.12). 
 Es bietet:
 - Eigene Erfolge für Erkundung, Quests, Ruf, Fähigkeiten, Kills, Bosse und mehr
 - Fortschrittsverfolgung auf Charakter- und Account-Ebene
@@ -125,3 +125,11 @@ Dieses System wird laufend weiterentwickelt.
 Weitere Erfolge, feinere Gruppierungen und genauere Killverfolgung folgen mit späteren Updates.
 Feedback und Fehlerberichte sind willkommen – Screenshots oder Debug-Ausgaben helfen bei der Analyse.
 
+---
+### 🛠 Credits
+
+## KillLog
+https://github.com/Road-block/KillLog
+
+## ShaguNotify
+https://github.com/shagu/ShaguNotify
