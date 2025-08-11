@@ -4,13 +4,13 @@
 **Version:** v0.8.0 | 
 📦 [View changelog](Changelog.md)
 
-**For:** Turtle WoW (Classic 1.12)  
+**For:** Turtle WoW (WoW Classic 1.12)  
 **Author:** Keijin  
 
 ---
 
 ## 📘 Description
-KAM is a standalone achievement system for Turtle WoW (WoW Patch 1.12). 
+KAM is a standalone achievement system for Turtle WoW (WoW Classic 1.12). 
 It features:
 - Custom achievements for exploration, quests, reputation, skills, kills, bosses and more
 - Progress tracking on character and account level
@@ -23,7 +23,7 @@ It features:
 ---
 
 ## How it works
-Keijin Achievement Monitor (KAM) is a fully client-side achievement system for Turtle WoW (1.12).
+Keijin Achievement Monitor (KAM) is a fully client-side achievement system for Turtle WoW (WoW Classic 1.12).
 It relies on classic Lua events and chat output, tracks your progress locally (per character or account), and displays everything in a custom, minimalist UI.
 
 Limitations:
@@ -71,13 +71,13 @@ Feedback and bug reports are welcome – please include screenshots or debug out
 **Version:** v0.8.0 
 📦 [Änderungsprotokoll ansehen](Changelog.md)
 
-**Für:** Turtle WoW (Classic 1.12)  
+**Für:** Turtle WoW (WoW Classic 1.12)  
 **Autor:** Keijin  
 
 ---
 
 ## 📘 Beschreibung
-KAM ist ein eigenständiges Erfolgssystem für Turtle WoW (WoW Patch 1.12). 
+KAM ist ein eigenständiges Erfolgssystem für Turtle WoW (WoW Classic 1.12). 
 Es bietet:
 - Eigene Erfolge für Erkundung, Quests, Ruf, Fähigkeiten, Kills, Bosse und mehr
 - Fortschrittsverfolgung auf Charakter- und Account-Ebene
@@ -89,7 +89,7 @@ Es bietet:
 
 ---
 ## Funktionsweise
-Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für Turtle WoW (1.12).
+Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für Turtle WoW (WoW Classic 1.12).
 Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortschritt lokal (Charakter / Account) und zeigt alles in einem eigenen, minimalistischen UI.
 
 *Einschränkungen*:
