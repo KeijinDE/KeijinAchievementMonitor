@@ -1,26 +1,32 @@
--- 📌 Notify-Frame zur Anzeige abgeschlossener Erfolge mit zweizeiligem Layout + optionalem Chat-Notify
+-- ui/ui_notify.lua
+-- 📌 Notify-Frame zur Anzeige abgeschlossener Erfolge
+-- 🐢 Classic-kompatibel (Lua 5.1)
 
--- Lokale Referenz auf gespeicherte Position
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 🔧 Persistente Einstellungen / Defaults
+-- ──────────────────────────────────────────────────────────────────────────────
 local defaultX, defaultY = 0, 200
 KAMN_Settings = KAMN_Settings or {}
 KAMN_Settings.NotifyPosX = KAMN_Settings.NotifyPosX or defaultX
 KAMN_Settings.NotifyPosY = KAMN_Settings.NotifyPosY or defaultY
--- Chat-Notify Default (Standard: EIN, nur wenn explizit false -> aus)
-if KAMN_Settings.NotifyChatEnabled == nil then
-  KAMN_Settings.NotifyChatEnabled = true
-end
+if KAMN_Settings.NotifyChatEnabled == nil then KAMN_Settings.NotifyChatEnabled = true end
+if KAMN_Settings.NotifySoundEnabled == nil then KAMN_Settings.NotifySoundEnabled = true end
 
--- 📦 Warteschlange
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 📦 Warteschlange / Zustände
+-- ──────────────────────────────────────────────────────────────────────────────
 local notifyQueue = {}
 local notifyActive = false
 local notifyTimer = 0
 local notifyStartTime = 0
 local notifyBatchStarted = false
-
--- 🧠 Zuletzt angezeigte Erfolge (für Replay)
+local lastAnnounceTitle, lastAnnounceTime = nil, 0
+local ANNOUNCE_DEBOUNCE = 1.0
 KAMN_LastNotifyQueue = {}
 
--- 📘 Hauptframe
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 🖼️ UI: Hauptframe
+-- ──────────────────────────────────────────────────────────────────────────────
 local notifyFrame = CreateFrame("Frame", "KAMNNotifyFrame", UIParent)
 notifyFrame:SetWidth(320)
 notifyFrame:SetHeight(90)
@@ -35,13 +41,10 @@ notifyFrame:SetScript("OnDragStop", function()
   local posY = math.floor(this:GetTop() - UIParent:GetTop() + 0.5)
   KAMN_Settings.NotifyPosX = posX
   KAMN_Settings.NotifyPosY = posY
-  if KAMN and KAMN.debug then
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify moved to: X=" .. posX .. ", Y=" .. posY)
-  end
 end)
 notifyFrame:Hide()
 
--- Hintergrund und Rahmen
+-- Hintergrund & Rahmen
 notifyFrame.bg = notifyFrame:CreateTexture(nil, "BACKGROUND")
 notifyFrame.bg:SetPoint("TOPLEFT", notifyFrame, "TOPLEFT", 4, -4)
 notifyFrame.bg:SetPoint("BOTTOMRIGHT", notifyFrame, "BOTTOMRIGHT", -4, 4)
@@ -57,46 +60,43 @@ notifyFrame.border:SetBackdrop({
 })
 notifyFrame.border:SetBackdropBorderColor(1, 1, 1, 0.8)
 
--- 🟡 Titelzeile (statisch)
+-- Titel
 notifyFrame.title = notifyFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 notifyFrame.title:SetPoint("TOP", notifyFrame, "TOP", 0, -10)
 notifyFrame.title:SetText("|cffffff00Achievement Completed|r")
 
--- 🏆 Erfolgsname (groß)
+-- Erfolgsname
 notifyFrame.text = notifyFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 notifyFrame.text:SetPoint("TOP", notifyFrame.title, "BOTTOM", 0, -18)
 notifyFrame.text:SetFont("Fonts\\SKURRI.TTF", 20, "OUTLINE")
 notifyFrame.text:SetText("")
 
--- 📝 Beschreibung (klein, feste Größe; nur Truncate)
+-- Beschreibung
 notifyFrame.desc = notifyFrame:CreateFontString(nil, "OVERLAY")
 notifyFrame.desc:SetFont("Fonts\\FRIZQT__.TTF", 9)
 notifyFrame.desc:SetPoint("TOP", notifyFrame.text, "BOTTOM", 0, -2)
 notifyFrame.desc:SetTextColor(1, 1, 1)
 notifyFrame.desc:SetText("")
 
--- 💬 Chat-Notify (optional; lokale Helper-Funktion)
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 💬 Chat-Notify Helper
+-- ──────────────────────────────────────────────────────────────────────────────
 local function KAMN_NotifyChat(title, desc)
   if not (KAMN_Settings and KAMN_Settings.NotifyChatEnabled) then return end
   if not title then return end
   local d = desc or ""
-  if string.len(d) > 120 then
-    d = string.sub(d, 1, 117) .. "..."
-  end
+  if string.len(d) > 120 then d = string.sub(d, 1, 117) .. "..." end
   DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Achievement completed: |cffffff00" .. title .. "|r" ..
     (d ~= "" and (" – " .. d) or ""))
 end
 
--- 📢 Öffentliche Funktion zum Anzeigen (wird aus der Logic getriggert)
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 🔔 Achievement vormerken (immer Queue, unabhängig vom Frame-Toggle)
+-- ──────────────────────────────────────────────────────────────────────────────
 function KAMN_ShowNotify(name)
   if not name or type(name) ~= "string" then return end
-
-  KAMN_Settings = KAMN_Settings or {}
-
-  -- Beschreibung ermitteln (für Chat/Sound/Frame)
   local desc = ""
   if KAMN and KAMN.achievements then
-    local i
     for i = 1, table.getn(KAMN.achievements) do
       local a = KAMN.achievements[i]
       if a and a.name == name and a.description then
@@ -105,41 +105,18 @@ function KAMN_ShowNotify(name)
       end
     end
   end
-
-  -- 💬 Chat immer unabhängig vom Frame
-  if KAMN_Settings.NotifyChatEnabled then
-    local d = desc
-    if string.len(d) > 120 then
-      d = string.sub(d, 1, 117) .. "..."
-    end
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Achievement completed: |cffffff00" .. name .. "|r" ..
-      (d ~= "" and (" – " .. d) or ""))
-  end
-
-  -- 🔊 Sound immer unabhängig vom Frame
-  if PlaySoundFile and (KAMN_Settings.NotifySoundEnabled ~= false) then
-    PlaySoundFile("Interface\\AddOns\\KeijinAchievementMonitor\\media\\notify.wav")
-  end
-
-  -- 🖼 Frame nur, wenn aktiv
-  if KAMN_Settings.NotifyEnabled ~= false then
-    table.insert(notifyQueue, { title = name, description = desc })
-    if KAMN and KAMN.debug then
-      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Notify-Queued: " .. name)
-    end
-  end
+  table.insert(notifyQueue, { title = name, description = desc })
 end
 
-
--- 📌 Anzeige-Logik mit LEVELUP-Sound
+-- ──────────────────────────────────────────────────────────────────────────────
+-- 🎬 Anzeige-Controller
+-- ──────────────────────────────────────────────────────────────────────────────
 local notifyController = CreateFrame("Frame")
 notifyController:SetScript("OnUpdate", function()
   if notifyActive then
-    notifyTimer = GetTime() - notifyStartTime
-    if notifyTimer > 5 then
+    if (GetTime() - notifyStartTime) > 5 then
       notifyFrame:Hide()
       notifyActive = false
-      notifyTimer = 0
     end
   elseif table.getn(notifyQueue) > 0 then
     if not notifyBatchStarted then
@@ -148,39 +125,42 @@ notifyController:SetScript("OnUpdate", function()
     end
 
     local nextEntry = table.remove(notifyQueue, 1)
-    notifyFrame.text:SetText("|cffffffff" .. (nextEntry.title or "?") .. "|r")
-    notifyFrame.desc:SetText(nextEntry.description or "")
+    local title = nextEntry and nextEntry.title or "?"
+    local desc  = (nextEntry and nextEntry.description) or ""
 
-    -- ✂ Nur Truncate (keine Auto-Font-Verkleinerung)
-    local maxWidth = notifyFrame:GetWidth() - 20
-    if notifyFrame.desc:GetStringWidth() > maxWidth then
-      local text = nextEntry.description or ""
-      while notifyFrame.desc:GetStringWidth() > maxWidth and string.len(text) > 4 do
-        text = string.sub(text, 1, string.len(text) - 1)
-        notifyFrame.desc:SetText(text .. "…")
+    -- Frame nur zeigen, wenn aktiviert
+    if KAMN_Settings.NotifyEnabled ~= false then
+      notifyFrame.text:SetText("|cffffffff" .. title .. "|r")
+      notifyFrame.desc:SetText(desc)
+
+      local maxWidth = notifyFrame:GetWidth() - 20
+      if notifyFrame.desc:GetStringWidth() > maxWidth then
+        local text = desc
+        while notifyFrame.desc:GetStringWidth() > maxWidth and string.len(text) > 4 do
+          text = string.sub(text, 1, string.len(text) - 1)
+          notifyFrame.desc:SetText(text .. "…")
+        end
       end
+      notifyFrame:Show()
+    else
+      notifyFrame:Hide()
     end
 
-    notifyFrame:Show()
-
-    -- 🔊 Soundeffekt beim Anzeigen (optional)
-    if PlaySoundFile and (KAMN_Settings.NotifySoundEnabled ~= false) then
-      PlaySoundFile("Interface\\AddOns\\KeijinAchievementMonitor\\media\\notify.wav")
+    -- Chat & Sound unabhängig vom Frame
+    local now = GetTime()
+    if not (lastAnnounceTitle == title and (now - lastAnnounceTime) < ANNOUNCE_DEBOUNCE) then
+      if PlaySoundFile and (KAMN_Settings.NotifySoundEnabled ~= false) then
+        PlaySoundFile("Interface\\AddOns\\KeijinAchievementMonitor\\media\\notify.wav")
+      end
+      KAMN_NotifyChat(title, desc)
+      lastAnnounceTitle = title
+      lastAnnounceTime  = now
     end
 
-    -- 💬 Optionaler Chat-Hinweis
-    KAMN_NotifyChat(nextEntry.title, nextEntry.description)
-
-    notifyStartTime = GetTime()
-    notifyTimer = 0
+    notifyStartTime = now
     notifyActive = true
-
-    table.insert(KAMN_LastNotifyQueue, nextEntry.title)
-    KAMN_LastNotify = nextEntry.title
-
-    if KAMN and KAMN.debug then
-      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Showing notify: " .. nextEntry.title)
-    end
+    table.insert(KAMN_LastNotifyQueue, title)
+    KAMN_LastNotify = title
   else
     notifyBatchStarted = false
   end

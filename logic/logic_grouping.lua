@@ -1,26 +1,27 @@
 -- 🧩 logic_grouping.lua – Achievement Grouping & Sorting (Turtle WoW 1.12 / Lua 5.1)
--- Änderung: 'death' wird wie Level-Stats gruppiert (→ "stat"), sodass die Anzeige unter "Character" erfolgt.
+-- Änderungshistorie:
+--  • Death-Erfolge werden wie Level-Stats gruppiert (→ "stat"), damit sie unter "Character" erscheinen.
+--  • ✅ Neu: Support für 'identity' (Race/Class) – Mapping + Order ergänzt, sodass ALL2 korrekt befüllt wird.
 
 -- Gruppiert und sortiert Erfolge nach Typ, Subtyp oder Kategorie
 function KAM_GroupAndSortAchievements(matches, category, filter)
   local typeMap = {
-    kill = "mob",                -- Einzelziele wie "Prairie Dog", "Deer"
-    generickill = "kills",       -- Massenkills: "Kill 10", "Kill 100", etc.
-    namedkill = "namedkills",
-    namedkillgroup = "namedkillgroup",
-    quest = "quests",
-    namedquest = "namedquests",
-    level = "stat",
-    -- 🆕 Death-Erfolge wie Level/Stats behandeln, damit sie in "Character" erscheinen
-    death = "stat",
-
-    zone = "explore",
-    discover = "explore",
-    bosskill = "bosskill",
-    meta = "meta",
-    misc = "misc",
-    skill = "skill",
-    weapon = "weapon",
+    kill            = "mob",          -- Einzelziele wie "Prairie Dog", "Deer"
+    generickill     = "kills",        -- Massenkills: "Kill 10", "Kill 100", etc.
+    namedkill       = "namedkills",
+    namedkillgroup  = "namedkillgroup",
+    quest           = "quests",
+    namedquest      = "namedquests",
+    level           = "stat",
+    death           = "stat",
+    zone            = "explore",
+    discover        = "explore",
+    bosskill        = "bosskill",
+    meta            = "meta",
+    misc            = "misc",
+    skill           = "skill",
+    weapon          = "weapon",
+    identity        = "identity",
   }
 
   local groups = {}
@@ -45,17 +46,19 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
   end
 
   local orderMap = {
-    Combat = {"kills", "mob", "namedkills", "namedkillgroup", "bosskill"},
-    Skills = {"skill", "weapon"},
-    Reputation = {"reputation"},
-    Quests = {"quests", "namedquests"},
+    Combat      = {"kills", "mob", "namedkills", "namedkillgroup", "bosskill"},
+    Skills      = {"skill", "weapon"},
+    Reputation  = {"reputation"},
+    Quests      = {"quests", "namedquests"},
     Exploration = {"explore"},
-    Character = {"stat"}, -- 'death' steckt jetzt in 'stat', daher keine weitere Änderung nötig
-    Misc = {"misc"},
+    -- ✅ Neu: Identity neben den Stat-Blöcken unter "Character" anzeigen
+    Character   = {"stat", "identity"},
+    Misc        = {"misc"},
   }
 
   local order
   if category == "meta" then
+    -- Dynamische Sortierung innerhalb von Meta-Unterkategorien
     local dynamicKeys = {}
     for k, _ in pairs(groups) do
       table.insert(dynamicKeys, k)
@@ -65,8 +68,9 @@ function KAM_GroupAndSortAchievements(matches, category, filter)
   else
     order = orderMap[category]
     if category == "ALL" or not order then
+      -- ✅ Neu: 'identity' in der ALL-Reihenfolge berücksichtigen (früh bei Character-bezogenen Blöcken)
       order = {
-        "stat", "quests", "kills", "mob", "reputation",
+        "stat", "identity", "quests", "kills", "mob", "reputation",
         "namedkills", "namedkillgroup", "bosskill",
         "explore", "namedquests", "skill", "weapon",
         "misc", "meta", "legacy"

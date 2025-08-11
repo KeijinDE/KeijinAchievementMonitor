@@ -1,5 +1,6 @@
 -- 📦 logic_resultbuilder.lua – mit Spezialsortierungen für Explore, Reputation, Skill, Meta
 -- Neu: eigener 'stat'-Block mit Unterteilern "Level" und "Deaths"
+-- Neu: eigener 'identity'-Block mit Unterteilern "Race" und "Class"
 
 function KAM_BuildResultList(groups, order, category, filter)
   local openList, doneList = {}, {}
@@ -274,6 +275,59 @@ function KAM_BuildResultList(groups, order, category, filter)
       -- abgeschlossene Deaths
       for i = 1, table.getn(deaths) do
         local a = deaths[i]
+        if a.complete then a.groupKey = key table.insert(doneList, a) end
+      end
+
+    elseif key == "identity" then
+      -- 🆕 Character Identity in zwei Unterabschnitte splitten: Race & Class
+      local races, classes = {}, {}
+      local i
+      for i = 1, table.getn(list) do
+        local a = list[i]
+        if a and a.subtype == "race" then
+          table.insert(races, a)
+        elseif a and a.subtype == "class" then
+          table.insert(classes, a)
+        end
+      end
+
+      -- stabile Sortierung (alphabetisch nach Name)
+      table.sort(races,   function(a, b) return (a.name or "") < (b.name or "") end)
+      table.sort(classes, function(a, b) return (a.name or "") < (b.name or "") end)
+
+      -- Labels (Fallbacks, falls nicht zentral definiert)
+      local raceLabel  = (KAM_LABELS and KAM_LABELS.subdividers and KAM_LABELS.subdividers.identity_race)  or "Race"
+      local classLabel = (KAM_LABELS and KAM_LABELS.subdividers and KAM_LABELS.subdividers.identity_class) or "Class"
+
+      -- offene Race
+      local hasOpenR = false
+      for i = 1, table.getn(races) do if not races[i].complete then hasOpenR = true break end end
+      if hasOpenR then
+        table.insert(openList, { isSubDivider = true, subLabel = raceLabel, groupKey = key })
+        for i = 1, table.getn(races) do
+          local a = races[i]
+          if not a.complete then a.groupKey = key table.insert(openList, a) end
+        end
+      end
+      -- abgeschlossene Race
+      for i = 1, table.getn(races) do
+        local a = races[i]
+        if a.complete then a.groupKey = key table.insert(doneList, a) end
+      end
+
+      -- offene Class
+      local hasOpenC = false
+      for i = 1, table.getn(classes) do if not classes[i].complete then hasOpenC = true break end end
+      if hasOpenC then
+        table.insert(openList, { isSubDivider = true, subLabel = classLabel, groupKey = key })
+        for i = 1, table.getn(classes) do
+          local a = classes[i]
+          if not a.complete then a.groupKey = key table.insert(openList, a) end
+        end
+      end
+      -- abgeschlossene Class
+      for i = 1, table.getn(classes) do
+        local a = classes[i]
         if a.complete then a.groupKey = key table.insert(doneList, a) end
       end
 

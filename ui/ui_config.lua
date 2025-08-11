@@ -274,30 +274,46 @@ function KAMN_CreateSettingsFrame()
   })
   tooltipBtn:SetPoint("TOPLEFT", chatBtn, "BOTTOMLEFT", 0, -10)
 
-  -- Kleiner Abstand (Separator)
+   -- Kleiner Abstand (Separator)
   local sepLeft = KAMN_CreateSeparator(f, 180)
   sepLeft:SetPoint("TOPLEFT", tooltipBtn, "BOTTOMLEFT", 10, -8)
   sepLeft:SetVertexColor(1, 1, 1, 0.20)
 
-  -- 🪧 Show Notify Test (Button)
-  local showTestWrapper
-  showTestWrapper = KAMN_MakeWrappedButton(f, "Show Notify Test", 180, 22, function()
-    if KAMN_ShowNotify then
-      KAMN_ShowNotify("Test message: Works!")
+  -- ▶ Replay / Test Notification (kombiniert)
+  local replayOrTestWrapper
+  replayOrTestWrapper = KAMN_MakeWrappedButton(f, "Replay / Test Notification", 180, 22, function()
+    -- Versuche zuerst die letzte echte Notify zu nehmen
+    local title = nil
+    if KAMN_LastNotify and KAMN_LastNotify ~= "" then
+      title = KAMN_LastNotify
+    elseif KAMN_LastNotifyQueue and table.getn(KAMN_LastNotifyQueue) > 0 then
+      title = KAMN_LastNotifyQueue[table.getn(KAMN_LastNotifyQueue)]
     end
-  end, "Play a test notification (visual only)")
-  showTestWrapper:SetPoint("TOPLEFT", sepLeft, "BOTTOMLEFT", -10, -10)
 
-  -- ▶ Play Last Achievement (Button)
-  local replayWrapper
-  replayWrapper = KAMN_MakeWrappedButton(f, "Play Last Achievement", 180, 22, function()
-    if KAMN_LastNotifyQueue and KAMN_ShowNotify then
-      for i = 1, table.getn(KAMN_LastNotifyQueue) do
-        KAMN_ShowNotify(KAMN_LastNotifyQueue[i])
+    -- Falls nichts da: Test anzeigen
+    if not title then
+      if KAMN_ShowNotify then
+        KAMN_ShowNotify("Test message: Works!")
+      end
+    else
+      if KAMN_ShowNotify then
+        -- Nur EINMAL abspielen (kein Loop über die Queue)
+        KAMN_ShowNotify(title)
       end
     end
-  end, "Replay the last shown achievement notifications")
-  replayWrapper:SetPoint("TOPLEFT", showTestWrapper, "BOTTOMLEFT", 0, -10)
+  end, "Replay the last achievement notification, or show a test if none exist")
+  replayOrTestWrapper:SetPoint("TOPLEFT", sepLeft, "BOTTOMLEFT", -10, -10)
+
+  -- =======================
+  -- ➡ Rechte Spalte (Data)
+  -- =======================
+
+  -- ↔ Storage Mode Switch (unchanged, nur Anchor auf neuen Button)
+  local storageBtnWrapper
+  storageBtnWrapper = KAMN_MakeWrappedButton(f, "Toggle Storage Mode", 180, 22, function()
+    StaticPopup_Show("KAMN_STORAGE_MODE_CONFIRM")
+  end, "Switch between Account-wide and Character-only data storage")
+  storageBtnWrapper:SetPoint("TOPLEFT", replayOrTestWrapper, "TOPRIGHT", 20, 0)
 
   -- =======================
   -- ➡ Rechte Spalte (Data)

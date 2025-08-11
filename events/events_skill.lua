@@ -1,8 +1,9 @@
 -- events/events_skill.lua
 -- Trigger-Handler für Berufe und Waffenfähigkeiten (z. B. Erste Hilfe, Schwertkampf)
 -- Wichtig: Skill-/Waffen-Erfolge zählen NICHT additiv, sondern immer den höchsten erreichten Wert (Max-Logik)
+-- Kompatibilität: Turtle WoW (1.12), Lua 5.1 (ohne Verwendung von string.gmatch)
 
--- 🔒 Kompatibles string.match (Classic Lua 5.1)
+-- 🔒 Kompatibles string.match (Classic Lua 5.1 / 5.0 Fallback)
 local function SafeMatch(str, pattern)
   if type(str) ~= "string" or type(pattern) ~= "string" then return nil end
   if string and type(string.match) == "function" then
@@ -17,23 +18,31 @@ end
 
 -- 📌 Fortschritt aus Registry holen (lokale Sicherung)
 local function GetRegistryProgress(id)
-  return (KAMN_RegistryByID and KAMN_RegistryByID[id] and KAMN_RegistryByID[id].progress) or 0
+  if KAMN_RegistryByID and KAMN_RegistryByID[id] and KAMN_RegistryByID[id].progress then
+    return KAMN_RegistryByID[id].progress
+  end
+  return 0
 end
 
 -- 🧮 Extrahiere Ziel-Skillwert aus der Chatmeldung
 -- Beispiele:
 -- EN: "Your skill in Defense has increased to 15."
 -- DE: "Eure Fertigkeit 'Verteidigung' wurde auf 15 erhöht."
+-- Hinweis: Kein string.gmatch verwenden → wir iterieren mit string.find über "%d+"
 local function ExtractNewSkillValue(msg)
   if not msg or type(msg) ~= "string" then return nil end
 
-  -- generische Zahlensuche: wir nehmen die LETZTE Zahl im String (robust bei Sonderfällen)
-  local lastNum = nil
-  for num in string.gmatch(msg, "(%d+)") do
-    lastNum = num
+  local lastNumStr = nil
+  local pos = 1
+  while true do
+    local s, e = string.find(msg, "%d+", pos)
+    if not s then break end
+    lastNumStr = string.sub(msg, s, e)
+    pos = e + 1
   end
-  if lastNum then
-    local n = tonumber(lastNum)
+
+  if lastNumStr then
+    local n = tonumber(lastNumStr)
     if n and n >= 0 then
       return n
     end
@@ -47,15 +56,26 @@ function KAMN_HandleSkillEvent(event, msg)
   local updated = false
 
   -- Versuche, den neuen Zielwert aus der Meldung zu lesen.
-  -- Gelingt das nicht, fallen wir optional auf +1 zurück (letzte Zeile).
+  -- Gelingt das nicht, fällt der Fallback unten auf Max(current, current+1) zurück.
   local parsedValue = ExtractNewSkillValue(msg)
 
-  for _, a in ipairs(KAMN.achievements or {}) do
+  local ach = KAMN and KAMN.achievements or {}
+  local i
+  for i = 1, (table.getn and table.getn(ach) or 0) do
+    local a = ach[i]
     -- Nur Skill-/Waffen-Erfolge, aktiv, unvollständig und mit Skill-Name
-    if (a.type == "skill" or a.type == "weapon") and (a.active ~= false) and not a.complete and a.skillname then
-      if string.find(string.lower(msg), string.lower(a.skillname)) then
+    if a
+      and (a.type == "skill" or a.type == "weapon")
+      and (a.active ~= false)
+      and (not a.complete)
+      and a.skillname
+    then
+      -- Case-insensitive Match auf den Skillnamen im Chattext
+      local msgLow = string.lower(msg)
+      local skLow  = string.lower(a.skillname)
+      if string.find(msgLow, skLow, 1, true) then
         local current = GetRegistryProgress(a.id)
-        local target  = nil
+        local target
 
         if parsedValue then
           -- 👉 Max-Logik: niemals additiv, immer den größeren der beiden Stände übernehmen
@@ -65,10 +85,10 @@ function KAMN_HandleSkillEvent(event, msg)
             target = current
           end
         else
-          -- Fallback (sollte selten vorkommen): konservativ nur Max( current, current+1 )
-          -- Dadurch wird auch hier nicht quer über Chars addiert, sofern current already higher.
-          if current + 1 > current then
-            target = current + 1
+          -- Fallback: konservativ nur Max(current, current+1)
+          local nextVal = current + 1
+          if nextVal > current then
+            target = nextVal
           else
             target = current
           end
@@ -80,7 +100,7 @@ function KAMN_HandleSkillEvent(event, msg)
 
           if KAMN and KAMN.debug then
             local label = (a.type == "skill") and "Skill" or "Weapon"
-            DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r " .. label .. " Fortschritt: " .. a.name .. " = " .. target .. " (prev " .. current .. ")")
+            DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r " .. label .. " Fortschritt: " .. (a.name or a.skillname or "?") .. " = " .. target .. " (prev " .. current .. ")")
           end
         end
       end

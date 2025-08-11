@@ -93,13 +93,14 @@ KAMN.AllCategorySegments = {
     end
   },
 
-  -- {
-  --   key = "ALL2",
-  --   label = "Named Quests",
-  --   filter = function(a)
-  --     return a.type == "namedquest"
-  --   end
-  -- },
+    {
+    key = "ALL2",
+    label = "Character: Identity (Race & Class)",
+    filter = function(a)
+      return a and a.type == "identity"
+    end
+  },
+
   {
     key = "ALL3",
     label = "Combat: Named & Boss",
@@ -212,7 +213,7 @@ KAMN.AllCategorySegments = {
     end
   },
 
-   {
+  {
     key = "ALL13B",
     label = "Hardcore Achievements",
     filter = function(a)
@@ -228,15 +229,17 @@ KAMN.AllCategorySegments = {
       return a.type == "misc"
     end
   },
-{
-  key = "ALL15",
-  label = "Legacy Achievements",
-  filter = function(a)
-    -- Legacy nur anzeigen, wenn abgeschlossen
-    return a and a.type == "legacy" and a.complete == true
-  end
-},
+
+  {
+    key = "ALL15",
+    label = "Legacy Achievements",
+    filter = function(a)
+      -- Legacy nur anzeigen, wenn abgeschlossen
+      return a and a.type == "legacy" and a.complete == true
+    end
+  },
 }
+
 -- 🧭 Kompatibilität: Map (key → filter) aus der Liste erzeugen
 KAMN.AllCategorySegmentMap = {}
 do
@@ -248,6 +251,7 @@ do
     end
   end
 end
+
 -- 📛 Gruppenbezeichnungen
 KAM_LABELS.groups = {
   progress = "Achievement Progress",
@@ -272,7 +276,8 @@ KAM_LABELS.groups = {
   mob = "Lesser Targets",
   elite = "Elite Enemies",
   boss = "Boss Encounters",
-    level = "Level Milestones",
+  level = "Level Milestones",
   death = "Deaths",
-
+  identity = "Character Identity", 
+  character = "Identity (Race & Class)",
 }

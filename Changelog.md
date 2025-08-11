@@ -1,3 +1,77 @@
+## 📦 Changelog – Version 0.8.0
+
+### ✨ Added
+- **Identity Achievements (Race & Class), including Turtle races High Elf & Goblin**  
+- **Identity Metas:** *Alliance Ancestry*, *Horde Bloodlines*, *Class Connoisseur*, *Identity Grandmaster*  
+- **New Event Module `events_identity.lua`:** detects race/class on login; token normalization; safe triggers on `PLAYER_LOGIN`, `PLAYER_ENTERING_WORLD`, `VARIABLES_LOADED`  
+- **Meta Helper:** For meta achievements, a “?” button now appears next to the detail title.  
+  Clicking it opens a panel showing all related sub-achievements with current progress.  
+- **Meta Criteria Tooltips:** In the Meta Helper window (“?” button), sub-achievements now display a tooltip on mouse-over, showing the name and description.
+
+### 🛠 Fixed / Updated
+- **UI Notifications (Chat/Sound):**  
+  Chat and sound notifications are now only triggered **once** in the display controller, no longer additionally during queueing.  
+  → Prevents duplicate or multiple chat messages and sound outputs when achievement popups appear.  
+  → Includes a short debounce to block identical notifications in quick succession.  
+- **Level Achievements:** Titles and descriptions expanded.  
+- **Generic Quest & Kill Achievements:**  
+  Updated blocking logic in `logic_scroll.lua` to ignore inactive and Hardcore-inactive entries,  
+  and to stop newly completed achievements from blocking the next milestone in the same frame.  
+  → Generic quest and kill milestones (e.g., 5 → 10) now appear immediately after completion.  
+- **Notify Frame Toggle:**  
+  The `NotifyEnabled` setting now only controls the frame’s visibility.  
+  Chat and sound notifications are no longer blocked when the frame is disabled.  
+- **Replay/Test Button:**  
+  Combined “Play Last Achievement” and “Show Notify Test” into a single button.  
+  The button replays the last shown notification or shows a test message if none exist.  
+  → Prevents multiple triggers and simplifies operation.  
+- **Token Normalization:** `UNDEAD → SCOURGE`, `BLOODELF → HIGHELF`; fallback to localized name if no token is available.  
+- **Grouping/Sorting:** Added `identity` to `typeMap` and to the order for **ALL** & **Character** → Identity now displays correctly.  
+- **Result Builder:** Added **subdividers “Race” / “Class”** in the Identity block.  
+- **Labels/UI:** Reactivated **ALL2** as *“Character: Identity (Race & Class)”*; mapped meta subcategory label **`character` → “Identity (Race & Class)”**.  
+- **Scroll in Meta Helper Window:** The criteria window now correctly supports scrolling even with a large number of sub-achievements.  
+- **Compatibility Fix:** Replaced `string.gmatch` with a Classic-compatible `string.find`-based solution in the skill event handler.  
+  → Prevents Lua errors on Turtle WoW (1.12) when handling skill and weapon progress messages.
+
+
+## 📦 Changelog – Version 0.8.0 (Deutsch)
+
+### ✨ Hinzugefügt
+- **Identitäts-Erfolge (Rasse & Klasse), inkl. Turtle-Rassen High Elf & Goblin** 
+- **Identity-Metas:** *Alliance Ancestry*, *Horde Bloodlines*, *Class Connoisseur*, *Identity Grandmaster* 
+- **Neues Event-Modul `events_identity.lua`:** erkennt Rasse/Klasse beim Login; Token-Normalisierung; sichere Trigger auf `PLAYER_LOGIN`, `PLAYER_ENTERING_WORLD`, `VARIABLES_LOADED`
+- **Meta-Hilfe:** Bei Meta-Erfolgen erscheint nun ein „?“-Button neben dem Detail-Titel.  
+  Ein Klick öffnet ein Panel mit allen zugehörigen Unter-Erfolgen inkl. aktuellem Fortschritt.
+- **Meta-Kriterien-Tooltips:** Im Meta-Hilfefenster („?“-Button) werden Unter-Erfolge jetzt mit einem Tooltip bei Maus-Over angezeigt, der Name und Beschreibung des jeweiligen Erfolges enthält.
+
+
+### 🛠 Behoben / Aktualisiert
+- **UI Notifications (Chat/Sound):**  
+  Chat- und Sound-Benachrichtigungen werden jetzt nur noch **einmal** im Anzeige-Controller ausgegeben, nicht mehr zusätzlich beim Queueing.  
+  → Verhindert doppelte oder mehrfache Chatmeldungen und Soundausgaben bei Erfolgspopups.  
+  → Inklusive kurzer Entprellung, um identische Meldungen in schneller Abfolge zu blockieren.
+- **Level Erfolge** Titel und Beschreibung erweitert.
+- **Generische Quest- & Kill-Erfolge:**  
+  Blockierlogik in `logic_scroll.lua` angepasst, um inaktive und Hardcore-inaktive Einträge zu ignorieren  
+  und frisch abgeschlossene Erfolge nicht mehr im selben Frame den nächsten Meilenstein blockieren zu lassen.  
+  → Generische Quest- und Kill-Meilensteine (z. B. 5 → 10) erscheinen nun sofort nach dem Abschluss.
+- **Notify-Frame-Umschalter:**  
+  Die Einstellung `NotifyEnabled` steuert jetzt nur noch die Sichtbarkeit des Frames.  
+  Chat- und Soundbenachrichtigungen werden nicht mehr blockiert, wenn der Frame deaktiviert ist.
+- **Replay/Test-Button:**  
+  „Play Last Achievement“ und „Show Notify Test“ zu einem einzigen Button zusammengefasst.  
+  Der Button spielt die letzte angezeigte Benachrichtigung erneut ab oder zeigt eine Testmeldung, falls keine existiert.  
+  → Verhindert Mehrfachauslösungen und vereinfacht die Bedienung.
+- **Token-Normalisierung:** `UNDEAD → SCOURGE`, `BLOODELF → HIGHELF`; Fallback auf lokalisierten Namen, falls kein Token vorhanden.  
+- **Gruppierung/Sortierung:** `identity` in `typeMap` und in die Reihenfolge für **ALL** & **Character** aufgenommen → Identity wird korrekt angezeigt.  
+- **Result-Builder:** **Subdivider „Race“ / „Class“** im Identity-Block hinzugefügt.  
+- **Labels/UI:** **ALL2** reaktiviert als *„Character: Identity (Race & Class)”*; Meta-Unterkategorie-Label **`character` → „Identity (Race & Class)”** gemappt.
+- **Scrollfunktion im Meta-Hilfefenster:** Das Kriterienfenster unterstützt nun korrektes Scrollen auch bei einer großen Anzahl an Unter-Erfolgen.
+- **Kompatibilitätsfehler behoben:** Ersetzung von `string.gmatch` durch eine Classic-kompatible `string.find`-basierte Lösung in der Skill-Event-Verarbeitung.  
+  → Verhindert Lua-Fehler auf Turtle WoW (1.12) bei Skill- und Waffenfortschrittsmeldungen.
+
+
+
 ## Changelog - Version 0.7.1
 
 ### ✨ Added
@@ -14,6 +88,22 @@
   → Fixes an issue where named quest completions were not detected if global helpers were unavailable.  
   → Now works independently of `events.lua` and remains robust against changes in other event modules.
 
+## 📦 Changelog – Version 0.7.1 (Deutsch)
+
+### ✨ Hinzugefügt
+- Neuer **Kill-Erfolg** für *Vile Familiar*  
+- Neuer **Quest-Erfolg** für *Galgar's Kaktusapfel-Überraschung*  
+- **Chat-Benachrichtigungen (optional):** Optionale Chatnachricht hinzugefügt, wenn ein Erfolg erscheint.  
+  Umschaltbar über `/kam notifychat on|off` oder in den Einstellungen → „Toggle Chat Notify“.  
+  Einstellung wird pro Charakter gespeichert.
+
+### 🛠 Behoben / Aktualisiert
+- **UI-Benachrichtigungen:** Lange Erfolgsbeschreibungen im Benachrichtigungsfenster werden nun automatisch mit „…“ abgeschnitten, falls sie immer noch zu lang sind.  
+- **Update:** Anforderung für Kill-Gruppenerfolge von 10 auf 25 Kills erhöht.  
+- **Named-Quest-Tracking:**  
+  Eigenständige, Classic-kompatible `SafeExtract`- / `SafeMatch`-Funktionen in `events_quest.lua` hinzugefügt.  
+  → Behebt ein Problem, bei dem benannte Questabschlüsse nicht erkannt wurden, wenn globale Helper nicht verfügbar waren.  
+  → Funktioniert jetzt unabhängig von `events.lua` und bleibt robust gegenüber Änderungen in anderen Eventmodulen.
 
 ## 📦 Changelog – Version 0.7.0
 

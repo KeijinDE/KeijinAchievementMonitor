@@ -2,7 +2,7 @@
 ## Title: |cff88ff88Keijin|r Achievement Monitor (KAM)
 ## Notes: Custom achievement system for Turtle WoW
 ## Author: Keijin
-## Version: v0.7.1
+## Version: v0.8.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: KAMN_Options, KAMN_Settings, KAMN_CharacterDB, KAMN_PlayerProgress, KAMN_AccountProgress, KAMN_UseAccountData
@@ -17,6 +17,8 @@ ui\ui_pagination.lua
 ui\updateui.lua
 debug\debug_namedquests.lua
 ui\minimap.lua
+ui\ui_metahelper.lua
+
 
 # Events
 events\events.lua
@@ -29,6 +31,7 @@ events\events_reputation.lua
 events\events_meta.lua
 events\events_misc.lua
 events\events_hardcore.lua
+events\events_identity.lua
 
 # UI
 ui\ui_main.lua
@@ -49,6 +52,7 @@ achievements\achievements_reputation.lua
 achievements\achievements_misc.lua
 achievements\achievements_meta.lua
 achievements\achievements_legacy.lua
+achievements\achievements_meta_char.lua
 achievements\skills\achievements_skills_weapon.lua
 achievements\skills\achievements_skills_profession.lua
 achievements\quests\achievements_quests_generic.lua
