@@ -2,7 +2,7 @@
 -- Entry point and setup logic for KeijinAchievementMonitorNEW
 
 -- Version (zentral definiert)
-KAMN_VERSION = "0.7.0"
+KAMN_VERSION = "0.7.1"
 
 -- Check for global corruption (classic safeguard)
 if type(string) ~= "table" then
@@ -27,18 +27,24 @@ KAMN_UseAccountData  = KAMN_UseAccountData or false
 
 -- 🔧 Init default options
 KAMN_Options = KAMN_Options or {}
-
 if KAMN_Options.debug == nil then
   KAMN_Options.debug = false
 end
-
 if KAMN_Options.showTooltipInfo == nil then
-  KAMN_Options.showTooltipInfo = false -- oder false als Startwert
+  KAMN_Options.showTooltipInfo = false
 end
 
+-- 🔧 Init KAMN_Settings defaults
+KAMN_Settings = KAMN_Settings or {}
+if KAMN_Settings.NotifySoundEnabled == nil then
+  KAMN_Settings.NotifySoundEnabled = true
+end
+-- 🆕 Chat-Notify default: ON (nur wenn explizit false -> OFF)
+if KAMN_Settings.NotifyChatEnabled == nil then
+  KAMN_Settings.NotifyChatEnabled = true
+end
 
-
---  Startup message (uses centralized version constant)
+--  Startup message
 DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAddons]|r |cffffff88KeijinAchievementMonitor|r v" .. KAMN_VERSION .. " – Use /kam")
 
 --  Slash-Befehle
@@ -50,7 +56,6 @@ SlashCmdList["KAM"] = function(msg)
   msg = string.lower(msg or "")
   local playerName = UnitName("player") or "Unknown"
 
-  --  Befehlsübersicht
   if msg == "" then
     DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KeijinAchievementMonitor]|r Available commands:")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam toggle|r – Toggle UI on/off")
@@ -62,9 +67,9 @@ SlashCmdList["KAM"] = function(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export meta|r – Export only meta")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export all|r – Export all completed")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam notifychat on|off|r – Enable/disable chat notifications") -- 🆕
     return
 
-  --  UI ein-/ausblenden
   elseif msg == "toggle" then
     if KAMNMainFrame then
       if KAMNMainFrame:IsShown() then
@@ -75,43 +80,49 @@ SlashCmdList["KAM"] = function(msg)
       end
     end
 
-  -- ️ Konfig-Fenster öffnen
-elseif msg == "config" then
-  if type(KAMN_CreateSettingsFrame) == "function" and not KAMNConfigFrame then
-    KAMN_CreateSettingsFrame()
-  end
-  if KAMNConfigFrame then
-    if KAMNConfigFrame:IsShown() then
-      KAMNConfigFrame:Hide()
-    else
-      KAMNConfigFrame:Show()
+  elseif msg == "config" then
+    if type(KAMN_CreateSettingsFrame) == "function" and not KAMNConfigFrame then
+      KAMN_CreateSettingsFrame()
     end
-  else
-    DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r Config frame not available.")
-  end
+    if KAMNConfigFrame then
+      if KAMNConfigFrame:IsShown() then
+        KAMNConfigFrame:Hide()
+      else
+        KAMNConfigFrame:Show()
+      end
+    else
+      DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r Config frame not available.")
+    end
 
-
-
-  --  Debugmodus
   elseif msg == "debug" then
     KAMN.debug = not KAMN.debug
     DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Mode: " .. tostring(KAMN.debug))
 
-  --  Testbenachrichtigung
   elseif msg == "test" then
     if KAMN_ShowNotify then
       KAMN_ShowNotify("This is a test achievement.")
     end
 
-  --  Charakterfortschritt zurücksetzen
   elseif msg == "reset" then
     StaticPopup_Show("KAMN_RESET_CONFIRM")
 
---wipeall
- elseif msg == "wipeall" then
+  elseif msg == "wipeall" then
     KAMN_ResetAllProgress()
-	
-  --  Export (mit optionalem Filter)
+
+  -- 🆕 Chat-Notify Toggle
+  elseif string.find(msg, "^notifychat") then
+    local arg = string.gsub(msg, "^notifychat%s*", "")
+    if arg == "on" then
+      KAMN_Settings.NotifyChatEnabled = true
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Chat notifications: |cffffff00ON|r")
+    elseif arg == "off" then
+      KAMN_Settings.NotifyChatEnabled = false
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Chat notifications: |cffffff00OFF|r")
+    else
+      local state = (KAMN_Settings.NotifyChatEnabled ~= false) and "ON" or "OFF"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Usage: /kam notifychat on|off (current: " .. state .. ")")
+    end
+
   elseif string.find(msg, "^export") then
     local arg = string.gsub(msg, "^export%s*", "")
     local key = KAMN_GetCharKey()
@@ -153,8 +164,10 @@ function KAMN:Initialize()
   if KAMN_CreateUI then KAMN_CreateUI() end
 
   KAMN_RegistryByID = {}
-  for _, a in ipairs(KAMN.achievements or {}) do
-    if a.id then
+  local i
+  for i = 1, table.getn(KAMN.achievements or {}) do
+    local a = KAMN.achievements[i]
+    if a and a.id then
       KAMN_RegistryByID[a.id] = a
     end
   end
@@ -163,7 +176,7 @@ function KAMN:Initialize()
   if KAMN_UpdateUI then KAMN_UpdateUI() end
 
   if KAMN.debug then
-    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Fortschritt geladen und Registry erstellt")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM Debug]|r Progress loaded and registry built")
   end
 end
 
@@ -172,18 +185,13 @@ local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function() KAMN:Initialize() end)
 
--- Entwickler-Wipe
+-- Entwickler-Wipe Popups
 StaticPopupDialogs["KAMN_CONFIRM_FULLRESET"] = {
   text = "This will wipe ALL character and account progress.\nAre you sure?",
   button1 = "Yes, continue",
   button2 = "Cancel",
-  OnAccept = function()
-    StaticPopup_Show("KAMN_CONFIRM_FULLRESET_REALLY")
-  end,
-  timeout = 0,
-  whileDead = true,
-  hideOnEscape = true,
-  preferredIndex = 3,
+  OnAccept = function() StaticPopup_Show("KAMN_CONFIRM_FULLRESET_REALLY") end,
+  timeout = 0, whileDead = true, hideOnEscape = true, preferredIndex = 3,
 }
 StaticPopupDialogs["KAMN_CONFIRM_FULLRESET_REALLY"] = {
   text = "This cannot be undone!\nDo you really REALLY want to wipe ALL progress?",
@@ -201,10 +209,7 @@ StaticPopupDialogs["KAMN_CONFIRM_FULLRESET_REALLY"] = {
     DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r ALL progress and storage mode wiped.")
     ReloadUI()
   end,
-  timeout = 0,
-  whileDead = true,
-  hideOnEscape = true,
-  preferredIndex = 3,
+  timeout = 0, whileDead = true, hideOnEscape = true, preferredIndex = 3,
 }
 
 StaticPopupDialogs["KAMN_RESET_CONFIRM"] = {
@@ -213,20 +218,14 @@ StaticPopupDialogs["KAMN_RESET_CONFIRM"] = {
   button2 = "Cancel",
   OnAccept = function()
     local key = KAMN_GetCharKey()
-    if KAMN_PlayerProgress then
-      KAMN_PlayerProgress[key] = {}
-    end
-    if KAMN_CharacterDB then
-      KAMN_CharacterDB[key] = {}
-    end
+    if KAMN_PlayerProgress then KAMN_PlayerProgress[key] = {} end
+    if KAMN_CharacterDB then KAMN_CharacterDB[key] = {} end
     DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[KAM]|r Character progress has been reset.")
     ReloadUI()
   end,
-  timeout = 0,
-  whileDead = true,
-  hideOnEscape = true,
-  preferredIndex = 3,
+  timeout = 0, whileDead = true, hideOnEscape = true, preferredIndex = 3,
 }
+
 --  Entwickler: Account & global Reset
 function KAMN_ResetAllProgress()
   StaticPopup_Show("KAMN_CONFIRM_FULLRESET")
@@ -246,30 +245,4 @@ end
 function KAMN_IsAchievementComplete(id)
   local data = KAMN_GetAchievementData(id)
   return data and data.complete == true
-end
-
--- Notfall Debug um richtigen Chat zu bestimmen
--- local repDebugFrame = CreateFrame("Frame")
--- local repEvents = {
-  -- "CHAT_MSG_SYSTEM",
-  -- "CHAT_MSG_COMBAT_FACTION_CHANGE",
-  -- "UI_INFO_MESSAGE",
-  -- "COMBAT_TEXT_UPDATE",
-  -- "CHAT_MSG_TEXT_EMOTE",
-  -- "CHAT_MSG_LOOT",
-  -- "CHAT_MSG_SKILL",
--- }
-
--- for i = 1, table.getn(repEvents) do
-  -- repDebugFrame:RegisterEvent(repEvents[i])
--- end
-
--- repDebugFrame:SetScript("OnEvent", function()
-  -- DEFAULT_CHAT_FRAME:AddMessage("|cff99ccff[KAM Debug]|r Event: " .. event .. " | arg1: " .. tostring(arg1))
--- end)
-
-
-KAMN_Settings = KAMN_Settings or {}
-if KAMN_Settings.NotifySoundEnabled == nil then
-  KAMN_Settings.NotifySoundEnabled = true
 end

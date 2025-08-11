@@ -5,6 +5,25 @@
 -- • Classic-kompatibel: kein SetSize(), kein #table, kein _G, keine OnUpdate/elapsed
 
 -- =========================================================
+-- 🔧 Defaults-Initializer (stellt konsistente Startwerte sicher)
+-- =========================================================
+local function KAMN_InitDefaults()
+  KAMN_Settings = KAMN_Settings or {}
+  -- Sichtbarer Notify-Frame: standardmäßig AN (wie zuvor genutzt)
+  if KAMN_Settings.NotifyEnabled == nil then
+    KAMN_Settings.NotifyEnabled = true
+  end
+  -- Sound beim Notify: standardmäßig AN
+  if KAMN_Settings.NotifySoundEnabled == nil then
+    KAMN_Settings.NotifySoundEnabled = true
+  end
+  -- 💬 Chat-Notify: standardmäßig AUS (nur an, wenn explizit aktiviert)
+  if KAMN_Settings.NotifyChatEnabled == nil then
+    KAMN_Settings.NotifyChatEnabled = false
+  end
+end
+
+-- =========================================================
 -- 🔧 Wrapper-Helfer (nutzt KAMN_CreateDialogButton aus ui_main.lua, fällt sonst zurück)
 -- =========================================================
 local function KAMN_MakeWrappedButton(parent, label, width, height, clickFunc, tooltipText)
@@ -116,6 +135,9 @@ end
 function KAMN_CreateSettingsFrame()
   if KAMNConfigFrame then return end
 
+  -- 🔧 Defaults sicherstellen, bevor UI gebaut wird
+  KAMN_InitDefaults()
+
   local f = CreateFrame("Frame", "KAMNConfigFrame", UIParent)
   f:SetWidth(420)
   f:SetHeight(360)
@@ -215,6 +237,25 @@ function KAMN_CreateSettingsFrame()
   })
   soundBtn:SetPoint("TOPLEFT", notifyBtn, "BOTTOMLEFT", 0, -10)
 
+  -- 💬 Toggle Chat Notify (ON/OFF) — **korrekter Initialstatus**
+  local chatBtn = KAMN_CreateStatusButton(f, {
+    label = "Toggle Chat Notify",
+    tooltip = "Also print a short achievement notice to the chat frame.",
+    getStateFunc = function()
+      KAMN_Settings = KAMN_Settings or {}
+      -- liest den tatsächlichen SavedVariables-Wert; default ist false
+      return KAMN_Settings.NotifyChatEnabled == true
+    end,
+    onClick = function()
+      KAMN_Settings = KAMN_Settings or {}
+      KAMN_Settings.NotifyChatEnabled = not KAMN_Settings.NotifyChatEnabled
+      local msg = KAMN_Settings.NotifyChatEnabled and "|cff88ff88enabled|r" or "|cffff5555disabled|r"
+      DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[KAM]|r Chat Notify: " .. msg)
+    end,
+    width = 180, height = 22
+  })
+  chatBtn:SetPoint("TOPLEFT", soundBtn, "BOTTOMLEFT", 0, -10)
+
   -- 🛈 Tooltip Info (ON/OFF)
   local tooltipBtn = KAMN_CreateStatusButton(f, {
     label = "Toggle Tooltip Info",
@@ -231,7 +272,7 @@ function KAMN_CreateSettingsFrame()
     end,
     width = 180, height = 22
   })
-  tooltipBtn:SetPoint("TOPLEFT", soundBtn, "BOTTOMLEFT", 0, -10)
+  tooltipBtn:SetPoint("TOPLEFT", chatBtn, "BOTTOMLEFT", 0, -10)
 
   -- Kleiner Abstand (Separator)
   local sepLeft = KAMN_CreateSeparator(f, 180)
@@ -244,7 +285,6 @@ function KAMN_CreateSettingsFrame()
     if KAMN_ShowNotify then
       KAMN_ShowNotify("Test message: Works!")
     end
-    -- keine Statusmeldung nötig; der Test selbst zeigt die Notify
   end, "Play a test notification (visual only)")
   showTestWrapper:SetPoint("TOPLEFT", sepLeft, "BOTTOMLEFT", -10, -10)
 
@@ -327,13 +367,12 @@ function KAMN_CreateSettingsFrame()
     timeout = 0, whileDead = true, hideOnEscape = true, showAlert = true,
   }
 
--- 🔁 Storage Mode Switch (nur Button mit Popup) – jetzt links auf Höhe des letzten linken Buttons
-local storageBtnWrapper
-storageBtnWrapper = KAMN_MakeWrappedButton(f, "Toggle Storage Mode", 180, 22, function()
-  StaticPopup_Show("KAMN_STORAGE_MODE_CONFIRM")
-end, "Switch between Account-wide and Character-only data storage")
-storageBtnWrapper:SetPoint("TOPLEFT", replayWrapper, "TOPRIGHT", 20, 0) -- gleiche Höhe wie Play Last Achievement
-
+  -- 🔁 Storage Mode Switch (nur Button mit Popup)
+  local storageBtnWrapper
+  storageBtnWrapper = KAMN_MakeWrappedButton(f, "Toggle Storage Mode", 180, 22, function()
+    StaticPopup_Show("KAMN_STORAGE_MODE_CONFIRM")
+  end, "Switch between Account-wide and Character-only data storage")
+  storageBtnWrapper:SetPoint("TOPLEFT", replayWrapper, "TOPRIGHT", 20, 0)
 
   -- =======================================
   -- 📦 Live-Anzeige unten rechts

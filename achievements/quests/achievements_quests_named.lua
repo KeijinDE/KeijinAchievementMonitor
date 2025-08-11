@@ -159,6 +159,15 @@ table.insert(KAMN.achievements, {
 
 -- 🗺️ Durotar Quests
 table.insert(KAMN.achievements, {
+  id = "QUEST_VILE_FAMILIARS1",
+  name = "Vile Familiars",
+  description = "Complete the quest 'Vile Familiars' by kill imps near Durotar.",
+  type = "namedquest",
+  questname = "Vile Familiars",
+  questhub = "Durotar",
+  value = 1, progress = 0, complete = false, category = "Quests", points = 5, requiredFor = {}
+})
+table.insert(KAMN.achievements, {
   id = "QUEST_YOUR_PLACE_IN_THE_WORLD1",
   name = "Your Place In The World",
   description = "Prove yourself and complete the quest 'Your Place In The World' in Durotar.",
@@ -172,7 +181,20 @@ table.insert(KAMN.achievements, {
   points = 5,
   requiredFor = {}
 })
-
+table.insert(KAMN.achievements, {
+  id = "Galgars_Cactus_Apple_Surprise1",
+  name = "Galgar's Cactus Apple Surprise",
+  description = "Prove yourself, stay strong, dont hurt you and complete the quest 'Galgar's Cactus Apple Surprise' in Durotar.",
+  type = "namedquest",
+  questname = "Galgar's Cactus Apple Surprise",
+  questhub = "Durotar",
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Quests",
+  points = 5,
+  requiredFor = {}
+})
 table.insert(KAMN.achievements, {
   id = "QUEST_VANQUISH_THE_BETRAYERS1",
   name = "Vanquish the Betrayers",

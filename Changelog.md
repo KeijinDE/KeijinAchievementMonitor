@@ -1,3 +1,20 @@
+## Changelog - Version 0.7.1
+
+### ✨ Added
+- New **kill achievement** for *Vile Familiar*  
+- New **quest achievement** for *Galgar's Cactus Apple Surprise*
+- **Chat Notifications (optional):** Added an optional chat message when an achievement pops. Toggle via `/kam notifychat on|off` or in Settings → “Toggle Chat Notify”. Saved per character.
+
+
+### 🛠 Fixed / Updated
+- **UI Notifications:** Long achievement descriptions in the notification frame are now automatically truncated with “…” if still too long.
+- **Update:** Increased kill group achievement requirement from 10 to 25 kills.
+- **Named Quest Tracking:**  
+  Added self-contained, Classic-compatible `SafeExtract` / `SafeMatch` functions in `events_quest.lua`.  
+  → Fixes an issue where named quest completions were not detected if global helpers were unavailable.  
+  → Now works independently of `events.lua` and remains robust against changes in other event modules.
+
+
 ## 📦 Changelog – Version 0.7.0
 
 ### ✨ Added

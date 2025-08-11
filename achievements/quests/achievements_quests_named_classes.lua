@@ -880,15 +880,7 @@ table.insert(KAMN.achievements, {
   questhub = "Warlock",
   value = 1, progress = 0, complete = false, category = "Quests", points = 5, requiredFor = {}
 })
-table.insert(KAMN.achievements, {
-  id = "QUEST_VILE_FAMILIARS1",
-  name = "Vile Familiars",
-  description = "Complete the quest 'Vile Familiars' by culling feral imps near Durotar.",
-  type = "namedquest",
-  questname = "Vile Familiars",
-  questhub = "Warlock",
-  value = 1, progress = 0, complete = false, category = "Quests", points = 5, requiredFor = {}
-})
+
 
 table.insert(KAMN.achievements, {
   id = "QUEST_THE_STOLEN_TOME1",

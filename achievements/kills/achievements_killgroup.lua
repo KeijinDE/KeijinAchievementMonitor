@@ -11,13 +11,13 @@ KAMN.achievements = KAMN.achievements or {}
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_PLAINSTRIDER",
   name = "Plainstrider Slayer",
-  description = "Defeat 10 Plainstriders at The Barrens and Mulgore.",
+  description = "Defeat 25 Plainstriders at The Barrens and Mulgore.",
   type = "namedkillgroup",
   groupMatch = {
     "Plainstrider", "Adult Plainstrider", "Elder Plainstrider",
     "Ornery Plainstrider", "Greater Plainstrider", "Fleeting Plainstrider",
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -31,7 +31,7 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_DUROTAR_SCORPIDS",
   name = "Scorpid Scourge",
-  description = "Defeat 10 scorpids and their rare kin in Durotar.",
+  description = "Defeat 25 scorpids and their rare kin in Durotar.",
   type = "namedkillgroup",
   groupMatch = {
     "Scorpid Worker",
@@ -41,7 +41,7 @@ table.insert(KAMN.achievements, {
     "Death Flayer",    -- Rare Elite Scorpid
     "Sarkoth",         -- Quest-NPC, Scorpid-artig
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -55,7 +55,7 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_ELWYNN_WOLVES",
   name = "Wolf Watcher",
-  description = "Hunt 10 wolves like Gray Forest and Timber Wolves in Elwynn Forest.",
+  description = "Hunt 25 wolves like Gray Forest and Timber Wolves in Elwynn Forest.",
   type = "namedkillgroup",
   groupMatch = {
     "Gray Forest Wolf",
@@ -63,7 +63,7 @@ table.insert(KAMN.achievements, {
     "Timber Wolf",
     "Young Wolf",
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -77,14 +77,14 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_DUNMOROGH_WENDIGOS",
   name = "Wendigo Warning",
-  description = "Defeat 10 Wendigo-type creatures in Dun Morogh.",
+  description = "Defeat 25 Wendigo-type creatures in Dun Morogh.",
   type = "namedkillgroup",
   groupMatch = {
     "Wendigo",
     "Ice Claw Bear",         -- stimmungsvoller Zusatz
     "Frostmane Troll Whelp", -- thematisch passender Bonus
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -98,7 +98,7 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_TELDRASSIL_NIGHTSABER",
   name = "Night Prowlers",
-  description = "Hunt 10 nightsaber-type cats in the forests of Teldrassil.",
+  description = "Hunt 25 nightsaber-type cats in the forests of Teldrassil.",
   type = "namedkillgroup",
   groupMatch = {
     "Young Nightsaber",
@@ -109,7 +109,7 @@ table.insert(KAMN.achievements, {
     "Elder Nightsaber",
     "Duskstalker", -- Rare Cat
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -123,7 +123,7 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_TIRISFAL_DUSKBATS",
   name = "Duskwing Reaper",
-  description = "Defeat 10 duskbat-type creatures in Tirisfal Glades.",
+  description = "Defeat 25 duskbat-type creatures in Tirisfal Glades.",
   type = "namedkillgroup",
   groupMatch = {
     "Duskbat",
@@ -132,7 +132,7 @@ table.insert(KAMN.achievements, {
     "Vampiric Duskbat",
     "Ressan the Needler", -- Rare
   },
-  value = 10,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -217,10 +217,10 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_KOBOLDS",
   name = "Kobold Clean-Up",
-  description = "Defeat 20 kobold-type enemies in Elwynn and beyond.",
+  description = "Defeat 25 kobold-type enemies in Elwynn and beyond.",
   type = "namedkillgroup",
   groupMatch = { "Kobold Tunneler", "Kobold Geomancer", "Kobold Laborer", "Kobold Miner", "Kobold Digger", "Kobold Worker", "Kobold Vermin" },
-  value = 20,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -233,10 +233,10 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILL_BRISTLEBACK15",
   name = "Bristleback Invasion",
-  description = "Defeat 15 Bristleback Quilboars.",
+  description = "Defeat 25 Bristleback Quilboars.",
   type = "namedkillgroup",
   groupMatch = { "Bristleback Quilboar"},
-  value = 15,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -247,10 +247,10 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILL_MOUNTAINCOUGAR15",
   name = "Less Cats",
-  description = "Defeat 15 Mountain Cougar in Red Cloud Mesa.",
+  description = "Defeat 25 Mountain Cougar in Red Cloud Mesa.",
   type = "namedkillgroup",
   groupMatch = { "Mountain Cougar"},
-  value = 15,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
@@ -261,13 +261,41 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILL_BATTLEBOAR15",
   name = "Less Pigs",
-  description = "Defeat 15 Battleboar in Red Cloud Mesa.",
+  description = "Defeat 25 Battleboar in Red Cloud Mesa.",
   type = "namedkillgroup",
   groupMatch = { "Battleboar"},
-  value = 15,
+  value = 25,
   progress = 0,
   complete = false,
   category = "Combat",
   points = 5,
+  requiredFor = {},
+})
+
+table.insert(KAMN.achievements, {
+  id = "KILL_VileFamiliar15",
+  name = "Vile Familiar exitus",
+  description = "Defeat 25 Vile Familiar in Durotar.",
+  type = "namedkillgroup",
+  groupMatch = { "Vile Familiar"},
+  value = 25,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 5,
+  requiredFor = {},
+})
+table.insert(KAMN.achievements, {
+  id = "KILL_SARKOTH1",
+  name = "Sarkoth Falls",
+  description = "Defeat Sarkoth in Durotar.",
+  type = "namedkillgroup",
+  alttype = "elite",
+  groupMatch = {"Sarkoth"},
+  value = 1,
+  progress = 0,
+  complete = false,
+  category = "Combat",
+  points = 10,
   requiredFor = {},
 })
