@@ -31,7 +31,7 @@
 - **Labels/UI:** Reactivated **ALL2** as *“Character: Identity (Race & Class)”*; mapped meta subcategory label **`character` → “Identity (Race & Class)”**.  
 - **Scroll in Meta Helper Window:** The criteria window now correctly supports scrolling even with a large number of sub-achievements.  
 - **Compatibility Fix:** Replaced `string.gmatch` with a Classic-compatible `string.find`-based solution in the skill event handler.  
-  → Prevents Lua errors on Turtle WoW (1.12) when handling skill and weapon progress messages.
+  → Prevents Lua errors on Turtle WoW (WoW Classic 1.12) when handling skill and weapon progress messages.
 
 
 ## 📦 Changelog – Version 0.8.0 (Deutsch)
@@ -68,7 +68,7 @@
 - **Labels/UI:** **ALL2** reaktiviert als *„Character: Identity (Race & Class)”*; Meta-Unterkategorie-Label **`character` → „Identity (Race & Class)”** gemappt.
 - **Scrollfunktion im Meta-Hilfefenster:** Das Kriterienfenster unterstützt nun korrektes Scrollen auch bei einer großen Anzahl an Unter-Erfolgen.
 - **Kompatibilitätsfehler behoben:** Ersetzung von `string.gmatch` durch eine Classic-kompatible `string.find`-basierte Lösung in der Skill-Event-Verarbeitung.  
-  → Verhindert Lua-Fehler auf Turtle WoW (1.12) bei Skill- und Waffenfortschrittsmeldungen.
+  → Verhindert Lua-Fehler auf Turtle WoW (WoW Classic 1.12) bei Skill- und Waffenfortschrittsmeldungen.
 
 
 
