@@ -56,6 +56,12 @@ function KAMN_UpdateUI()
     KAMN_ClearMetaLinks()
 
     KAMN_BuildSummaryLines()
+  -- 🔄 Meta-Helper im Summary kontextsensitiv updaten:
+  --    - Wenn im Detailbereich ein Meta angezeigt wird → Button zeigen
+  --    - Sonst bleibt er ausgeblendet (OnUIUpdated versteckt ihn vorab)
+  if type(KAMN_MetaHelper_OnUIUpdated) == "function" then
+    KAMN_MetaHelper_OnUIUpdated(nil) -- Map nicht nötig; er erkennt Meta über den Detailtitel
+  end
 
     KAMN_SetMiniButtonVisibility(false)
     if KAMNMainFrame.miniPrev then KAMNMainFrame.miniPrev:Hide() end

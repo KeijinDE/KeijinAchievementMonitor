@@ -1,3 +1,29 @@
+## 📦 Changelog – Version 0.8.1
+
+### 🛠 Fixed / Updated
+- **Meta Helper in Summary**: The "?" button now correctly appears  
+  when opening a meta achievement via **Required For** links in the Summary section.  
+  → The Meta Helper now receives the clicked achievement object directly instead of relying on title matching, preventing display and detection issues.
+
+### ❗ Known Issues
+- **Meta Helper & Last Completion**: The "?" button currently does not appear  
+  when opening a meta achievement directly from the Last Completion list.
+
+---
+
+## 📦 Changelog – Version 0.8.1 (Deutsch)
+
+### 🛠 Behoben / Updated
+- **Meta-Helper im Summary**: Der „?“-Button wird nun korrekt angezeigt,  
+  wenn ein Meta-Erfolg über **Required For**-Links im Summary-Bereich geöffnet wird.  
+  → Der Meta-Helper erhält jetzt direkt das angeklickte Achievement-Objekt anstatt über den Titelvergleich zu arbeiten, wodurch Anzeige- und Erkennungsfehler behoben werden.
+
+### ❗ Bekannte Probleme
+- **Meta-Helper & Last Completion**: Der „?“-Button erscheint aktuell noch nicht,  
+  wenn ein Meta-Erfolg direkt aus der Last-Completion-Liste geöffnet wird.
+
+---
+
 ## 📦 Changelog – Version 0.8.0
 
 ### ✨ Added
@@ -33,6 +59,7 @@
 - **Compatibility Fix:** Replaced `string.gmatch` with a Classic-compatible `string.find`-based solution in the skill event handler.  
   → Prevents Lua errors on Turtle WoW (WoW Classic 1.12) when handling skill and weapon progress messages.
 
+---
 
 ## 📦 Changelog – Version 0.8.0 (Deutsch)
 
@@ -70,7 +97,7 @@
 - **Kompatibilitätsfehler behoben:** Ersetzung von `string.gmatch` durch eine Classic-kompatible `string.find`-basierte Lösung in der Skill-Event-Verarbeitung.  
   → Verhindert Lua-Fehler auf Turtle WoW (WoW Classic 1.12) bei Skill- und Waffenfortschrittsmeldungen.
 
-
+---
 
 ## Changelog - Version 0.7.1
 
@@ -88,6 +115,8 @@
   → Fixes an issue where named quest completions were not detected if global helpers were unavailable.  
   → Now works independently of `events.lua` and remains robust against changes in other event modules.
 
+---
+
 ## 📦 Changelog – Version 0.7.1 (Deutsch)
 
 ### ✨ Hinzugefügt
@@ -104,6 +133,8 @@
   Eigenständige, Classic-kompatible `SafeExtract`- / `SafeMatch`-Funktionen in `events_quest.lua` hinzugefügt.  
   → Behebt ein Problem, bei dem benannte Questabschlüsse nicht erkannt wurden, wenn globale Helper nicht verfügbar waren.  
   → Funktioniert jetzt unabhängig von `events.lua` und bleibt robust gegenüber Änderungen in anderen Eventmodulen.
+
+---
 
 ## 📦 Changelog – Version 0.7.0
 

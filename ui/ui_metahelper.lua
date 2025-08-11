@@ -60,6 +60,13 @@ local function KAMN_FindAchievementByDetailTitle()
   end
   return nil
 end
+-- 📍 Button immer dynamisch hinter den Titeltext setzen
+local function KAMN_MetaHelper_ReanchorToTitle()
+  if not (KAMNMainFrame and KAMNMainFrame.metaBtnWrapper and KAMNMainFrame.detailTitle) then return end
+  local w = KAMNMainFrame.detailTitle:GetStringWidth() or 0
+  KAMNMainFrame.metaBtnWrapper:ClearAllPoints()
+  KAMNMainFrame.metaBtnWrapper:SetPoint("LEFT", KAMNMainFrame.detailTitle, "LEFT", w + 8, 0)
+end
 
 -- 🧩 Meta-Kinder ermitteln
 local function KAMN_MetaHelper_GetChildren(metaAch)
@@ -134,7 +141,8 @@ local function KAMN_MetaHelper_EnsureUI()
   end
 
   local wrapper, btn = KAMN_CreateDialogButton(KAMNMainFrame, "?", 20, 18, nil, "Show criteria for this meta")
-  wrapper:SetPoint("LEFT", KAMNMainFrame.detailTitle, "RIGHT", 6, 0)
+  KAMN_MetaHelper_ReanchorToTitle()
+
   wrapper:Hide()
 
   local panel = CreateFrame("Frame", nil, KAMNMainFrame)
@@ -298,9 +306,11 @@ function KAMN_MetaHelper_OnUIUpdated(entryAchievementMap)
 
   if not a then return end
   if a.type == "meta" then
-    KAMNMainFrame.metaBtnWrapper:Show()
-    KAMN_MetaHelper_RenderList(a)
-  end
+  KAMNMainFrame.metaBtnWrapper:Show()
+  KAMN_MetaHelper_ReanchorToTitle() -- <— hier neu
+  KAMN_MetaHelper_RenderList(a)
+end
+
 end
 
 function KAMN_MetaHelper_OnDetailCleared()

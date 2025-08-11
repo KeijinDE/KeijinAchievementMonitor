@@ -230,8 +230,17 @@ else
   end
 end
 
-      KAMNMainFrame.highlightFrame:SetPoint("TOPLEFT", btn, "TOPLEFT", 0, 0)
-      KAMNMainFrame.highlightFrame:Show()
+KAMNMainFrame.highlightFrame:SetPoint("TOPLEFT", btn, "TOPLEFT", 0, 0)
+KAMNMainFrame.highlightFrame:Show()
+
+-- 🔄 Meta-Helper nach Auswahl updaten (zeigt ?-Button bei Meta)
+if type(KAMN_MetaHelper_OnUIUpdated) == "function" then
+  KAMN_MetaHelper_OnUIUpdated({ [1] = a }) -- direkter Verweis auf den Meta
+  if type(KAMN_MetaHelper_ReanchorToTitle) == "function" then
+    KAMN_MetaHelper_ReanchorToTitle()
+  end
+end
+
     end)
 
     y = y - 14
@@ -337,9 +346,23 @@ if a.requiredFor and table.getn(a.requiredFor) > 0 then
           end
 
           -- Kein rekursives Laden von Meta-Links
-          for _, o in ipairs(KAMNMainFrame.metaLinks) do if o.Hide then o:Hide() end end
-          KAMNMainFrame.metaLinks = {}
-          KAMNMainFrame.detailExtra:Show()
+for _, o in ipairs(KAMNMainFrame.metaLinks) do if o.Hide then o:Hide() end end
+KAMNMainFrame.metaLinks = {}
+KAMNMainFrame.detailExtra:Show()
+
+-- 🔄 Meta-Helper nach Auswahl updaten (zeigt ?-Button bei Meta)
+if type(KAMN_MetaHelper_OnUIUpdated) == "function" then
+  local idx = KAMN_SelectedAchievementIndex or 1
+  local tempMap = {}
+  tempMap[idx] = ach
+  KAMN_MetaHelper_OnUIUpdated(tempMap)
+
+  if type(KAMN_MetaHelper_ReanchorToTitle) == "function" then
+    KAMN_MetaHelper_ReanchorToTitle()
+  end
+end
+
+
         end)
         table.insert(KAMNMainFrame.metaLinks, btn)
 
@@ -360,7 +383,13 @@ else
 end
 
       KAMNMainFrame.highlightFrame:SetPoint("TOPLEFT", btn, "TOPLEFT", 0, 0)
-        KAMNMainFrame.highlightFrame:Show()
+KAMNMainFrame.highlightFrame:Show()
+
+-- 🔄 Meta-Helper nach Auswahl updaten (zeigt ?-Button bei Meta)
+if type(KAMN_MetaHelper_OnUIUpdated) == "function" then
+  KAMN_MetaHelper_OnUIUpdated(nil)
+end
+
       end)
 
 
