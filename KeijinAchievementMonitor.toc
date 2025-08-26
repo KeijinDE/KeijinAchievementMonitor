@@ -13,6 +13,7 @@ data\labels.lua
 storage\storage_mode.lua
 data\trigger.lua
 storage\storage.lua
+debug\grant.lua
 ui\ui_pagination.lua
 ui\updateui.lua
 debug\debug_namedquests.lua

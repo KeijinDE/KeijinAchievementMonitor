@@ -155,7 +155,7 @@ table.insert(KAMN.achievements, {
     "Bellygrub", -- Named Boar
     "Mottled Boar", "Dire Mottled Boar", "Elder Mottled Boar", "Corrupted Mottled Boar",
     "Stonetusk Boar", "Scarred Crag Boar", "Elder Crag Boar",
-    "Thistle Boar", "Young Thistle Boar", "Boar Spirit"
+    "Thistle Boar", "Young Thistle Boar", "Boar Spirit", "Bristleback Battleboar"
   },
   value = 100,
   progress = 0,

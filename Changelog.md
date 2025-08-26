@@ -1,3 +1,29 @@
+## 📦 Changelog – Version 0.9.0
+
+### ✨ Added
+- **Slash command:** `/kam grant <ID>` – Mark an achievement as completed in the active storage (character/account mode). ID is case-sensitive.
+- **Slash command:** `/kam id <category>` – List all achievement IDs for a category (one per line). Categories: `explore`, `kill`, `quest`, `reputation`, `skills`, `misc`, `meta`.
+
+### 🛠 Updated
+- **Help:** `/kam` help now includes the new commands (`grant`, `id`).
+- **Kill – Boars:** Added **Bristleback Battleboar** to the Boar achievement group.
+- **Elite/Boss Kill descriptions:** Wording changed from "must kill" to "witness/be present" to match proximity credit (achievements_kill_elite.lua).
+
+---
+
+## 📦 Changelog – Version 0.9.0 (Deutsch)
+
+### ✨ Hinzugefügt
+- **Slash-Befehl:** `/kam grant <ID>` – Markiert einen Erfolg im aktiven Speicher (Charakter/Account) als abgeschlossen. Die ID ist **groß/klein-schreibungs**sensitiv.
+- **Slash-Befehl:** `/kam id <kategorie>` – Listet alle Achievement-IDs einer Kategorie (je Zeile). Kategorien: `explore`, `kill`, `quest`, `reputation`, `skills`, `misc`, `meta`.
+
+### 🛠 Aktualisiert
+- **Hilfe:** Die `/kam`-Hilfe zeigt jetzt die neuen Befehle (`grant`, `id`).
+- **Kill – Boars:** **Bristleback Battleboar** zur Boar-Erfolgsgruppe hinzugefügt.
+- **Elite-/Boss-Kill Beschreibungen:** Formulierung von „muss töten“ auf „Zeuge/Anwesend sein“ geändert, passend zur Anerkennung bei Anwesenheit (achievements_kill_elite.lua).
+
+---
+
 ## 📦 Changelog – Version 0.8.1
 
 ### 🛠 Fixed / Updated

@@ -67,7 +67,9 @@ SlashCmdList["KAM"] = function(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export meta|r – Export only meta")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam export all|r – Export all completed")
     DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam reset|r – Reset character progress")
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam notifychat on|off|r – Enable/disable chat notifications") -- 🆕
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam notifychat on|off|r – Enable/disable chat notifications")
+	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam grant <ID>|r - Mark an achievement as completed in the active storage (character/account mode). ID is case-sensitive.")
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffff00/kam id <category>|r - List all achievement IDs for a category (one per line). Categories: explore, level, kill, quest, reputation, skills, misc, meta.")
     return
 
   elseif msg == "toggle" then

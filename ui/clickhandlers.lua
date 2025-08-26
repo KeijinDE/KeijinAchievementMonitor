@@ -61,13 +61,20 @@ function KAMN_AssignClickHandlers(frame, achievementMap)
         local by   = dynamic.complete and (dynamic.completedBy or "-") or "-"
         frame.detailMeta:SetText("Completed on: " .. date .. " by: " .. by)
 
-        if static.points then
-          frame.detailPoints:SetText("Points: " .. tostring(static.points))
-          frame.detailPoints:Show()
-        else
-          frame.detailPoints:SetText("")
-          frame.detailPoints:Hide()
-        end
+       if static.points then
+  if dynamic and dynamic.manual then
+    -- manuell: keine Punkte
+    frame.detailPoints:SetText("")      -- oder: "Points: 0 (manual)"
+    frame.detailPoints:Hide()
+  else
+    frame.detailPoints:SetText("Points: " .. tostring(static.points))
+    frame.detailPoints:Show()
+  end
+else
+  frame.detailPoints:SetText("")
+  frame.detailPoints:Hide()
+end
+
 
         -- 🔗 Klickbare "Required for"-Titel als Text mit Button-Overlay
         if frame.metaLinks then
