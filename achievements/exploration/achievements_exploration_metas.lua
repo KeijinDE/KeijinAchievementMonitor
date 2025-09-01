@@ -782,7 +782,6 @@ table.insert(KAMN.achievements, {
     "DISCOVER_LORDAMERE",
     "DISCOVER_CRUSHRIDGE",
     "DISCOVER_SOFERAS",
-    "DISCOVER_DALARANCRATER",
     "DISCOVER_GAVINS",
     "DISCOVER_UPLANDS",
     "DISCOVER_CHILLWIND",
@@ -1182,3 +1181,4 @@ table.insert(KAMN.achievements, {
     "DISCOVER_VALORSREST"
   },
 })
+
