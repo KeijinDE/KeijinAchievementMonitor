@@ -1181,7 +1181,7 @@ table.insert(KAMN.achievements, {
   name = "Dalaran Crater",
   description = "Explore Dalaran Crater in Alterac Mountains.",
   type = "discover",
-  zonename = "Dalaran Crater",
+  zonename = "Dalaran",
   continent = "Eastern Kingdoms",
   zonegroup = "Alterac Mountains",
   value = 1,
@@ -4339,3 +4339,4 @@ table.insert(KAMN.achievements, {
   points = 5,
   requiredFor = {},
 })
+
