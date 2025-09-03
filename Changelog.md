@@ -2,6 +2,7 @@
 
 ### Update
 - **Swoop Stopper**: Wiry Swoop added
+- **Wolf Hunter**: Prairie Stalker added
 
 ## 📦 Changelog – Version 1.0.0
 

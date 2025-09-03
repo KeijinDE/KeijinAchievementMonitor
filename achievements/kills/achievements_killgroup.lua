@@ -307,7 +307,8 @@ table.insert(KAMN.achievements, {
   type = "namedkillgroup",
   groupMatch = {
     "Prairie Wolf",
-    "Prairie Wolf Alpha"    
+    "Prairie Wolf Alpha",
+    "Prairie Stalker"
   },
   value = 15,
   progress = 0,
