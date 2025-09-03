@@ -3,6 +3,7 @@
 ### Update
 - **Swoop Stopper**: Wiry Swoop added
 - **Wolf Hunter**: Prairie Stalker added
+- **Galak Grounding**: Galak Centaur added, description edited
 
 ## 📦 Changelog – Version 1.0.0
 

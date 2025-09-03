@@ -1842,7 +1842,7 @@ table.insert(KAMN.achievements, {
 table.insert(KAMN.achievements, {
   id = "KILLGROUP_THOUSANDNEEDLES_GALAK",
   name = "Galak Grounding",
-  description = "Defeat 25 Galak centaur across Thousand Needles.",
+  description = "Defeat 35 Galak centaur across Thousand Needles and Mulgore.",
   type = "namedkillgroup",
   groupMatch = {
     "Galak Outrunner",
@@ -1850,8 +1850,9 @@ table.insert(KAMN.achievements, {
     "Galak Wrangler",
     "Galak Marauder",
     "Galak Stormer",
+	"Galak Centaur",
   },
-  value = 25,
+  value = 35,
   progress = 0,
   complete = false,
   category = "Combat",
