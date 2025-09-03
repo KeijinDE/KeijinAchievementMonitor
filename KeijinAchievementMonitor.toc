@@ -1,6 +1,6 @@
 ## Interface: 11200
 ## Title: |cff88ff88Keijin|r Achievement Monitor (KAM)
-## Notes: Custom achievement system for Turtle WoW
+## Notes: Custom achievement system for WoW Classic 1.12.
 ## Author: Keijin
 ## Version: v1.0.0
 ## DefaultState: Enabled
