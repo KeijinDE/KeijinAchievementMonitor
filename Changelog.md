@@ -1,3 +1,175 @@
+## 📦 Changelog – Version 1.0.0
+
+### ✨ Added
+- **Elwynn Forest**
+  - `KILLGROUP_ELWYNN_MURLOCS` — *Lake Menace* (25× Murlocs)
+  - `KILLGROUP_ELWYNN_DEFIAS` — *Defias Disruption* (25× Defias)
+
+- **Dun Morogh**
+  - `KILLGROUP_DUNMOROGH_TROGGS` — *Rockjaw Rampage* (15× Rockjaw Troggs)
+  - `KILLGROUP_DUNMOROGH_FROSTMANE` — *Frostmane Fray* (25× Frostmane Trolls)
+
+- **Teldrassil**
+  - `KILLGROUP_TELDRASSIL_WEBWOOD` — *Webwood Wipeout* (25× Webwood Spiders)
+  - `KILLGROUP_TELDRASSIL_GRELLS` — *Grell Cleanup* (25× Grells)
+  - `KILLGROUP_TELDRASSIL_OWLS` — *Strigid Silence* (25× Strigid Owls)
+
+- **Tirisfal Glades**
+  - `KILLGROUP_TIRISFAL_NIGHTWEB` — *Night Web Nemesis* (25× Night Web Spiders)
+  - `KILLGROUP_TIRISFAL_DARKHOUNDS` — *Darkhound Determent* (25× Darkhounds)
+  - `KILLGROUP_TIRISFAL_SCARLET` — *Scarlet Starter Setback* (25× Scarlet Initiates/Neophytes/Converts)
+
+- **Durotar / Echo Isles**
+  - `KILLGROUP_DUROTAR_RAZORMANE` — *Razormane Ruckus* (25× Razormane)
+  - `KILLGROUP_DUROTAR_TROLLS` — *Echo Isles Eviction* (25× Echo Isles Trolls)
+  - `KILLGROUP_DUROTAR_MAKRURA` — *Makrura Mess* (25× Makrura)
+
+- **Mulgore**
+  - `KILLGROUP_MULGORE_WOLVES` — *Wolf Hunter* (15× Wolves)
+  - `KILLGROUP_MULGORE_PALEMANE` — *Palemane Purge* (15× Palemane)
+  - `KILLGROUP_MULGORE_SWOOPS` — *Swoop Stopper* (25× Swoops)
+  - `KILLGROUP_MULGORE_VENTURE` — *Venture Venture* (25× Venture Co.)
+
+- **Westfall**
+  - `KILLGROUP_WESTFALL_RIVERPAW` — *Riverpaw Rout* (25× Riverpaw Gnolls)
+  - `KILLGROUP_WESTFALL_HARVESTERS` — *Harvester Halt* (25× Harvest Machines)
+
+- **Loch Modan**
+  - `KILLGROUP_LOCHMODAN_STONESPLINTER` — *Stonesplinter Sweep* (25× Stonesplinter Troggs)
+  - `KILLGROUP_LOCHMODAN_TUNNELRATS` — *Tunnel Rat Takedown* (25× Tunnel Rat Kobolds)
+  - `KILLGROUP_LOCHMODAN_MOGROSH` — *Mo'grosh Mayhem* (25× Mo'grosh Ogres)
+
+- **Darkshore**
+  - `KILLGROUP_DARKSHORE_WRATHSCALE` — *Wrathscale Wipeout* (25× Wrathscale Naga)
+  - `KILLGROUP_DARKSHORE_GREYMIST` — *Greymist Grief* (25× Greymist Murlocs)
+  - `KILLGROUP_DARKSHORE_BLACKWOOD` — *Blackwood Breakup* (25× Blackwood Furbolgs)
+  - `KILLGROUP_DARKSHORE_MOONSTALKERS` — *Moonstalker Muzzle* (25× Moonstalker Cats)
+
+- **Silverpine Forest**
+  - `KILLGROUP_SILVERPINE_DALARAN` — *Ambermill Antagonists* (25× Dalaran Mages/Guards)
+  - `KILLGROUP_SILVERPINE_ROTHIDE` — *Rot Hide Rout* (25× Rot Hide Gnolls)
+  - `KILLGROUP_SILVERPINE_MOONRAGE` — *Moonrage Mending* (25× Moonrage Worgen)
+
+- **Redridge Mountains**
+  - `KILLGROUP_REDRIDGE_GNOLLS` — *Gnoll Grievance* (25× Redridge Gnolls)
+  - `KILLGROUP_REDRIDGE_BLACKROCK` — *Blackrock Breakdown* (25× Blackrock Orcs)
+
+- **Duskwood**
+  - `KILLGROUP_DUSKWOOD_SPIDERS` — *Webcutter* (25× Venom Web/Spider Variants)
+  - `KILLGROUP_DUSKWOOD_NIGHTBANE` — *Nightbane Nemesis* (25× Nightbane Worgen)
+
+- **Stonetalon Mountains**
+  - `KILLGROUP_STONETALON_VENTURE` — *Windshear Wreckers* (25× Venture Co. Loggers/Operators)
+  - `KILLGROUP_STONETALON_BLOODFURY` — *Charred Vale Cleansing* (25× Bloodfury Harpies)
+
+- **The Barrens**
+  - `KILLGROUP_BARRENS_WITCHWING` — *Witchwing Wrecking* (25× Witchwing Harpies)
+  - `KILLGROUP_BARRENS_SUNSCALE` — *Sunscale Suppression* (25× Sunscale Raptors)
+  - `KILLGROUP_BARRENS_KOLKAR` — *Kolkar Cleanse* (25× Kolkar Centaur)
+
+- **Wetlands**
+  - `KILLGROUP_WETLANDS_DRAGONMAW` — *Dragonmaw Disruption* (25× Dragonmaw Orcs)
+  - `KILLGROUP_WETLANDS_BLUEGILL` — *Bluegill Breakup* (25× Bluegill Murlocs)
+
+- **Hillsbrad Foothills**
+  - `KILLGROUP_HILLSBRAD_DAGGERSPINE` — *Daggerspine Downfall* (25× Daggerspine Naga)
+  - `KILLGROUP_HILLSBRAD_SYNDICATE` — *Syndicate Suppression* (25× Syndicate Agents)
+
+- **Alterac Mountains**
+  - `KILLGROUP_ALTERAC_CRUSHRIDGE` — *Crushridge Crackdown* (25× Crushridge Ogres)
+  - `KILLGROUP_ALTERAC_YETI` — *Yeti Yodeler* (25× Yetis)
+
+- **Arathi Highlands**
+  - `KILLGROUP_ARATHI_WITHERBARK` — *Witherbark Wipeout* (25× Witherbark Trolls)
+  - `KILLGROUP_ARATHI_BOULDERFIST` — *Boulderfist Beatdown* (25× Boulderfist Ogres)
+- **The Hinterlands**
+  - `KILLGROUP_HINTERLANDS_VILEBRANCH` — *Vilebranch Vexation* (25× Vilebranch Trolls)
+  - `KILLGROUP_HINTERLANDS_SILVERMANE` — *Silvermane Suppression* (25× Silvermane Wolves)
+
+- **Badlands**
+  - `KILLGROUP_BADLANDS_DUSTBELCHER` — *Dustbelcher Demolition* (25× Dustbelcher Ogres)
+  - `KILLGROUP_BADLANDS_STONEVAULT` — *Stonevault Shutdown* (25× Stonevault Troggs)
+
+- **Searing Gorge**
+  - `KILLGROUP_SEARINGGORGE_DARKIRON` — *Slag Pit Sweep* (25× Dark Iron Dwarves)
+  - `KILLGROUP_SEARINGGORGE_LAVASPIDERS` — *Lavaweb Lullaby* (25× Lava Spiders)
+
+- **Burning Steppes**
+  - `KILLGROUP_BURNINGSTEPPES_BLACKROCK` — *Blackrock Blitz* (25× Blackrock Orcs)
+  - `KILLGROUP_BURNINGSTEPPES_FIREGUT` — *Firegut Fallout* (25× Firegut Ogres)
+
+- **Swamp of Sorrows**
+  - `KILLGROUP_SOS_LOSTONES` — *Lost One Lament* (25× Lost Ones)
+  - `KILLGROUP_SOS_GREENDRAGONKIN` — *Dreaming Defier* (25× Green Dragonkin)
+
+- **Blasted Lands**
+  - `KILLGROUP_BL_DREADMAUL` — *Dreadmaul Dispersal* (25× Dreadmaul Ogres)
+  - `KILLGROUP_BL_SNICKERFANG` — *Snickerfang Skirmish* (25× Snickerfang Hyenas)
+
+- **Western Plaguelands**
+  - `KILLGROUP_WPL_SCARLET` — *Hearthglen Harriers* (25× Scarlet Crusaders)
+  - `KILLGROUP_WPL_SKELETONS` — *Andorhal Bonebreaker* (25× Skeletons)
+  
+- **Eastern Plaguelands**
+  - `KILLGROUP_EPL_PLAGUEBATS` — *Plaguebat Purge* (25× Plaguebats)
+  - `KILLGROUP_EPL_PLAGUEHOUNDS` — *Plaguehound Problems* (25× Plaguehounds)
+
+- **Stranglethorn Vale**
+  - `KILLGROUP_STV_BLOODSAIL` — *Bloodsail Beatdown* (25× Bloodsail Pirates)
+  - `KILLGROUP_STV_SKULLSPLITTER` — *Skullsplitter Skirmish* (25× Skullsplitter Trolls)
+
+- **Deadwind Pass**
+  - `KILLGROUP_DEADWIND_OGRES` — *Vicebreakers* (25× Deadwind Ogres)
+  - `KILLGROUP_DEADWIND_GHOSTS` — *Master’s Cellar Cleanup* (25× Ghosts of the Pass)
+  
+  - **Ashenvale**
+  - `KILLGROUP_ASHENVALE_THISTLEFUR` – Thistlefur Furbolgs (25)
+  - `KILLGROUP_ASHENVALE_FOULWEALD` – Foulweald Furbolgs (25)
+
+- **Thousand Needles**
+  - `KILLGROUP_THOUSANDNEEDLES_GRIMTOTEM` – Grimtotem Tauren (25)
+  - `KILLGROUP_THOUSANDNEEDLES_GALAK` – Galak Centaur (25)
+
+- **Desolace**
+  - `KILLGROUP_DESOLACE_MAGRAM` – Magram Centaur (25)
+  - `KILLGROUP_DESOLACE_GELKIS` – Gelkis Centaur (25)
+
+- **Dustwallow Marsh**
+  - `KILLGROUP_DUSTWALLOW_STONEMAUL` – Stonemaul Ogres (25)
+  - `KILLGROUP_DUSTWALLOW_MIREFIN` – Mirefin Murlocs (25)
+
+- **Feralas**
+  - `KILLGROUP_FERALAS_GORDUNNI` – Gordunni Ogres (25)
+  - `KILLGROUP_FERALAS_FERALSCAR` – Feral Scar Yetis (25)
+
+- **Tanaris**
+  - `KILLGROUP_TANARIS_WASTEWANDER` – Wastewander Bandits (25)
+  - `KILLGROUP_TANARIS_SOUTHSEA` – Southsea Pirates (25)
+
+- **Azshara**
+  - `KILLGROUP_AZSHARA_LEGASHI` – Legashi Satyrs (25)
+  - `KILLGROUP_AZSHARA_SPITELASH` – Spitelash Naga (25)
+
+- **Felwood**
+  - `KILLGROUP_FELWOOD_DEADWOOD` – Deadwood Furbolgs (25)
+  - `KILLGROUP_FELWOOD_JADEFIRE` – Jadefire Satyrs (25)
+
+- **Un’Goro Crater**
+  - `KILLGROUP_UNGORO_PTERRORDAX` – Pterrordax (25)
+  - `KILLGROUP_UNGORO_GORILLAS` – Un’Goro Gorillas (25)
+
+- **Silithus**
+  - `KILLGROUP_SILITHUS_TWILIGHT` – Twilight’s Hammer Cultists (25)
+  - `KILLGROUP_SILITHUS_HIVEASHI` – Hive’Ashi Silithids (25)
+
+- **Winterspring**
+  - `KILLGROUP_WINTERSPRING_WINTERFALL` – Winterfall Furbolgs (25)
+  - `KILLGROUP_WINTERSPRING_ICETHISTLE` – Ice Thistle Yetis (25)
+
+- **Moonglade**
+  - `KILLGROUP_MOONGLADE_TIMBERMAW` – Timbermaw Furbolgs in the Moonglade tunnels (25)
+
+---
 
 ## 📦 Changelog – Version 0.9.1
 
