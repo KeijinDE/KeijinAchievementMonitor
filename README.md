@@ -4,13 +4,14 @@
 **Version:** v1.0.1 | 
 📦 [View changelog](Changelog.md)
 
-**For:** Turtle WoW (WoW Classic 1.12)  
+**For:** WoW Classic 1.12
 **Author:** Keijin  
 
 ---
 
 ## 📘 Description
-KAM is a standalone achievement system for Turtle WoW (WoW Classic 1.12). 
+KAM is a standalone achievement system for WoW Classic 1.12.
+
 It features:
 - Custom achievements for exploration, quests, reputation, skills, kills, bosses and more
 - Progress tracking on character and account level
@@ -23,7 +24,7 @@ It features:
 ---
 
 ## How it works
-Keijin Achievement Monitor (KAM) is a fully client-side achievement system for Turtle WoW (WoW Classic 1.12).
+Keijin Achievement Monitor (KAM) is a fully client-side achievement system for WoW Classic 1.12.
 It relies on classic Lua events and chat output, tracks your progress locally (per character or account), and displays everything in a custom, minimalist UI.
 
 Limitations:
@@ -43,7 +44,7 @@ Limitations:
 ---
 
 ## 🔧 Compatibility
-- Game version: Turtle WoW / Classic 1.12 (`## Interface: 11200`)
+- Game version: Classic 1.12 (`## Interface: 11200`)
 - No modern WoW APIs, no dependencies – 100% Vanilla-compatible
 - Tested in both solo and group settings
 
@@ -71,13 +72,14 @@ Feedback and bug reports are welcome – please include screenshots or debug out
 **Version:** v1.0.1 
 📦 [Änderungsprotokoll ansehen](Changelog.md)
 
-**Für:** Turtle WoW (WoW Classic 1.12)  
+**Für:** WoW Classic 1.12
 **Autor:** Keijin  
 
 ---
 
 ## 📘 Beschreibung
-KAM ist ein eigenständiges Erfolgssystem für Turtle WoW (WoW Classic 1.12). 
+KAM ist ein eigenständiges Erfolgssystem für WoW Classic 1.12.
+
 Es bietet:
 - Eigene Erfolge für Erkundung, Quests, Ruf, Fähigkeiten, Kills, Bosse und mehr
 - Fortschrittsverfolgung auf Charakter- und Account-Ebene
@@ -89,7 +91,7 @@ Es bietet:
 
 ---
 ## Funktionsweise
-Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für Turtle WoW (WoW Classic 1.12).
+Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für WoW Classic 1.12.
 Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortschritt lokal (Charakter / Account) und zeigt alles in einem eigenen, minimalistischen UI.
 
 *Einschränkungen*:
@@ -107,7 +109,7 @@ Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortsc
 ---
 
 ## 🔧 Kompatibilität
-- Spielversion: Turtle WoW / Classic 1.12 (`## Interface: 11200`)
+- Spielversion: Classic 1.12 (`## Interface: 11200`)
 - Keine modernen WoW-APIs, keine Abhängigkeiten – vollständig Vanilla-kompatibel
 - Getestet in Solo- und Gruppensituationen
 
