@@ -249,7 +249,7 @@ table.insert(KAMN.achievements, {
   name = "Less Cats",
   description = "Defeat 25 Mountain Cougar in Red Cloud Mesa.",
   type = "namedkillgroup",
-  groupMatch = { "Mountain Cougar"},
+  groupMatch = { "Mountain Cougar", "Flatland Cougar"},
   value = 25,
   progress = 0,
   complete = false,

@@ -1,3 +1,13 @@
+
+## 📦 Changelog – Version 0.9.1
+
+### 🛠 Updated
+- Dalaran Crater Achievment fixed and removed from meta
+- Added Flatland Cougar to **Less Cats**
+
+---
+
+
 ## 📦 Changelog – Version 0.9.0
 
 ### ✨ Added
