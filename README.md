@@ -11,6 +11,7 @@
 
 ## 📘 Description
 KAM is a standalone achievement system for WoW Classic 1.12.
+
 It features:
 - Custom achievements for exploration, quests, reputation, skills, kills, bosses and more
 - Progress tracking on character and account level
@@ -78,6 +79,7 @@ Feedback and bug reports are welcome – please include screenshots or debug out
 
 ## 📘 Beschreibung
 KAM ist ein eigenständiges Erfolgssystem für WoW Classic 1.12.
+
 Es bietet:
 - Eigene Erfolge für Erkundung, Quests, Ruf, Fähigkeiten, Kills, Bosse und mehr
 - Fortschrittsverfolgung auf Charakter- und Account-Ebene
@@ -89,7 +91,7 @@ Es bietet:
 
 ---
 ## Funktionsweise
-Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für Turtle WoW (WoW Classic 1.12).
+Keijin Achievement Monitor (KAM) ist ein rein clientseitiges Erfolgssystem für WoW Classic 1.12.
 Es arbeitet mit klassischen Lua-Events und Chatausgaben, speichert deinen Fortschritt lokal (Charakter / Account) und zeigt alles in einem eigenen, minimalistischen UI.
 
 *Einschränkungen*:
