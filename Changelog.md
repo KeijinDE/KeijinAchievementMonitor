@@ -1,3 +1,8 @@
+## 📦 Changelog – Version 1.0.1
+
+### Update
+- **Swoop Stopper**: Wiry Swoop added
+
 ## 📦 Changelog – Version 1.0.0
 
 ### ✨ Added

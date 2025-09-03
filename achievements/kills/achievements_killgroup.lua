@@ -601,6 +601,7 @@ table.insert(KAMN.achievements, {
   groupMatch = {
     "Swoop",
     "Taloned Swoop",
+	"Wiry Swoop",
   },
   value = 25,
   progress = 0,
